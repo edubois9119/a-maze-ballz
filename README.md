@@ -9,3 +9,11 @@ from a google search.
 
 ## Intended Users
  This app appeals to problem solvers, gamers, kids, and more. 
+ 
+ # First Milestone
+ 
+* [ ] Description
+* [ ] Intended Users
+* [ ]Entity-relationship diagrams (ERDSs)
+* [ ] Wireframes
+* [ ] User stories

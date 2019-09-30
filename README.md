@@ -10,7 +10,7 @@ from a google search.
 ## Intended Users
  This app appeals to problem solvers, gamers, kids, and more. 
  
- # First Milestone
+## First Milestone
  
 * [ ] Description
 * [ ] Intended Users

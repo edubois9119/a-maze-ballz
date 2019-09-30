@@ -8,12 +8,17 @@ from a google search.
 
 
 ## Intended Users
- This app appeals to problem solvers, gamers, kids, and more. 
+* People who travel and desire mobile apps that can be played around the world.
+* Gamers who desire apps that save their game status/completion and allow them to compete 
+independently or with other user around the globe.
+ 
+ [User Stories](docs/user-stories.md) 
  
 ## First Milestone
  
 * [ ] Description
-* [ ] Intended Users
+* [x] Intended Users
 * [ ] Entity-relationship diagrams (ERDs)
 * [ ] Wireframes
-* [ ] User stories
+* [x] User stories
+

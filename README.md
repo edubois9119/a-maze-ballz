@@ -14,6 +14,6 @@ from a google search.
  
 * [ ] Description
 * [ ] Intended Users
-* [ ]Entity-relationship diagrams (ERDSs)
+* [ ] Entity-relationship diagrams (ERDSs)
 * [ ] Wireframes
 * [ ] User stories

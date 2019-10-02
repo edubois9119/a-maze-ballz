@@ -12,13 +12,15 @@ from a google search.
 * Gamers who desire apps that save their game status/completion and allow them to compete 
 independently or with other user around the globe.
  
- [User Stories](docs/user-stories.md) 
+[User Stories](docs/user-stories.md)  
+
+[Entity Relationship Diagram](docs/erd.md)
  
 ## First Milestone
  
 * [ ] Description
 * [x] Intended Users
-* [ ] Entity-relationship diagrams (ERDs)
-* [ ] Wireframes
+* [x] Entity-relationship diagrams (ERDs)
+* [x] Wireframes
 * [x] User stories
 

@@ -1,5 +1,3 @@
-## Intro
-
 ## Overview
 This app is a game that requires the user to navigate a ball through a maze. In order to move the 
 ball, the user will have to tilt the device, rather than using the touch screen. There are various

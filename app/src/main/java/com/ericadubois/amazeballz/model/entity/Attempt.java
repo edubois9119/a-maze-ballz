@@ -7,6 +7,9 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import java.util.Date;
 
+/**
+ * Keeps track of all attempts made by a user. Stores number of attempts, outcome, and duration.
+ */
 @Entity(
     foreignKeys = {
         @ForeignKey(
@@ -26,27 +29,58 @@ import java.util.Date;
 
 public class Attempt {
 
+  /**
+   * Creates primary key for Attempt Id.
+   */
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "attempt_id")
   private long id;
 
+  /**
+   * Creates foreign key for Maze Id. Connects attempts to specific mazes.
+   */
   @ColumnInfo(name= "maze_Id", index = true)
   private long mazeId;
-
+  /**
+   * Creates foreign key for User Id. Connects attempts to specific user.
+   */
   @ColumnInfo(name = "user_id", index = true)
   private long userId;
-
+  /**
+   * Creates timestamp for start of maze.
+   */
   @NonNull
-  @ColumnInfo(name= "game_started", index = true)
-  private Date gameStarted = new Date();
-
+  @ColumnInfo(name= "maze_started", index = true)
+  private Date mazeStarted = new Date();
+  /**
+   * Creates timestamp for start of maze.
+   */
   @NonNull
-  @ColumnInfo(name= "game_ended", index = true)
-  private Date gameEnded = new Date();
+  @ColumnInfo(name= "maze_ended", index = true)
+  private Date mazeEnded = new Date();
+  /**
+   * Creates timestamp for start of pause during completion of a maze.
+   */
+  @NonNull
+  @ColumnInfo(name= "maze_pause_start", index = true)
+  private Date mazePauseStart = new Date();
 
+  /**
+   * Creates timestamp for end of pause during completion of a maze.
+   */
+  @NonNull
+  @ColumnInfo(name= "maze_pause_end", index = true)
+  private Date mazePauseEnd = new Date();
+
+  /**
+   * Stores outcome of maze. Did you user solve it or quit?
+   */
   @ColumnInfo(name= "solved", index = true)
   public Boolean solved;
 
+  /**
+   * Stores number of attempts on maze.
+   */
   @ColumnInfo(name= "num_Attempts", index = true)
   private long numAttempts;
 
@@ -68,20 +102,20 @@ public class Attempt {
 
   @NonNull
   public Date getCreated() {
-    return gameStarted;
+    return mazeStarted;
   }
 
   public void setCreated(@NonNull Date created) {
-    this.gameStarted = created;
+    this.mazeStarted = created;
   }
 
   @NonNull
   public Date getUpdated() {
-    return gameEnded;
+    return mazeEnded;
   }
 
   public void setUpdated(@NonNull Date updated) {
-    this.gameEnded = updated;
+    this.mazeEnded = updated;
   }
 
   public long getMazeId() {

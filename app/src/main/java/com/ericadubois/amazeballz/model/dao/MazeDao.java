@@ -19,15 +19,15 @@ public interface MazeDao {
   public int update(Maze maze);
 
   @Delete
-  public int delete(Maze maze);
+  public int delete(Maze... maze);
 
   @Query("SELECT * FROM Maze WHERE maze_id = :mazeId")
   LiveData<Maze> findById(long mazeId);
 
-  @Query("SELECT * FROM Maze WHERE maze_id=:mazeId AND difficulty= 1")
-  LiveData<List<Integer>> mazeDifficultyEasy(long mazeId);
+  @Query("SELECT * FROM Maze WHERE maze_id=:mazeId AND difficulty = :difficulty")
+  LiveData<List<Maze>> mazeByDifficulty(long mazeId, int difficulty);
 
   @Query("SELECT * FROM Maze WHERE maze_id=:mazeId ORDER BY difficulty DESC")
-  LiveData<List<Integer>> mazeDifficultyAll(long mazeId);
-  
+  LiveData<List<Maze>> mazeDifficultyAll(long mazeId);
+
 }

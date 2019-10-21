@@ -39,7 +39,7 @@ public class Attempt {
   /**
    * Creates foreign key for Maze Id. Connects attempts to specific mazes.
    */
-  @ColumnInfo(name= "maze_Id", index = true)
+  @ColumnInfo(name= "maze_id", index = true)
   private long mazeId;
   /**
    * Creates foreign key for User Id. Connects attempts to specific user.
@@ -101,20 +101,20 @@ public class Attempt {
   }
 
   @NonNull
-  public Date getCreated() {
+  public Date getMazeStarted() {
     return mazeStarted;
   }
 
-  public void setCreated(@NonNull Date created) {
+  public void setMazeStarted(@NonNull Date created) {
     this.mazeStarted = created;
   }
 
   @NonNull
-  public Date getUpdated() {
+  public Date getMazeEnded() {
     return mazeEnded;
   }
 
-  public void setUpdated(@NonNull Date updated) {
+  public void setMazeEnded(@NonNull Date updated) {
     this.mazeEnded = updated;
   }
 
@@ -140,5 +140,23 @@ public class Attempt {
 
   public void setSolved(Boolean solved) {
     this.solved = solved;
+  }
+
+  @NonNull
+  public Date getMazePauseStart() {
+    return mazePauseStart;
+  }
+
+  public void setMazePauseStart(@NonNull Date mazePauseStart) {
+    this.mazePauseStart = mazePauseStart;
+  }
+
+  @NonNull
+  public Date getMazePauseEnd() {
+    return mazePauseEnd;
+  }
+
+  public void setMazePauseEnd(@NonNull Date mazePauseEnd) {
+    this.mazePauseEnd = mazePauseEnd;
   }
 }

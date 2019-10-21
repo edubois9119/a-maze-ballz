@@ -15,9 +15,10 @@ public interface UserDao {
   @Insert
   public long insert (User user);
 
+  //check to see if user is in database
   @Query("SELECT * FROM User ORDER BY user_id ASC")
   List<User> getAll();
-//check to see if user is in database
+
   @Update
   public int update(User user);
 

@@ -1,5 +1,6 @@
 package com.ericadubois.amazeballz.model.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -19,17 +20,30 @@ public interface AttemptDao {
   public int update(Attempt attempt);
 
 
+  /**
+   * number of attempts per maze, by user
+   * @param userId
+   * @param mazeId
+   * @return
+   */
   @Query("SELECT * FROM Attempt WHERE user_id=:userId and maze_Id=:mazeId ORDER BY attempt_id DESC")
   List<Attempt> getNumAttempts(long userId, long mazeId);
 
-  @Query("SELECT * FROM Attempt WHERE user_id=:user_id ORDER BY attempt_id DESC")
+  /**
+   * number of attempts by user
+   * @param user_id
+   * @return
+   */
+  @Query("SELECT * FROM Attempt WHERE user_id=:userId ORDER BY attempt_id DESC")
   List<Attempt> getNumAttempts(long user_id);
 
+  @Query("SELECT COUNT(*) FROM Attempt WHERE user_id = :userId AND maze_id = :mazeId AND NOT solved")
+  LiveData<Integer> getCountUnsuccessfulAttempts(long userId, long mazeId);
+
+  @Query("SELECT COUNT(*) FROM Attempt WHERE user_id= userId AND solved")
+  LiveData<List<Integer>> getCountSuccessful(long mazeId);
 
   //get outcome
-// will be part of attempt query
-  //@Query("SELECT ")
-
   //get duration
   //TODO need to create pojo for this duration calculation
 

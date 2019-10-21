@@ -14,14 +14,6 @@ public class Maze {
   @ColumnInfo(name = "maze_id")
   private long id;
 
-  @NonNull
-  @ColumnInfo(index = true)
-  private Date gameStarted = new Date();
-
-  @NonNull
-  @ColumnInfo(index= true)
-  private Date gameEnded = new Date();
-
   private String walls;
 
   private int difficulty;
@@ -32,33 +24,12 @@ public class Maze {
   @Embedded(prefix = "exit_")
   private Point exit;
 
-
-
-
   public long getId() {
     return id;
   }
 
   public void setId(long id) {
     this.id = id;
-  }
-
-  @NonNull
-  public Date getGameStarted() {
-    return gameStarted;
-  }
-
-  public void setGameStarted(@NonNull Date gameStarted) {
-    this.gameStarted = gameStarted;
-  }
-
-  @NonNull
-  public Date getGameEnded() {
-    return gameEnded;
-  }
-
-  public void setGameEnded(@NonNull Date gameEnded) {
-    this.gameEnded = gameEnded;
   }
 
   public String getWalls() {

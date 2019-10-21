@@ -1,11 +1,13 @@
 package com.ericadubois.amazeballz.model.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import com.ericadubois.amazeballz.model.entity.Maze;
+import java.util.List;
 
 @Dao
 public interface MazeDao {
@@ -19,13 +21,13 @@ public interface MazeDao {
   @Delete
   public int delete(Maze maze);
 
- // @Query("SELECT")
-  //@Query(levels, mazes) separate query for each set of data retrieval
+  @Query("SELECT * FROM Maze WHERE maze_id = :mazeId")
+  LiveData<Maze> findById(long mazeId);
 
-  //get maze
-  //get difficulty
-  // get grid size
-  // get ball size
+  @Query("SELECT * FROM Maze WHERE maze_id=:mazeId AND difficulty= 1")
+  LiveData<List<Integer>> mazeDifficultyEasy(long mazeId);
 
-
+  @Query("SELECT * FROM Maze WHERE maze_id=:mazeId ORDER BY difficulty DESC")
+  LiveData<List<Integer>> mazeDifficultyAll(long mazeId);
+  
 }

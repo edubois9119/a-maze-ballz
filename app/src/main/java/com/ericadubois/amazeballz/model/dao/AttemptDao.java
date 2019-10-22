@@ -19,27 +19,37 @@ public interface AttemptDao {
 
 
   /**
-   * number of attempts per maze, by user
+   * List of Attempts of user for maze
    * @param userId
    * @param mazeId
-   * @return
+   * @return LiveData<List<Attempt>>
    */
   @Query("SELECT * FROM Attempt WHERE user_id=:userId and maze_Id=:mazeId ORDER BY attempt_id DESC")
-  LiveData<List<Attempt>> getNumAttempts(long userId, long mazeId);
+  LiveData<List<Attempt>> getUserMazeAttempts(long userId, long mazeId);
 
   /**
-   * number of attempts by user
+   * Calculates the number of unsuccessful attempts by a user on a given maze.
    * @param userId
-   * @return
+   * @param mazeId
+   * @return Integer for number of unsuccessful attempts
    */
-  @Query("SELECT * FROM Attempt WHERE user_id=:userId ORDER BY attempt_id DESC")
-  List<Attempt> getNumAttempts(long userId);
-
   @Query("SELECT COUNT(*) FROM Attempt WHERE user_id = :userId AND maze_id = :mazeId AND NOT solved")
   LiveData<Integer> getCountUnsuccessfulAttempts(long userId, long mazeId);
 
-  @Query("SELECT COUNT(*) FROM Attempt WHERE user_id= :userId AND solved")
-  LiveData<List<Integer>> getCountSuccessful(long userId);
+  /**
+   * The number of mazes solved for a user.
+   * @param userId
+   * @return
+   */
+  @Query("SELECT COUNT(DISTINCT maze_id) FROM Attempt WHERE user_id= :userId AND solved")
+  LiveData<Integer> getCountSuccessful(long userId);
+
+  /**
+   * The list of mazes the user has solved.
+   */
+  @Query("SELECT * FROM Attempt WHERE user_id= :userId AND solved GROUP BY maze_id")
+  LiveData<List<Attempt>> getSuccessfulMazes(long userId);
+
 
   //get outcome
   //get duration

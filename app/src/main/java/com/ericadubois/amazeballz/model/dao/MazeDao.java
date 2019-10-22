@@ -24,10 +24,11 @@ public interface MazeDao {
   @Query("SELECT * FROM Maze WHERE maze_id = :mazeId")
   LiveData<Maze> findById(long mazeId);
 
-  @Query("SELECT * FROM Maze WHERE maze_id=:mazeId AND difficulty = :difficulty")
-  LiveData<List<Maze>> mazeByDifficulty(long mazeId, int difficulty);
+  @Query("SELECT * FROM Maze WHERE difficulty = :difficulty ORDER BY difficulty ASC")
+  LiveData<List<Maze>> mazesByDifficulty(int difficulty);
 
-  @Query("SELECT * FROM Maze WHERE maze_id=:mazeId ORDER BY difficulty DESC")
-  LiveData<List<Maze>> mazeDifficultyAll(long mazeId);
+  @Query("SELECT * FROM Maze ORDER BY difficulty DESC")
+  LiveData<List<Maze>> allMazesByDifficulty();
 
+  //Where = if condition
 }

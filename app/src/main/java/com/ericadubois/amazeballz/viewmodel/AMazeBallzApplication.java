@@ -2,6 +2,7 @@ package com.ericadubois.amazeballz.viewmodel;
 
 import android.app.Application;
 import com.ericadubois.amazeballz.service.AMazeBallzDatabase;
+import com.ericadubois.amazeballz.service.GoogleSignInService;
 import com.facebook.stetho.Stetho;
 
 public class AMazeBallzApplication extends Application {
@@ -9,6 +10,7 @@ public class AMazeBallzApplication extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
+    GoogleSignInService.setApplicationContext(this);
     Stetho.initializeWithDefaults(this);
     AMazeBallzDatabase.setApplicationContext(this);
     final AMazeBallzDatabase database = AMazeBallzDatabase.getInstance();

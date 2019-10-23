@@ -15,12 +15,17 @@ independently or with other user around the globe.
 #### [Entity Relationship Diagram](docs/erd.md)
 
 #### [Wireframe Diagram](docs/wireframe.md)
+
+#### [DDL](docs/ddl.md)
  
-## First Milestone
+## Second Milestone
  
 * [x] Description
 * [x] Intended Users
-* [x] Entity-relationship diagrams (ERDs)
-* [x] Wireframes
 * [x] User stories
-
+* [] Entity-relationship diagrams (ERDs)
+* [x] Entity Classes
+* [x] DAO interfaces
+* [x] Database class
+* [x] DDL
+* [x] Chrome inspect

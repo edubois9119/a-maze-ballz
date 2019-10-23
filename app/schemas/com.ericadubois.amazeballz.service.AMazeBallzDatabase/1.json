@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "22541b9da103cd56917a8062b44f68c8",
+    "identityHash": "f44149519e70e1c4bde53688dd9ff720",
     "entities": [
       {
         "tableName": "Maze",
@@ -236,13 +236,19 @@
       },
       {
         "tableName": "User",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `oauth_key` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "user_id",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "oauthKey",
+            "columnName": "oauth_key",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -251,14 +257,23 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_User_oauth_key",
+            "unique": true,
+            "columnNames": [
+              "oauth_key"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_User_oauth_key` ON `${TABLE_NAME}` (`oauth_key`)"
+          }
+        ],
         "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '22541b9da103cd56917a8062b44f68c8')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f44149519e70e1c4bde53688dd9ff720')"
     ]
   }
 }

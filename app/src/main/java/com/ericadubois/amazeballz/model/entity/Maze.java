@@ -1,11 +1,9 @@
 package com.ericadubois.amazeballz.model.entity;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import java.util.Date;
 
 /**
  * The type Maze.
@@ -18,14 +16,16 @@ public class Maze {
   private long id;
 
   /**
-   * This is the number of rows in the maze.
+   * This is the number of rows that make up the grid size of the maze.
    */
-  private int rows;
+  @ColumnInfo(name = "grid_rows")
+  private int gridRows;
 
   /**
-   * This is the number of columns in the maze/
+   * This is the number of columns that make up the grid size of the maze.
    */
-  private int columns;
+  @ColumnInfo(name= "grid_columns")
+  private int gridColumns;
 
   /**
    * The walls of a maze are constructed using hexcode strings. walls.length() is equal
@@ -34,6 +34,7 @@ public class Maze {
    */
   //TODO add in hexcode key (use enum) (16).
   // 0 = no walls, 1= wall on right side etc
+  @ColumnInfo(name= "walls")
   private String walls;
 
   /**
@@ -41,6 +42,7 @@ public class Maze {
    * more difficult than a maze with 3 columns and 3 rows.
    */
   //TODO determine algorithm for difficulty.
+  @ColumnInfo(name="difficulty")
   private int difficulty;
 
   /**
@@ -54,6 +56,13 @@ public class Maze {
    */
   @Embedded(prefix = "exit_")
   private Point exit;
+
+
+  /**
+   *  Designates the size of the ball for the maze.
+   */
+  @ColumnInfo(name= "ball_size")
+  private int ballSize;
 
   /**
    * Gets id.
@@ -73,20 +82,40 @@ public class Maze {
     this.id = id;
   }
 
-  public int getRows() {
-    return rows;
+  /**
+   * Gets grid rows.
+   *
+   * @return the grid rows
+   */
+  public int getGridRows() {
+    return gridRows;
   }
 
-  public void setRows(int rows) {
-    this.rows = rows;
+  /**
+   * Sets grid rows.
+   *
+   * @param gridRows the grid rows
+   */
+  public void setGridRows(int gridRows) {
+    this.gridRows = gridRows;
   }
 
-  public int getColumns() {
-    return columns;
+  /**
+   * Gets grid columns.
+   *
+   * @return the grid columns
+   */
+  public int getGridColumns() {
+    return gridColumns;
   }
 
-  public void setColumns(int columns) {
-    this.columns = columns;
+  /**
+   * Sets grid columns.
+   *
+   * @param gridColumns the grid columns
+   */
+  public void setGridColumns(int gridColumns) {
+    this.gridColumns = gridColumns;
   }
 
   /**
@@ -161,6 +190,25 @@ public class Maze {
     this.exit = exit;
   }
 
+
+  /**
+   * Gets ball size.
+   *
+   * @return the ball size
+   */
+  public int getBallSize() {
+    return ballSize;
+  }
+
+  /**
+   * Sets ball size.
+   *
+   * @param ballSize the ball size
+   */
+  public void setBallSize(int ballSize) {
+    this.ballSize = ballSize;
+  }
+
   /**
    * The type Point.
    */
@@ -204,6 +252,8 @@ public class Maze {
     public void setY(int y) {
       this.y = y;
     }
+
+
 
   }
 

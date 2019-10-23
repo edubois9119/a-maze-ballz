@@ -1,8 +1,7 @@
 ## Overview
 This app is a game that requires the user to navigate a ball through a maze. In order to move the 
 ball, the user will have to tilt the device, rather than using the touch screen. There are various
-levels of difficulty for the user to choose from.  The mazes will be constructed using images pulled
-from a google search.
+levels of difficulty for the user to choose from.  
 
 
 ## Intended Users
@@ -23,7 +22,8 @@ independently or with other user around the globe.
 * [x] Description
 * [x] Intended Users
 * [x] User stories
-* [] Entity-relationship diagrams (ERDs)
+* [x] Entity-relationship diagrams (ERDs)
+* [ ] Wireframes
 * [x] Entity Classes
 * [x] DAO interfaces
 * [x] Database class

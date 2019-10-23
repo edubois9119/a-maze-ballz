@@ -24,4 +24,10 @@ public interface UserDao {
   @Query("SELECT * FROM User ORDER BY user_id ASC")
   LiveData<List<User>> getAll();
 
+  @Query("SELECT * FROM user WHERE oauth_key=:oauthKey")
+  LiveData<User> getByOauth(String oauthKey);
+
+  @Query("SELECT * FROM user WHERE user_id=:userId")
+  LiveData<User> getById(long userId);
+
 }

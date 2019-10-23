@@ -1,0 +1,264 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "22541b9da103cd56917a8062b44f68c8",
+    "entities": [
+      {
+        "tableName": "Maze",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`maze_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `grid_rows` INTEGER NOT NULL, `grid_columns` INTEGER NOT NULL, `walls` TEXT, `difficulty` INTEGER NOT NULL, `ball_size` INTEGER NOT NULL, `entrance_x` INTEGER, `entrance_y` INTEGER, `exit_x` INTEGER, `exit_y` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "maze_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gridRows",
+            "columnName": "grid_rows",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gridColumns",
+            "columnName": "grid_columns",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "walls",
+            "columnName": "walls",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "difficulty",
+            "columnName": "difficulty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ballSize",
+            "columnName": "ball_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entrance.x",
+            "columnName": "entrance_x",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "entrance.y",
+            "columnName": "entrance_y",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exit.x",
+            "columnName": "exit_x",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exit.y",
+            "columnName": "exit_y",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "maze_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Attempt",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`attempt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `maze_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `maze_started` INTEGER NOT NULL, `maze_ended` INTEGER NOT NULL, `maze_pause_start` INTEGER NOT NULL, `maze_pause_end` INTEGER NOT NULL, `solved` INTEGER, `num_Attempts` INTEGER NOT NULL, FOREIGN KEY(`maze_id`) REFERENCES `Maze`(`maze_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`user_id`) REFERENCES `User`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "attempt_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mazeId",
+            "columnName": "maze_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mazeStarted",
+            "columnName": "maze_started",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mazeEnded",
+            "columnName": "maze_ended",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mazePauseStart",
+            "columnName": "maze_pause_start",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mazePauseEnd",
+            "columnName": "maze_pause_end",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "solved",
+            "columnName": "solved",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "numAttempts",
+            "columnName": "num_Attempts",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "attempt_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Attempt_maze_id",
+            "unique": false,
+            "columnNames": [
+              "maze_id"
+            ],
+            "createSql": "CREATE  INDEX `index_Attempt_maze_id` ON `${TABLE_NAME}` (`maze_id`)"
+          },
+          {
+            "name": "index_Attempt_user_id",
+            "unique": false,
+            "columnNames": [
+              "user_id"
+            ],
+            "createSql": "CREATE  INDEX `index_Attempt_user_id` ON `${TABLE_NAME}` (`user_id`)"
+          },
+          {
+            "name": "index_Attempt_maze_started",
+            "unique": false,
+            "columnNames": [
+              "maze_started"
+            ],
+            "createSql": "CREATE  INDEX `index_Attempt_maze_started` ON `${TABLE_NAME}` (`maze_started`)"
+          },
+          {
+            "name": "index_Attempt_maze_ended",
+            "unique": false,
+            "columnNames": [
+              "maze_ended"
+            ],
+            "createSql": "CREATE  INDEX `index_Attempt_maze_ended` ON `${TABLE_NAME}` (`maze_ended`)"
+          },
+          {
+            "name": "index_Attempt_maze_pause_start",
+            "unique": false,
+            "columnNames": [
+              "maze_pause_start"
+            ],
+            "createSql": "CREATE  INDEX `index_Attempt_maze_pause_start` ON `${TABLE_NAME}` (`maze_pause_start`)"
+          },
+          {
+            "name": "index_Attempt_maze_pause_end",
+            "unique": false,
+            "columnNames": [
+              "maze_pause_end"
+            ],
+            "createSql": "CREATE  INDEX `index_Attempt_maze_pause_end` ON `${TABLE_NAME}` (`maze_pause_end`)"
+          },
+          {
+            "name": "index_Attempt_solved",
+            "unique": false,
+            "columnNames": [
+              "solved"
+            ],
+            "createSql": "CREATE  INDEX `index_Attempt_solved` ON `${TABLE_NAME}` (`solved`)"
+          },
+          {
+            "name": "index_Attempt_num_Attempts",
+            "unique": false,
+            "columnNames": [
+              "num_Attempts"
+            ],
+            "createSql": "CREATE  INDEX `index_Attempt_num_Attempts` ON `${TABLE_NAME}` (`num_Attempts`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Maze",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "maze_id"
+            ],
+            "referencedColumns": [
+              "maze_id"
+            ]
+          },
+          {
+            "table": "User",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_id"
+            ],
+            "referencedColumns": [
+              "user_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "User",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "user_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '22541b9da103cd56917a8062b44f68c8')"
+    ]
+  }
+}

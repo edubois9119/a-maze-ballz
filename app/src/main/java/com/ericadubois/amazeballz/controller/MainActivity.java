@@ -3,6 +3,7 @@ package com.ericadubois.amazeballz.controller;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,11 +11,14 @@ import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
 
 public class MainActivity extends AppCompatActivity {
-
+  View view;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+    view= this.getWindow().getDecorView();
+    view.setBackgroundColor(R.color.colorPrimaryDark);
   }
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {

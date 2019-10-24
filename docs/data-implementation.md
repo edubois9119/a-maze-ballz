@@ -1,8 +1,8 @@
-##Data Implementation Model
+## Data Implementation Model
 
 ### Entity Classes
 
- [Maze](https://github.com/edubois9119/a-maze-ballz/blob/master/app/src/main/java/com/ericadubois/amazeballz/model/entity/Maze.java)
+ [`Maze`](https://github.com/edubois9119/a-maze-ballz/blob/master/app/src/main/java/com/ericadubois/amazeballz/model/entity/Maze.java)
  
  [Attempt](https://github.com/edubois9119/a-maze-ballz/blob/master/app/src/main/java/com/ericadubois/amazeballz/model/entity/Attempt.java)
  
@@ -20,3 +20,6 @@
 
 [Database Class](https://github.com/edubois9119/a-maze-ballz/blob/master/app/src/main/java/com/ericadubois/amazeballz/service/AMazeBallzDatabase.java)
 
+### DDL
+
+[DDL](docs/ddl.md)

@@ -10,10 +10,12 @@ levels of difficulty for the user to choose from.
 independently or with other user around the globe.
  
 #### [User Stories](docs/user-stories.md)  
-
-#### [Entity Relationship Diagram](docs/erd.md)
  
 #### [Wireframe Diagram](docs/wireframe.md)
+
+#### [Entity Relationship Diagram](docs/erd.md)
+
+#### [Data Implementation](docs/data-implementation.md)
 
 #### [DDL](docs/ddl.md)
  

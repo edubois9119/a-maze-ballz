@@ -38,8 +38,10 @@ CREATE INDEX `index_Attempt_solved` ON `Attempt` (`solved`);
 CREATE INDEX `index_Attempt_num_Attempts` ON `Attempt` (`num_Attempts`);
 CREATE TABLE IF NOT EXISTS `User`
 (
-    `user_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
+    `user_id`   INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    `oauth_key` String                            not null
 );
+CREATE UNIQUE INDEX `index_User_oauth_key` ON `User` (`oauth_key`);
 
 ```
 

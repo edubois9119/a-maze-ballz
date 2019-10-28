@@ -9,8 +9,7 @@
 
   <TextView
     android:id="@+id/welcome_screen"
-    android:text="Welcome to
-    A-Maze-Ballz"
+    android:text="A-Maze-Ballz"
     android:textSize="40dp"
     android:textAlignment="center"
     android:textColor="@color/colorPrimary"

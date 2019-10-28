@@ -22,4 +22,4 @@
 
 ### DDL
 
-[DDL](docs/ddl.md)
+[DDL](ddl.md)

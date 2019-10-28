@@ -2,6 +2,7 @@
 
 
 ```sql
+
 CREATE TABLE IF NOT EXISTS `Maze`
 (
     `maze_id`    INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

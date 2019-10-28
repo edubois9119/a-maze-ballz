@@ -46,4 +46,4 @@ CREATE UNIQUE INDEX `index_User_oauth_key` ON `User` (`oauth_key`);
 
 ```
 
-[`ddl.sql`](ddl.sql)
+[`ddl.sql`](https://github.com/edubois9119/a-maze-ballz/blob/master/docs/ddl.sql)

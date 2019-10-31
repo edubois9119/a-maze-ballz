@@ -7,6 +7,9 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
 
@@ -19,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
     view= this.getWindow().getDecorView();
     view.setBackgroundColor(R.color.colorPrimaryDark);
+    LevelSelectFragment levelFrag= new LevelSelectFragment();
+    addFragment(levelFrag, true);
+
+
   }
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,5 +54,21 @@ public class MainActivity extends AppCompatActivity {
           startActivity(intent);
         });
   }
+  private void addFragment(Fragment fragment, boolean useStack){
+    FragmentManager manager= getSupportFragmentManager();
+    String tag= fragment.getClass().getSimpleName();
+    if (manager.findFragmentByTag(tag) != null){
+      manager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    FragmentTransaction transaction= manager.beginTransaction();
+    transaction.add(R.id.fragment_container, fragment, tag);
+    if(useStack) {
+      transaction.addToBackStack(tag);
+    }
+      transaction.commit();
+
+  }
+
 }
 

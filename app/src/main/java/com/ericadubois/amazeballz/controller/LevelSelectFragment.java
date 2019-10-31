@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.ericadubois.amazeballz.R;
 
-public abstract class LevelSelectFragment extends Fragment implements View.OnClickListener {
+public class LevelSelectFragment extends Fragment implements View.OnClickListener {
   private Button buttonOne;
 
   @Nullable

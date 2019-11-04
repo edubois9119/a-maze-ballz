@@ -140,8 +140,42 @@ public class Cell {
   @NonNull
   @Override
   public String toString() {
-    return "Cell [" + row + "][" + column +"]: has " + walls.size() + " walls.";
+    return "Cell [" + row + "][" + column +"]: has " + walls;
   }
+
+//  public String cellAsHex(){
+//    walls.sort();
+    //0 = no walls
+    //1 = west wall
+    //2 = south wall
+    //3 = west and south walls
+    //4 = east wall
+    //5 = east and west walls
+    //6 = south and east walls
+    //7 = west, south and east walls
+    //8 = north wall
+    //9 = north and west walls
+    //A = north and south walls
+    //B = north, west and south walls
+    //C = north and east walls
+    //D = west, north, and east walls
+    //E = north, east, and south walls
+    //F = all walls
+//    switch (walls.size()){
+//      case 0:
+//        return "0";
+//      case 1:
+//        switch (walls.get(0)){
+// //         case Direction.EAST:
+//
+//      case 2:
+//
+//      case 3:
+//
+//      default:
+//        return "F";
+//    }
+//  }
 //
 //    draw(buffer, cellSize) {
 //      for (let d of this.walls) {

@@ -1,4 +1,4 @@
-package com.ericadubois.amazeballz.viewmodel;
+package com.ericadubois.amazeballz;
 
 import android.app.Application;
 import com.ericadubois.amazeballz.service.AMazeBallzDatabase;

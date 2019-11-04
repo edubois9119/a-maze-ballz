@@ -10,25 +10,36 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import com.ericadubois.amazeballz.R;
+import com.ericadubois.amazeballz.model.MazeBuilder;
+import com.ericadubois.amazeballz.model.entity.Maze;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
+import com.ericadubois.amazeballz.viewmodel.MazeViewModel;
 
 public class MainActivity extends AppCompatActivity {
+
+  //
   View view;
+  private MazeViewModel mazeViewModel;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+//    mazeViewModel = ViewModelProviders.of(this).get(MazeViewModel.class);
+//    getLifecycle().addObserver(mazeViewModel);
+//
 
     view= this.getWindow().getDecorView();
     view.setBackgroundColor(R.color.colorPrimaryDark);
 
-    MazeFragment mazeFrag= new MazeFragment();
-    addFragment(mazeFrag, true);
+ //   MazeFragment mazeFrag= new MazeFragment();
+ //   addFragment(mazeFrag, true);
 
 
-//    LevelSelectFragment levelFrag= new LevelSelectFragment();
-//    addFragment(levelFrag, true);
+    LevelSelectFragment levelFrag= new LevelSelectFragment();
+    addFragment(levelFrag, true);
 
 
   }

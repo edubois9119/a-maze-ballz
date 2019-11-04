@@ -4,15 +4,6 @@ import androidx.annotation.NonNull;
 
 public class Sketch {
 //
-//  public Cell [][] cells;
-//  int rows = 10;
-//  int columns = 6;
-//
-//  public Sketch(){
-//    cells = new Cell[rows][columns];
-//    cells[0][0].build(cells);
-//  }
-//
 //  @NonNull
 //  @Override
 //  public String toString() {

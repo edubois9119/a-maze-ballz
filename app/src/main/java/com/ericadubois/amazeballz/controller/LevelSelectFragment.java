@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.ericadubois.amazeballz.R;
+import com.ericadubois.amazeballz.model.MazeBuilder;
 
 public class LevelSelectFragment extends Fragment implements View.OnClickListener {
   private Button buttonOne;
@@ -46,6 +47,9 @@ public class LevelSelectFragment extends Fragment implements View.OnClickListene
     int level = Integer.parseInt(v.getTag().toString());
     System.out.println("v.getTag='" + v.getTag() +"', level = " + level);
 //    MazeFragment maze = null;
+    //TODO take out
+    MazeBuilder mb = new MazeBuilder();
+    mb.printMaze();
 
     // TODO switch on level, creating maze fragment with parameters for specific maze
     //  TODO Load maze fragment with parameters for level
@@ -55,7 +59,4 @@ public class LevelSelectFragment extends Fragment implements View.OnClickListene
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
   }
-
-
-
 }

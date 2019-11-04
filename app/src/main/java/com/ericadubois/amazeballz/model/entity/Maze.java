@@ -34,6 +34,8 @@ public class Maze {
    */
   //TODO add in hexcode key (use enum) (16).
   // 0 = no walls, 1= wall on right side etc
+  // 0 = no walls,
+      // 1 = wall on
   @ColumnInfo(name= "walls")
   private String walls;
 

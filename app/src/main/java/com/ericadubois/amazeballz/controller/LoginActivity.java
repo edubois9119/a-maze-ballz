@@ -11,6 +11,8 @@ import com.ericadubois.amazeballz.service.GoogleSignInService;
 public class LoginActivity extends AppCompatActivity {
   private static final int LOGIN_REQUEST_CODE = 1000;
 
+  //TODO switch Launcher (intent) in manifest back to login activity
+
   private GoogleSignInService service;
 
   @Override

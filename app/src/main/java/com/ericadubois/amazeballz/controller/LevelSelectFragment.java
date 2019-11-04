@@ -19,6 +19,8 @@ public class LevelSelectFragment extends Fragment implements View.OnClickListene
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+    //need to query database, assign database levels
+
     View view= inflater.inflate(R.layout.fragment_level_select, container, false);
     view.findViewById(R.id.button_one).setOnClickListener(this);
     view.findViewById(R.id.button_two).setOnClickListener(this);
@@ -40,14 +42,20 @@ public class LevelSelectFragment extends Fragment implements View.OnClickListene
 
   @Override
   public void onClick(View v) {
-    int level = (Integer) v.getTag();
-    // TODO Load maze fragment with parameters for level
+//    int level = (Integer) v.getTag();
+    int level = Integer.parseInt(v.getTag().toString());
+    System.out.println("v.getTag='" + v.getTag() +"', level = " + level);
+//    MazeFragment maze = null;
+
+    // TODO switch on level, creating maze fragment with parameters for specific maze
+    //  TODO Load maze fragment with parameters for level
   }
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
   }
+
 
 
 }

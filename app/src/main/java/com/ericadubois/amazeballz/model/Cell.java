@@ -1,19 +1,18 @@
 package com.ericadubois.amazeballz.model;
 
 import androidx.annotation.NonNull;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.w3c.dom.Node;
+
 
 /**
  * The type Cell.
  */
 public class Cell {
 
-  private int row;
-  private int column;
+  private final int row;
+  private final int column;
   private boolean visited;
   //private int [] neighbors;
   //private Direction direction;
@@ -35,6 +34,7 @@ public class Cell {
     this.walls = new ArrayList<Direction>(Arrays.asList(Direction.values()));
   }
 
+
   /**
    * Is visited boolean.
    *
@@ -53,6 +53,18 @@ public class Cell {
     this.visited = visited;
   }
 
+  public int getRow() {
+    return row;
+  }
+
+  public int getColumn() {
+    return column;
+  }
+
+  public List<Direction> getWalls() {
+    return walls;
+  }
+
   /**
    * Remove wall.
    *
@@ -61,6 +73,7 @@ public class Cell {
   public void removeWall(Direction direction) {
     this.walls.remove(direction);
   }
+
 
   /**
    * Neighbor cell.
@@ -130,7 +143,7 @@ public class Cell {
       //      removal of 2 walls in total - why?)
 
       this.removeWall(direction);
-      destination.removeWall(Direction.getOpposite(direction));
+      destination.removeWall(direction.getOpposite());
       //   c. Recursively invoke build(cells) on the selected
       //      neighbor.
       destination.build(cells);
@@ -177,19 +190,5 @@ public class Cell {
 //    }
 //  }
 //
-//    draw(buffer, cellSize) {
-//      for (let d of this.walls) {
-//      const startCol = this.column +
-//            Math.trunc((d.colOffset + 1) / 2) -
-//            Math.trunc((d.rowOffset - 1) / 2);
-//      const endCol = startCol + d.rowOffset;
-//      const startRow = this.row +
-//            Math.trunc((d.rowOffset + 1) / 2) -
-//            Math.trunc((d.colOffset - 1) / 2);
-//      const endRow = startRow + d.colOffset;
-//        buffer.line(cellSize * startCol, cellSize * startRow,
-//            cellSize * endCol, cellSize * endRow);
-//      }
-//    }
   }
 

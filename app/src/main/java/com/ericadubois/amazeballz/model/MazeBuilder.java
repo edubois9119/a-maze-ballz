@@ -1,17 +1,26 @@
 package com.ericadubois.amazeballz.model;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.view.View;
 import com.ericadubois.amazeballz.model.entity.Maze;
 
 public class MazeBuilder {
 
   public Cell [][] cells;
   int rows = 3;
-  int columns = 3;
+  int columns = 4;
   final int START_ROW = 0;
   final int START_COL = 0;
 
+
+
   public MazeBuilder(){
     setupMaze();
+  }
+
+  public Cell[][] getCells() {
+    return cells;
   }
 
   public static void main(String[] args) {

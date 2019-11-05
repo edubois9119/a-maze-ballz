@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
     view= this.getWindow().getDecorView();
     view.setBackgroundColor(R.color.colorPrimaryDark);
 
- //   MazeFragment mazeFrag= new MazeFragment();
- //   addFragment(mazeFrag, true);
+//    MazeFragment mazeFrag= new MazeFragment();
+//    addFragment(mazeFrag, true);
 
 
     LevelSelectFragment levelFrag= new LevelSelectFragment();

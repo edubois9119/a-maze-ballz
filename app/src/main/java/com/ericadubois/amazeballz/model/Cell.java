@@ -14,12 +14,12 @@ public class Cell {
   private final int row;
   private final int column;
   private boolean visited;
-  //private int [] neighbors;
-  //private Direction direction;
-  //private Cell destination;
+//  private int [] neighbors;
+//  private Direction direction;
+//  private Cell destination;
   private List<Direction> walls;
   private final boolean UNVISITED_ONLY=true;
-  // private Cell[][] cells;
+//  private Cell[][] cells;
 
   /**
    * Instantiates a new Cell.

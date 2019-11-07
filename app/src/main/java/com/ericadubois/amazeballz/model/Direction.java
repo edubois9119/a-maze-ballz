@@ -9,12 +9,11 @@ public enum Direction {
 
   public final int rowOffset;
   public final int columnOffset;
-  public final Direction opposite;
+
 
   Direction(int rowOffset, int columnOffset) {
     this.rowOffset = rowOffset;
     this.columnOffset = columnOffset;
-    this.opposite = Direction.values()[(ordinal() + 2) % Direction.values().length];
   }
 
   public int getRowOffset() {
@@ -26,7 +25,7 @@ public enum Direction {
   }
 
   public Direction getOpposite() {
-    return opposite;
+    return Direction.values()[(ordinal() + 2) % Direction.values().length];
   }
 
 }

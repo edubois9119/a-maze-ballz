@@ -12,7 +12,6 @@ public class SketchView extends View {
 
   private Cell[][] cells;
   private static final float WALL_THICKNESS = 4;
-  private float cellSize, hMargin, vMargin;
   private Paint wallPaint;
 
   public SketchView(Context context, @Nullable AttributeSet attrs) {
@@ -22,9 +21,6 @@ public class SketchView extends View {
     wallPaint.setColor(Color.BLACK);
     wallPaint.setStrokeWidth(WALL_THICKNESS);
   }
-
-  //TODO call maze builder to create maze
-
 
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -54,7 +50,6 @@ public class SketchView extends View {
         for (int col = 0; col < cells[row].length; col++) {
           Cell current = cells[row][col];
           for (Direction d : current.getWalls()) {
-            //TODO ask Nick if I need to add truncate function
             int startCol =
                 current.getColumn() + (d.getColumnOffset() + 1) / 2 - (d.getRowOffset() - 1) / 2;
             int endCol = startCol + d.getRowOffset();

@@ -10,6 +10,11 @@ import java.util.List;
  * The type Cell.
  */
 public class Cell {
+//  boolean
+//      topWall = true,
+//      bottomWall = true,
+//      leftWall = true,
+//      rightWall = true;
 
   private final int row;
   private final int column;
@@ -149,6 +154,8 @@ public class Cell {
       destination.build(cells);
     }
   }
+
+
 
   @NonNull
   @Override

@@ -7,21 +7,21 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
-  <SketchView
+  <com.ericadubois.amazeballz.model.MazeView
     android:id="@+id/maze_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent">
-  </SketchView>
+  </com.ericadubois.amazeballz.model.MazeView>
 
-  <ImageButton
-    android:id="@+id/pause"
-    android:layout_width="88dp"
-    android:layout_height="87dp"
-    android:scaleType="fitCenter"
-    android:src="@drawable/ic_pause_circle"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"/>
+<!--  <ImageButton-->
+<!--    android:id="@+id/pause"-->
+<!--    android:layout_width="88dp"-->
+<!--    android:layout_height="87dp"-->
+<!--    android:scaleType="fitCenter"-->
+<!--    android:src="@drawable/ic_pause_circle"-->
+<!--    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--    app:layout_constraintLeft_toLeftOf="parent"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

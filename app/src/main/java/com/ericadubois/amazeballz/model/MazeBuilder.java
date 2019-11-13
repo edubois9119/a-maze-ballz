@@ -8,27 +8,18 @@ import com.ericadubois.amazeballz.model.entity.Maze;
 public class MazeBuilder {
 
   public Cell [][] cells;
-  int rows = 3;
-  int columns = 4;
   final int START_ROW = 0;
   final int START_COL = 0;
 
-
-
-  public MazeBuilder(){
-    setupMaze();
+  public MazeBuilder(int rows, int columns){
+    setupMaze(rows, columns);
   }
 
   public Cell[][] getCells() {
     return cells;
   }
 
-  public static void main(String[] args) {
-    MazeBuilder mazeBuilder = new MazeBuilder();
-    mazeBuilder.printMaze();
-  }
-
-  public void setupMaze(){
+  public void setupMaze(int rows, int columns){
     //sets up empty maze
     cells = new Cell[rows][columns];
     //need to instantiate each Cell inside
@@ -41,12 +32,12 @@ public class MazeBuilder {
     //builds a maze from cell START ROW COL
     cells[START_ROW][START_COL].build(cells);
   }
-  public void printMaze() {
-    //need to instantiate each Cell inside
-    for (int row = 0; row < rows; row++) {
-      for (int col = 0; col < columns; col++) {
-        System.out.println(cells[row][col]);
-      }
-    }
-  }
+//  public void printMaze() {
+//    //need to instantiate each Cell inside
+//    for (int row = 0; row < rows; row++) {
+//      for (int col = 0; col < columns; col++) {
+//        System.out.println(cells[row][col]);
+//      }
+//    }
+//  }
 }

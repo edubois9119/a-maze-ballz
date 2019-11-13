@@ -13,8 +13,8 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
 
   public MazeViewModel(@NonNull Application application) {
     super(application);
-     mazeBuilder = new MazeBuilder();
-     mazeBuilder.printMaze();
+   //  mazeBuilder = new MazeBuilder();
+  //   mazeBuilder.printMaze();
   }
 }
 

@@ -8,6 +8,21 @@
   tools:context=".controller.LoginActivity"
   tools:ignore="MissingDefaultResource">
 
+  <TextView
+    android:id="@+id/welcome_screen"
+    android:text="A-Maze-Ballz"
+    android:textSize="40dp"
+    android:textAlignment="center"
+    android:textColor="@color/colorPrimary"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/sign_in"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    >
+
+  </TextView>
   <com.google.android.gms.common.SignInButton
     android:id="@+id/sign_in"
     android:layout_width="wrap_content"

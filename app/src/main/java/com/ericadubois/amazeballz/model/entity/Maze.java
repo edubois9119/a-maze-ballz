@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import com.ericadubois.amazeballz.model.Cell;
 
 /**
  * The type Maze.
@@ -37,7 +38,7 @@ public class Maze {
   // 0 = no walls,
       // 1 = wall on
   @ColumnInfo(name= "walls")
-  private String walls;
+  private Cell[][] walls;
 
   /**
    * The larger the maze size, the harder the maze. For example, a maze with 5 columns and 5 rows is
@@ -125,7 +126,7 @@ public class Maze {
    *
    * @return the walls
    */
-  public String getWalls() {
+  public Cell[][] getWalls() {
     return walls;
   }
 
@@ -134,7 +135,7 @@ public class Maze {
    *
    * @param walls the walls
    */
-  public void setWalls(String walls) {
+  public void setWalls(Cell[][] walls) {
     this.walls = walls;
   }
 

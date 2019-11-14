@@ -1,9 +1,13 @@
 package com.ericadubois.amazeballz.controller;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,9 +33,15 @@ public class MazeFragment extends Fragment {
    * The constant DEFAULT_SIZE of a maze.
    */
   public static final int DEFAULT_SIZE = 10;
+
+
   private MazeView mazeView;
   private int rows;
   private int columns;
+  private Chronometer chronometer;
+  private long pauseOffset;
+  private boolean running;
+
 
   /**
    * New instance maze fragment.
@@ -53,15 +63,32 @@ public class MazeFragment extends Fragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    View view= inflater.inflate(R.layout.fragment_maze, container, false);
+    View view = inflater.inflate(R.layout.fragment_maze, container, false);
     mazeView = view.findViewById(R.id.maze_view);
-  //  mazeView = view.findViewWithTag(SketchView.class.getSimpleName());
+    //  mazeView = view.findViewWithTag(SketchView.class.getSimpleName());
     rows = getArguments().getInt(ROWS_KEY, DEFAULT_SIZE);
     columns = getArguments().getInt(COLUMNS_KEY, DEFAULT_SIZE);
-    MazeBuilder mazeBuilder= new MazeBuilder(this.rows, this.columns);
+    MazeBuilder mazeBuilder = new MazeBuilder(this.rows, this.columns);
     mazeView.setCells(mazeBuilder.getCells());
     return view;
   }
+//
+//  public void startChronometer(View v) {
+//    if (!running) {
+//      chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+//      chronometer.start();
+//      running = true;
+//    }
+//  }
+//
+//  public void pauseChronometer(View v) {
+//    if (running) {
+//      chronometer.stop();
+//      pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+//      running = false;
+//    }
+//  }
+
 //TODO add in sensor monitors
 
   @Override
@@ -72,4 +99,6 @@ public class MazeFragment extends Fragment {
   //TODO implement constructor or new instance method to build maze based on parameters
   //Android Canvas class(draw)
   // , graphics package
+
+
 }

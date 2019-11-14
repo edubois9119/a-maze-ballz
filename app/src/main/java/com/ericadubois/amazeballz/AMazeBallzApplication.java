@@ -1,6 +1,7 @@
 package com.ericadubois.amazeballz;
 
 import android.app.Application;
+import com.ericadubois.amazeballz.model.entity.Attempt;
 import com.ericadubois.amazeballz.service.AMazeBallzDatabase;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
 import com.facebook.stetho.Stetho;
@@ -20,6 +21,8 @@ public class AMazeBallzApplication extends Application {
         database.getMazeDao().delete();
       }
     }).start();
+//    Attempt temp = new Attempt();
+//    database.getAttemptDao().insert(temp);
   }
 
 }

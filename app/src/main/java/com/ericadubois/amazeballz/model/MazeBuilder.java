@@ -2,6 +2,7 @@ package com.ericadubois.amazeballz.model;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import com.ericadubois.amazeballz.model.entity.Maze;
 
@@ -31,6 +32,13 @@ public class MazeBuilder {
 
     //builds a maze from cell START ROW COL
     cells[START_ROW][START_COL].build(cells);
+    StringBuilder builder= new StringBuilder(rows * columns);
+    for (int row = 0; row < rows; row++) {
+      for (int col = 0; col < columns; col++) {
+        builder.append(cells[row][col].value());
+      }
+    }
+    Log.d(getClass().getSimpleName(), builder.toString());
   }
 //  public void printMaze() {
 //    //need to instantiate each Cell inside

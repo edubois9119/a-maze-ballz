@@ -23,7 +23,8 @@ import com.ericadubois.amazeballz.model.entity.Maze;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
 import com.ericadubois.amazeballz.viewmodel.MazeViewModel;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity {
+//    implements SensorEventListener {
 
   //
   View view;
@@ -101,50 +102,50 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     transaction.commit();
 
   }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    int SENSOR_RATE = 100000000;
-    sensorManager.registerListener(this,sensor, SENSOR_RATE);
-//    sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    sensorManager.unregisterListener(this);
-  }
-
-  @Override
-  public void onSensorChanged(SensorEvent event) {
-    float x = event.values[0];
-    float y = event.values[1];
-    if (Math.abs(x) > Math.abs(y)) {
-//      if (x < 0) {
-      if (x < -3) {
-        System.out.println("You tilted the device right");
-      }
-      if (x > 3) {
-        System.out.println("You tilted the device left");
-      }
-    } else {
-      if (y < -3) {
-        System.out.println("You tilted the device up");
-      }
-      if (y > 3) {
-        System.out.println("You tilted the device down");
-      }
-    }
-//    if (x > (-2) && x < (2) && y > (-2) && y < (2)) {
-//      System.out.println("Not tilting device");
+//
+//  @Override
+//  protected void onResume() {
+//    super.onResume();
+//    int SENSOR_RATE = 100000000;
+//    sensorManager.registerListener(this,sensor, SENSOR_RATE);
+////    sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+//  }
+//
+//  @Override
+//  protected void onPause() {
+//    super.onPause();
+//    sensorManager.unregisterListener(this);
+//  }
+//
+//  @Override
+//  public void onSensorChanged(SensorEvent event) {
+//    float x = event.values[0];
+//    float y = event.values[1];
+//    if (Math.abs(x) > Math.abs(y)) {
+////      if (x < 0) {
+//      if (x < -3) {
+//        System.out.println("You tilted the device right");
+//      }
+//      if (x > 3) {
+//        System.out.println("You tilted the device left");
+//      }
+//    } else {
+//      if (y < -3) {
+//        System.out.println("You tilted the device up");
+//      }
+//      if (y > 3) {
+//        System.out.println("You tilted the device down");
+//      }
 //    }
-  }
-
-  @Override
-  public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-  }
+////    if (x > (-2) && x < (2) && y > (-2) && y < (2)) {
+////      System.out.println("Not tilting device");
+////    }
+//  }
+//
+//  @Override
+//  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//
+//  }
 
 
 }

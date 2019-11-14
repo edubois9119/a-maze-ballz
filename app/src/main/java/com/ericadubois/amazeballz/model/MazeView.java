@@ -1,6 +1,9 @@
 package com.ericadubois.amazeballz.model;
 
 import static com.ericadubois.amazeballz.model.Direction.NORTH;
+import static com.ericadubois.amazeballz.model.Direction.SOUTH;
+import static com.ericadubois.amazeballz.model.Direction.WEST;
+import static com.ericadubois.amazeballz.model.Direction.EAST;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -69,7 +72,7 @@ public class MazeView extends View {
       int width = getWidth();
       int height = getHeight();
       float cellHeight = (height - WALL_THICKNESS) / cells.length;
-      float cellWidth =  (width - WALL_THICKNESS) / cells[0].length;
+      float cellWidth = (width - WALL_THICKNESS) / cells[0].length;
       radius = cellWidth / 2.15F;
       for (int row = 0; row < cells.length; row++) {
         for (int col = 0; col < cells[row].length; col++) {
@@ -107,88 +110,78 @@ public class MazeView extends View {
   }
 
   private void moveBall(Direction direction) {
-    switch (direction) {
-      case NORTH:
-          ball = cells[ball.getColumn()][ball.getRow() - 1];
-        break;
-      case SOUTH:
-          ball = cells[ball.getColumn()][ball.getRow() + 1];
-        break;
-      case EAST:
-          ball = cells[ball.getColumn() + 1][ball.getRow()];
-        break;
-      case WEST:
-          ball = cells[ball.getColumn() - 1][ball.getRow()];
-        break;
+    if (!ball.getWalls().contains(direction)) {
+      ball = cells[ball.getRow() + direction.getRowOffset()][ball.getColumn() + direction
+          .getColumnOffset()];
+      invalidate();
     }
-    invalidate();
   }
 
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
     if (event.getAction() == MotionEvent.ACTION_DOWN) {
-      return true;}
-      if (event.getAction() == MotionEvent.ACTION_MOVE) {
-        float x = event.getX();
-        float y = event.getY();
+      return true;
+    }
+    if (event.getAction() == MotionEvent.ACTION_MOVE) {
+      float x = event.getX();
+      float y = event.getY();
 
-        int width = getWidth();
-        int height = getHeight();
-        float cellHeight = (height - WALL_THICKNESS) / cells.length;
-        float cellWidth = (width - WALL_THICKNESS) / cells[0].length;
-        float ballCenterX = (float) (ball.getColumn() + .5) * cellWidth;
-        float ballCenterY = (float) (ball.getRow() + .5) * cellHeight;
+      int width = getWidth();
+      int height = getHeight();
+      float cellHeight = (height - WALL_THICKNESS) / cells.length;
+      float cellWidth = (width - WALL_THICKNESS) / cells[0].length;
+      float ballCenterX = (float) (ball.getColumn() + 0.5f) * cellWidth;
+      float ballCenterY = (float) (ball.getRow() + 0.5f) * cellHeight;
 
-        float dx = x - ballCenterX;
-        float dy = y - ballCenterY;
+      float dx = x - ballCenterX;
+      float dy = y - ballCenterY;
 
-        float absDX = Math.abs(dx);
-        float absDY = Math.abs(dy);
+      float absDX = Math.abs(dx);
+      float absDY = Math.abs(dy);
 
-        if (absDX > cellHeight || absDY > cellHeight) {
-          if (absDX > absDY) {
-            //move in x-direction
-            if (dx > 0) {
-              moveBall(Direction.EAST);
-            } else {
-              moveBall(Direction.WEST);
-            }
+      if (absDX > cellHeight / 2 || absDY > cellHeight / 2) {
+        if (absDX > absDY) {
+          //move in x-direction
+          if (dx > 0) {
+            moveBall(Direction.EAST);
           } else {
-            //move in y-direction
-            if (dy > 0) {
-              moveBall(Direction.SOUTH);
-            } else {
-              moveBall(Direction.NORTH);
-            }
+            moveBall(Direction.WEST);
+          }
+        } else {
+          //move in y-direction
+          if (dy > 0) {
+            moveBall(Direction.SOUTH);
+          } else {
+            moveBall(Direction.NORTH);
           }
         }
+      }
       return true;
     }
     return super.onTouchEvent(event);
   }
 
-}
-
-
-//
-//
 //  @Override
 //  public void onSensorChanged(SensorEvent event) {
 //    float x = event.values[0];
 //    float y = event.values[1];
 //    if (Math.abs(x) > Math.abs(y)) {
 //      if (x < 0) {
+//        moveBall(EAST);
 //        System.out.println("You tilt the device right");
 //      }
 //      if (x > 0) {
+//        moveBall(WEST);
 //        System.out.println("You tilt the device left");
 //      }
 //    } else {
 //      if (y < 0) {
+//        moveBall(NORTH);
 //        System.out.println("You tilt the device up");
 //      }
 //      if (y > 0) {
+//        moveBall(SOUTH);
 //        System.out.println("You tilt the device down");
 //      }
 //    }
@@ -197,12 +190,14 @@ public class MazeView extends View {
 //    }
 //  }
 //
-//    @Override
-//    public void onAccuracyChanged (Sensor sensor,int accuracy){
+//  @Override
+//  public void onAccuracyChanged (Sensor sensor,int accuracy){
 //
-//    }
 //  }
-//}
+}
+
+//
+//
 //
 //  @NonNull
 //  @Override

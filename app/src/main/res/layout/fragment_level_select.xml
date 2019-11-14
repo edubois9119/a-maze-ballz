@@ -26,7 +26,8 @@
     android:textSize="50sp"
     android:tag="1"
     android:layout_marginBottom="32dp"
-    android:layout_gravity="center_horizontal">
+    android:layout_gravity="center_horizontal"
+    android:background="@android:color/holo_blue_bright">
   </Button>
 
   <Button

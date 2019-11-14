@@ -104,7 +104,7 @@ public abstract class AMazeBallzDatabase extends RoomDatabase {
           int directionValue = Integer.parseInt("" + c, 16);
           List<Direction> directions = new LinkedList<>();
           for (Direction dir : Direction.values()) {
-            if (directionValue != 0 & (1 << dir.ordinal()) != 0) {
+            if ((directionValue & (1 << dir.ordinal())) != 0) {
               directions.add(dir);
             }
             cell.setWalls(directions);

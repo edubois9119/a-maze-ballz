@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:compatibility="http://schemas.android.com/tools">
+
+  <item
+    android:id="@+id/pause"
+    android:title="Pause"
+    app:showAsAction="always"
+    android:icon="@drawable/ic_pause_circle"/>
+
+  <item
+    android:id="@+id/resume"
+    android:title="Resume"
+    app:showAsAction="always"
+    android:icon="@drawable/ic_play"
+    android:visible="false"/>
+
+  <item android:id="@+id/timestamp"
+    android:title="Timestamp"
+    compatibility:showAsAction="always"
+    compatibility:actionViewClass="android.widget.TextView" />
+
+</menu>

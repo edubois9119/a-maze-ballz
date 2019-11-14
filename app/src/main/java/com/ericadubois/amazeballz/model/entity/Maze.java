@@ -45,8 +45,8 @@ public class Maze {
    * more difficult than a maze with 3 columns and 3 rows.
    */
   //TODO determine algorithm for difficulty.
-  @ColumnInfo(name="difficulty")
-  private int difficulty;
+  @ColumnInfo(index = true)
+  private int level;
 
   /**
    * Designates the row/column that is the beginning of the maze.
@@ -144,17 +144,17 @@ public class Maze {
    *
    * @return the difficulty
    */
-  public int getDifficulty() {
-    return difficulty;
+  public int getLevel() {
+    return level;
   }
 
   /**
    * Sets difficulty.
    *
-   * @param difficulty the difficulty
+   * @param level the difficulty
    */
-  public void setDifficulty(int difficulty) {
-    this.difficulty = difficulty;
+  public void setLevel(int level) {
+    this.level = level;
   }
 
   /**

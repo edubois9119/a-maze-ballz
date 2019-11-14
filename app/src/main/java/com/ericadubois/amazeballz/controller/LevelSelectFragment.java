@@ -50,7 +50,7 @@ public class LevelSelectFragment extends Fragment implements View.OnClickListene
     int sizeColumns = level + 3;
     int sizeRows= (int)(sizeColumns * 4/3);
     System.out.println("v.getTag='" + v.getTag() +"', level = " + level);
-    MazeFragment maze = MazeFragment.newInstance(sizeRows, sizeColumns);
+    MazeFragment maze = MazeFragment.newInstance(level, sizeRows, sizeColumns);
     FragmentTransaction ft= getFragmentManager().beginTransaction();
     ft.addToBackStack(MazeFragment.class.getSimpleName());
     ft.replace(R.id.fragment_container, maze).commit();

@@ -7,9 +7,13 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Chronometer;
+import android.widget.Chronometer.OnChronometerTickListener;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
   private SensorManager sensorManager;
   private Sensor sensor;
   private Sensor sensor2;
+  TextView textView;
+  long startTime;
+  long countUp;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +61,21 @@ public class MainActivity extends AppCompatActivity {
     LevelSelectFragment levelFrag = new LevelSelectFragment();
     addFragment(levelFrag, true);
 
+    Chronometer stopWatch = findViewById(R.id.chrono);
+    startTime = SystemClock.elapsedRealtime();
+    stopWatch.setOnChronometerTickListener(arg0 -> {
+      countUp = (SystemClock.elapsedRealtime() - arg0.getBase()) / 1000;
+      String asText = (countUp / 60) + ":" + (countUp % 60);
 
+    });
+    stopWatch.start();
   }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.options, menu);
-    return true | super.onCreateOptionsMenu(
-        menu);  //full evaluation boolean OR, lets super class do what it needs to do after returning true
+    return true | super.onCreateOptionsMenu(menu);
+    //full evaluation boolean OR, lets super class do what it needs to do after returning true
   }
 
   @Override

@@ -15,12 +15,12 @@
     app:showAsAction="always"
     android:icon="@drawable/ic_pause_circle"/>
 
-  <item
-    android:id="@+id/resume"
-    android:title="Resume"
-    app:showAsAction="always"
-    android:icon="@drawable/ic_play"
-    android:visible="false"/>
+<!--  <item-->
+<!--    android:id="@+id/resume"-->
+<!--    android:title="Resume"-->
+<!--    app:showAsAction="always"-->
+<!--    android:icon="@drawable/ic_play"-->
+<!--    android:visible="false"/>-->
 
 
   <!--  <item android:id="@+id/timestamp"-->

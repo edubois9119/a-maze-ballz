@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <Button
+    android:id="@+id/pause"
+    android:title="Pause"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:showAsAction="always"
+    android:icon="@drawable/ic_pause_circle"/>
+
+<!--  <Button-->
+<!--    android:id="@+id/resume"-->
+<!--    android:title="Resume"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--&lt;!&ndash;    app:showAsAction="always"&ndash;&gt;-->
+<!--    android:icon="@drawable/ic_play"-->
+<!--    android:visible="false" />-->
+
+<!--  <Chronometer-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:id="@+id/chrono"-->
+<!--    android:visibility="visible"-->
+<!--    android:textColor="@color/colorAccent"/>-->
+<!--&lt;!&ndash;    android:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;    android:layout_constraintLeft_toLeftOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;    android:layout_constraintRight_toRightOf="parent"/>&ndash;&gt;-->
+
+</Toolbar>

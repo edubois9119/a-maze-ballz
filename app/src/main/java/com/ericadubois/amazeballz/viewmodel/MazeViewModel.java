@@ -1,6 +1,7 @@
 package com.ericadubois.amazeballz.viewmodel;
 
 import android.app.Application;
+import android.widget.Chronometer;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleEventObserver;
@@ -12,6 +13,7 @@ import com.ericadubois.amazeballz.service.AMazeBallzDatabase;
 public class MazeViewModel extends AndroidViewModel implements LifecycleObserver {
 
   private MazeBuilder mazeBuilder;
+  private Chronometer stopWatch;
 
   private final AMazeBallzDatabase database;
 
@@ -26,5 +28,12 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
     new Thread(()->database.getMazeDao().insert(maze)).start();
   }
 
+  public Chronometer getStopWatch() {
+    return stopWatch;
+  }
+
+  public void setStopWatch(Chronometer stopWatch) {
+    this.stopWatch = stopWatch;
+  }
 }
 

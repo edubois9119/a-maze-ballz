@@ -31,22 +31,23 @@ public class MainActivity extends AppCompatActivity {
 //    implements SensorEventListener {
 
   //
-  View view;
+  private View view;
   private MazeViewModel mazeViewModel;
   private SensorManager sensorManager;
   private Sensor sensor;
   private Sensor sensor2;
-  TextView textView;
+  private Chronometer stopWatch;
   long startTime;
   long countUp;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-//    mazeViewModel = ViewModelProviders.of(this).get(MazeViewModel.class);
-//    getLifecycle().addObserver(mazeViewModel);
-//
+    mazeViewModel = ViewModelProviders.of(this).get(MazeViewModel.class);
+    getLifecycle().addObserver(mazeViewModel);
+
     sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 //    sensor2 = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -61,14 +62,18 @@ public class MainActivity extends AppCompatActivity {
     LevelSelectFragment levelFrag = new LevelSelectFragment();
     addFragment(levelFrag, true);
 
-    Chronometer stopWatch = findViewById(R.id.chrono);
+    stopWatch = findViewById(R.id.chrono);
     startTime = SystemClock.elapsedRealtime();
     stopWatch.setOnChronometerTickListener(arg0 -> {
       countUp = (SystemClock.elapsedRealtime() - arg0.getBase()) / 1000;
       String asText = (countUp / 60) + ":" + (countUp % 60);
-
     });
-    stopWatch.start();
+//    stopWatch.start();
+    mazeViewModel.setStopWatch(stopWatch);
+  }
+
+  public Chronometer getStopWatch() {
+    return stopWatch;
   }
 
   @Override

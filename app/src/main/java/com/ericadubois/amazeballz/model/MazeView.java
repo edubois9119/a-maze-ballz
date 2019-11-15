@@ -12,21 +12,27 @@ import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentTransaction;
+import com.ericadubois.amazeballz.R;
+import com.ericadubois.amazeballz.controller.MazeFragment;
 
 /**
  * The type Maze view. This is the class that handles all of the drawing of the maze.
  */
 public class MazeView extends View {
 
+  private MazeFragment mazeFragment;
   private Cell[][] cells;
   private Cell ball, exit;
   private static final float WALL_THICKNESS = 4;
   private Paint wallPaint, ballPaint, exitPaint;
   private float radius;
+
 
   /**
    * Instantiates a new Maze view.
@@ -120,6 +126,7 @@ public class MazeView extends View {
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
+    checkWin();
     if (event.getAction() == MotionEvent.ACTION_DOWN) {
       return true;
     }
@@ -162,6 +169,17 @@ public class MazeView extends View {
     return super.onTouchEvent(event);
   }
 
+  public void setMazeFragment(MazeFragment mazeFragment) {
+    this.mazeFragment = mazeFragment;
+  }
+
+  private void checkWin() {
+    if (ball.getColumn() == exit.getColumn() && ball.getRow() == exit.getRow()) {
+      mazeFragment.switchFragment();
+      System.out.println("Winner");
+      //TODO Switch to Completion Fragment
+    }
+  }
 //  @Override
 //  public void onSensorChanged(SensorEvent event) {
 //    float x = event.values[0];

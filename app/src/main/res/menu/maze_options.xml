@@ -3,6 +3,12 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:compatibility="http://schemas.android.com/tools">
 
+  <Chronometer
+    android:id="@+id/chrono"
+    android:visibility="visible"
+    android:textColor="@color/colorAccent"
+    />
+
   <item
     android:id="@+id/pause"
     android:title="Pause"
@@ -16,9 +22,10 @@
     android:icon="@drawable/ic_play"
     android:visible="false"/>
 
-  <item android:id="@+id/timestamp"
-    android:title="Timestamp"
-    compatibility:showAsAction="always"
-    compatibility:actionViewClass="android.widget.TextView" />
+
+  <!--  <item android:id="@+id/timestamp"-->
+<!--    android:title="Timestamp"-->
+<!--    compatibility:showAsAction="always"-->
+<!--    compatibility:actionViewClass="android.widget.TextView" />-->
 
 </menu>

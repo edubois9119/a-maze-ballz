@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.model.MazeBuilder;
@@ -51,15 +52,15 @@ public class MazeFragment extends Fragment {
   private MazeViewModel viewModel;
 
 
+  private View view;
   private MazeView mazeView;
   private int rows;
   private int columns;
   private int level;
-  private Chronometer chronometer;
+  private Chronometer stopWatch;
   private long pauseOffset;
   private boolean running;
-  long startTime;
-  long countUp;
+
 
   /**
    * New instance maze fragment.
@@ -82,8 +83,9 @@ public class MazeFragment extends Fragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_maze, container, false);
+    view = inflater.inflate(R.layout.fragment_maze, container, false);
     mazeView = view.findViewById(R.id.maze_view);
+    mazeView.setMazeFragment(this);
     //  mazeView = view.findViewWithTag(SketchView.class.getSimpleName());
     rows = getArguments().getInt(ROWS_KEY, DEFAULT_SIZE);
     columns = getArguments().getInt(COLUMNS_KEY, DEFAULT_SIZE);
@@ -91,22 +93,25 @@ public class MazeFragment extends Fragment {
     setHasOptionsMenu(true);
     return view;
   }
-//
-//  public void startChronometer(View v) {
-//    if (!running) {
-//      chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-//      chronometer.start();
-//      running = true;
-//    }
-//  }
-//
-//  public void pauseChronometer(View v) {
-//    if (running) {
-//      chronometer.stop();
-//      pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
-//      running = false;
-//    }
-//  }
+
+  public void startChronometer() {
+    if (!running) {
+      stopWatch.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+      stopWatch.start();
+      running = true;
+    }
+  }
+
+  public void pauseChronometer() {
+    if (running) {
+      stopWatch.stop();
+      pauseOffset = SystemClock.elapsedRealtime() - stopWatch.getBase();
+      running = false;
+    } else {
+      stopWatch.start();
+      running= true;
+    }
+  }
 
 //TODO add in sensor monitors
 
@@ -124,9 +129,15 @@ public class MazeFragment extends Fragment {
   }
 
   @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    viewModel= ViewModelProviders.of(this).get(MazeViewModel.class);
+    viewModel= ViewModelProviders.of(getActivity()).get(MazeViewModel.class);
+//    viewModel= ViewModelProviders.of(this).get(MazeViewModel.class);
     MazeBuilder mazeBuilder = new MazeBuilder(this.rows, this.columns);
     mazeView.setCells(mazeBuilder.getCells());
     Maze maze = new Maze();
@@ -135,6 +146,15 @@ public class MazeFragment extends Fragment {
     maze.setLevel(level);
     maze.setWalls(mazeBuilder.getCells());
     viewModel.saveMaze(maze);
+    stopWatch = viewModel.getStopWatch();
+    startChronometer();
   }
 
+  public void switchFragment() {
+    CompletionFragment fragment = new CompletionFragment();
+    FragmentTransaction ft= getFragmentManager().beginTransaction();
+    ft.replace(R.id.fragment_container, fragment, fragment.getTag());
+    ft.addToBackStack(fragment.getTag());
+    ft.commit();
+  }
 }

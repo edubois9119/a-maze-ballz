@@ -1,18 +1,18 @@
 package com.ericadubois.amazeballz.controller;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
-import android.os.SystemClock;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Chronometer;
+
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,11 +21,13 @@ import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
 import com.ericadubois.amazeballz.viewmodel.MazeViewModel;
 
+/**
+ * The Main activity is the controller for the UI.
+ */
 public class MainActivity extends AppCompatActivity {
   private View view;
   private MazeViewModel mazeViewModel;
-//  private SensorManager sensorManager;
-//  private Sensor sensor;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
     mazeViewModel = ViewModelProviders.of(this).get(MazeViewModel.class);
     getLifecycle().addObserver(mazeViewModel);
 
-//    sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-//    sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    Toolbar toolbar= findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
+
 
     view = this.getWindow().getDecorView();
     view.setBackgroundColor(Color.BLACK);

@@ -8,10 +8,12 @@ import android.os.Bundle;
 import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
 
+/**
+ * This activity allows the user to sign-in to the app using google sign-in.
+ */
 public class LoginActivity extends AppCompatActivity {
   private static final int LOGIN_REQUEST_CODE = 1000;
 
-  //TODO switch Launcher (intent) in manifest back to login activity
 
   private GoogleSignInService service;
 

@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+/**
+ * This fragment is t.
+ */
 public class WelcomeScreenFragment extends Fragment {
 
   @Nullable

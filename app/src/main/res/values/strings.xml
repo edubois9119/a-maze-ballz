@@ -10,4 +10,6 @@
   <string name="passord_hint">Password</string>
   <string name="log_in">Log In</string>
   <string name="sign_up">Sign Up</string>
+  <string name="time_format">MM:SS</string>
+  <!--  <string name="app_bar_scrolling_view_behavior">translatable</string>-->
 </resources>

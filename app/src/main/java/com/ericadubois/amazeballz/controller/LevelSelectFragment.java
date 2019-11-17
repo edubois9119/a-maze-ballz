@@ -15,6 +15,10 @@ import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.model.MazeBuilder;
 import java.util.Random;
 
+/**
+ * This fragment displays the level options for the user to choose from. The higher the number
+ * selected, the harder the maze will be.
+ */
 public class LevelSelectFragment extends Fragment implements View.OnClickListener {
   private Button buttonOne;
 

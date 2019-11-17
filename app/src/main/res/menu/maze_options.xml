@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:compatibility="http://schemas.android.com/tools">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <Chronometer
+  <item
     android:id="@+id/chrono"
-    android:visibility="visible"
-    android:textColor="@color/colorAccent"
-    />
+    android:title="Chronometer"
+    android:visible="true"
+    android:orderInCategory="100"
+    app:showAsAction="always"
+    app:actionLayout="@layout/chronometer"/>
 
   <item
     android:id="@+id/pause"
     android:title="Pause"
     app:showAsAction="always"
+    android:orderInCategory="200"
     android:icon="@drawable/ic_pause_circle"/>
 
-<!--  <item-->
-<!--    android:id="@+id/resume"-->
-<!--    android:title="Resume"-->
-<!--    app:showAsAction="always"-->
-<!--    android:icon="@drawable/ic_play"-->
-<!--    android:visible="false"/>-->
-
-
-  <!--  <item android:id="@+id/timestamp"-->
-<!--    android:title="Timestamp"-->
-<!--    compatibility:showAsAction="always"-->
-<!--    compatibility:actionViewClass="android.widget.TextView" />-->
+  <item
+    android:id="@+id/resume"
+    android:title="Resume"
+    app:showAsAction="always"
+    android:icon="@drawable/ic_play"
+    android:orderInCategory="200"
+    android:visible="false"/>
 
 </menu>

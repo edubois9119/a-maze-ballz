@@ -10,6 +10,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.ericadubois.amazeballz.R;
 
+/**
+ * This fragment displays when a user has completed a maze. Allows user to go back to level select
+ * fragment to choose another maze.
+ */
 public class CompletionFragment extends Fragment implements View.OnClickListener {
 
   @Nullable

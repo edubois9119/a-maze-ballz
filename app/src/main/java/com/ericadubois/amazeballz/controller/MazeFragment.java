@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import com.ericadubois.amazeballz.R;
+import com.ericadubois.amazeballz.model.BallView;
 import com.ericadubois.amazeballz.model.Direction;
 import com.ericadubois.amazeballz.model.MazeBuilder;
 import com.ericadubois.amazeballz.model.MazeView;
@@ -52,6 +53,7 @@ public class MazeFragment extends Fragment implements SensorEventListener {
 
   private View view;
   private MazeView mazeView;
+  private BallView ballView;
   private int rows;
   private int columns;
   private int level;
@@ -90,7 +92,10 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     view = inflater.inflate(R.layout.fragment_maze, container, false);
     mazeView = view.findViewById(R.id.maze_view);
     mazeView.setMazeFragment(this);
-    //  mazeView = view.findViewWithTag(SketchView.class.getSimpleName());
+    ballView = view.findViewById(R.id.ball_view);
+//    ballView.setMazeFragment(this);
+    mazeView.setBallView(ballView);
+
     rows = getArguments().getInt(ROWS_KEY, DEFAULT_SIZE);
     columns = getArguments().getInt(COLUMNS_KEY, DEFAULT_SIZE);
     level = getArguments().getInt(LEVEL_KEY);
@@ -141,7 +146,6 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     inflater.inflate(R.menu.maze_options, menu);
     super.onCreateOptionsMenu(menu, inflater);
   }
-
 
   // update menu when paused or not,  If paused: stop timer, hide pause, show resume
   // when resume: restart timer, hide resume, show pause

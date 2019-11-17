@@ -17,12 +17,12 @@ public class MazeView extends View {
 
   private MazeFragment mazeFragment;
   private Cell[][] cells;
+  private float cellWidth, cellHeight;
   private Cell ball, exit;
-  private float ballSpeed;
   private static final float WALL_THICKNESS = 4;
   private Paint wallPaint, ballPaint, exitPaint;
   private float radius;
-
+  private BallView ballView;
 
   /**
    * Instantiates a new Maze view.
@@ -67,9 +67,11 @@ public class MazeView extends View {
       canvas.drawColor(Color.DKGRAY);
       int width = getWidth();
       int height = getHeight();
-      float cellHeight = (height - WALL_THICKNESS) / cells.length;
-      float cellWidth = (width - WALL_THICKNESS) / cells[0].length;
+      cellHeight = (height - WALL_THICKNESS) / cells.length;
+      cellWidth = (width - WALL_THICKNESS) / cells[0].length;
       radius = cellWidth / 2.15F;
+      ballView.setRadius(radius);
+
       for (int row = 0; row < cells.length; row++) {
         for (int col = 0; col < cells[row].length; col++) {
           Cell current = cells[row][col];
@@ -82,13 +84,13 @@ public class MazeView extends View {
             int endRow = startRow + d.getColumnOffset();
             canvas.drawLine(startCol * cellWidth, startRow * cellHeight,
                 endCol * cellWidth, endRow * cellHeight, wallPaint);
-            canvas.drawCircle( (ball.getColumn() + .5f) * cellWidth,
-                 (ball.getRow() + .5f) * cellHeight, radius, ballPaint);
-            canvas.drawCircle( (exit.getColumn() + .5f) * cellWidth,
-                 (exit.getRow() + .5f) * cellHeight, radius, exitPaint);
           }
         }
       }
+      canvas.drawCircle( (ball.getColumn() + .5f) * cellWidth,
+          (ball.getRow() + .5f) * cellHeight, radius, ballPaint);
+      canvas.drawCircle( (exit.getColumn() + .5f) * cellWidth,
+          (exit.getRow() + .5f) * cellHeight, radius, exitPaint);
     }
   }
 
@@ -100,14 +102,26 @@ public class MazeView extends View {
   public void setCells(Cell[][] cells) {
     this.cells = cells;   // TODO Investigate safe copy.
     this.ball = cells[0][0];
+//    int width = getWidth();
+//    int height = getHeight();
+//    cellHeight = (height - WALL_THICKNESS) / cells.length;
+//    cellWidth = (width - WALL_THICKNESS) / cells[0].length;
+//    radius = cellWidth / 2.15F;
     this.exit = cells[cells.length - 1][cells[0].length - 1];
+    this.ballView.setUpperLeft(0, 0);
+//    this.ballView.setRadius(radius);
+
     postInvalidate();
   }
 
   public void moveBall(Direction direction) {
+    if (!ballView.isMovable()) {
+      return;
+    }
     if (!ball.getWalls().contains(direction)) {
       ball = cells[ball.getRow() + direction.getRowOffset()][ball.getColumn() + direction
           .getColumnOffset()];
+      ballView.setDestination(ball.getColumn() * cellWidth, ball.getRow() * cellHeight);
       invalidate();
     }
   }
@@ -159,6 +173,9 @@ public class MazeView extends View {
 
   public void setMazeFragment(MazeFragment mazeFragment) {
     this.mazeFragment = mazeFragment;
+  }
+  public void setBallView(BallView ballView){
+    this.ballView = ballView;
   }
 
   public void checkWin() {

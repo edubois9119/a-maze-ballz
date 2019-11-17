@@ -7,14 +7,27 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
   <com.ericadubois.amazeballz.model.MazeView
     android:id="@+id/maze_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent">
-
   </com.ericadubois.amazeballz.model.MazeView>
+
+  <com.ericadubois.amazeballz.model.BallView
+    android:id="@+id/ball_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+  </com.ericadubois.amazeballz.model.BallView>
+
+  </FrameLayout>
 
   <Chronometer
     android:layout_width="wrap_content"

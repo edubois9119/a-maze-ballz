@@ -1,38 +1,36 @@
 package com.ericadubois.amazeballz.controller;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
-import android.widget.Chronometer.OnChronometerTickListener;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import com.ericadubois.amazeballz.R;
+import com.ericadubois.amazeballz.model.Direction;
 import com.ericadubois.amazeballz.model.MazeBuilder;
 import com.ericadubois.amazeballz.model.MazeView;
 import com.ericadubois.amazeballz.model.entity.Maze;
 import com.ericadubois.amazeballz.viewmodel.MazeViewModel;
-import java.sql.Time;
-import java.util.Timer;
 
 /**
  * The type Maze fragment. This establishes the area where the maze will be drawn. The actual
  * drawing
  */
-public class MazeFragment extends Fragment {
+public class MazeFragment extends Fragment implements SensorEventListener {
 
   /**
    * The constant ROWS_KEY dictionary argument rows
@@ -47,7 +45,7 @@ public class MazeFragment extends Fragment {
    */
   private static final int DEFAULT_SIZE = 10;
 
-  private static final  String LEVEL_KEY= "level";
+  private static final String LEVEL_KEY = "level";
 
   private MazeViewModel viewModel;
 
@@ -57,9 +55,15 @@ public class MazeFragment extends Fragment {
   private int rows;
   private int columns;
   private int level;
-  private Chronometer stopWatch;
+
+  private Chronometer mazeTimer;
+  private long startTime;
+  private long countUp;
   private long pauseOffset;
   private boolean running;
+
+  private SensorManager manager;
+  private Sensor accelerometer;
 
 
   /**
@@ -69,7 +73,7 @@ public class MazeFragment extends Fragment {
    * @param columns the columns
    * @return the maze fragment
    */
-  public static MazeFragment newInstance( int level, int rows, int columns) {
+  public static MazeFragment newInstance(int level, int rows, int columns) {
     MazeFragment fragment = new MazeFragment();
     Bundle args = new Bundle();
     args.putInt(ROWS_KEY, rows);
@@ -89,31 +93,48 @@ public class MazeFragment extends Fragment {
     //  mazeView = view.findViewWithTag(SketchView.class.getSimpleName());
     rows = getArguments().getInt(ROWS_KEY, DEFAULT_SIZE);
     columns = getArguments().getInt(COLUMNS_KEY, DEFAULT_SIZE);
-    level= getArguments().getInt(LEVEL_KEY);
+    level = getArguments().getInt(LEVEL_KEY);
     setHasOptionsMenu(true);
+    manager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+    accelerometer = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+    //set up mazeTimer
+    setupMazeTimer();
     return view;
+  }
+
+  private void setupMazeTimer() {
+    mazeTimer = view.findViewById(R.id.chrono);
+    startTime = SystemClock.elapsedRealtime();
+    mazeTimer.setOnChronometerTickListener(arg0 -> {
+      countUp = (SystemClock.elapsedRealtime() - arg0.getBase()) / 1000;
+      String asText = (countUp / 60) + ":" + (countUp % 60);
+    });
+    startChronometer();
   }
 
   public void startChronometer() {
     if (!running) {
-      stopWatch.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-      stopWatch.start();
+      mazeTimer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+      mazeTimer.start();
       running = true;
     }
   }
 
   public void pauseChronometer() {
     if (running) {
-      stopWatch.stop();
-      pauseOffset = SystemClock.elapsedRealtime() - stopWatch.getBase();
+      mazeTimer.stop();
+      pauseOffset = SystemClock.elapsedRealtime() - mazeTimer.getBase();
       running = false;
     } else {
-      stopWatch.start();
-      running= true;
+      mazeTimer.start();
+      running = true;
     }
   }
 
 //TODO add in sensor monitors
+
+
 
   @Override
   public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -121,11 +142,18 @@ public class MazeFragment extends Fragment {
     super.onCreateOptionsMenu(menu, inflater);
   }
 
+
+  // update menu when paused or not,  If paused: stop timer, hide pause, show resume
+  // when resume: restart timer, hide resume, show pause
   @Override
   public void onPrepareOptionsMenu(@NonNull Menu menu) {
-    super.onPrepareOptionsMenu(menu);
-    //TODO update menu when paused or not, create timer using long Systemmilllis Start when maze
-    // fragment starts until maze is paused or completed. If paused, stop timer and restart on resume
+    if (mazeTimer.isCountDown()) {
+      menu.findItem(R.id.pause).setVisible(true);
+      menu.findItem(R.id.resume).setVisible(false);
+    } else {
+      menu.findItem(R.id.pause).setVisible(false);
+      menu.findItem(R.id.resume).setVisible(true);
+    }
   }
 
   @Override
@@ -136,7 +164,7 @@ public class MazeFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    viewModel= ViewModelProviders.of(getActivity()).get(MazeViewModel.class);
+    viewModel = ViewModelProviders.of(getActivity()).get(MazeViewModel.class);
 //    viewModel= ViewModelProviders.of(this).get(MazeViewModel.class);
     MazeBuilder mazeBuilder = new MazeBuilder(this.rows, this.columns);
     mazeView.setCells(mazeBuilder.getCells());
@@ -146,15 +174,63 @@ public class MazeFragment extends Fragment {
     maze.setLevel(level);
     maze.setWalls(mazeBuilder.getCells());
     viewModel.saveMaze(maze);
-    stopWatch = viewModel.getStopWatch();
-    startChronometer();
+//    mazeTimer = viewModel.getStopWatch();
+//    startChronometer();
   }
 
   public void switchFragment() {
     CompletionFragment fragment = new CompletionFragment();
-    FragmentTransaction ft= getFragmentManager().beginTransaction();
+    FragmentTransaction ft = getFragmentManager().beginTransaction();
     ft.replace(R.id.fragment_container, fragment, fragment.getTag());
     ft.addToBackStack(fragment.getTag());
     ft.commit();
   }
+
+  @Override
+  public void onSensorChanged(SensorEvent event) {
+    mazeView.checkWin();
+    float x = event.values[0];
+    float y = event.values[1];
+    if (Math.abs(x) > Math.abs(y)) {
+//      if (x < 0) {
+      if (x < -3) {
+        mazeView.moveBall(Direction.EAST);
+        System.out.println("You tilted the device right");
+      }
+      if (x > 3) {
+        mazeView.moveBall(Direction.WEST);
+        System.out.println("You tilted the device left");
+      }
+    } else {
+      if (y < -3) {
+        mazeView.moveBall(Direction.NORTH);
+        System.out.println("You tilted the device up");
+      }
+      if (y > 3) {
+        mazeView.moveBall(Direction.SOUTH);
+        System.out.println("You tilted the device down");
+      }
+    }
+    if (x > (-2) && x < (2) && y > (-2) && y < (2)) {
+      System.out.println("Not tilting device");
+    }
+  }
+
+  @Override
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    manager.unregisterListener(this);
+
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+  }
+
 }

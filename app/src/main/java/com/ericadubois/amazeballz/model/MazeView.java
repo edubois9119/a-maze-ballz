@@ -1,24 +1,13 @@
 package com.ericadubois.amazeballz.model;
 
-import static com.ericadubois.amazeballz.model.Direction.NORTH;
-import static com.ericadubois.amazeballz.model.Direction.SOUTH;
-import static com.ericadubois.amazeballz.model.Direction.WEST;
-import static com.ericadubois.amazeballz.model.Direction.EAST;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentTransaction;
-import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.controller.MazeFragment;
 
 /**
@@ -29,6 +18,7 @@ public class MazeView extends View {
   private MazeFragment mazeFragment;
   private Cell[][] cells;
   private Cell ball, exit;
+  private float ballSpeed;
   private static final float WALL_THICKNESS = 4;
   private Paint wallPaint, ballPaint, exitPaint;
   private float radius;
@@ -92,16 +82,15 @@ public class MazeView extends View {
             int endRow = startRow + d.getColumnOffset();
             canvas.drawLine(startCol * cellWidth, startRow * cellHeight,
                 endCol * cellWidth, endRow * cellHeight, wallPaint);
-            canvas.drawCircle((float) (ball.getColumn() + .5) * cellWidth,
-                (float) (ball.getRow() + .5) * cellHeight, radius, ballPaint);
-            canvas.drawCircle((float) (exit.getColumn() + .5) * cellWidth,
-                (float) (exit.getRow() + .5) * cellHeight, radius, exitPaint);
+            canvas.drawCircle( (ball.getColumn() + .5f) * cellWidth,
+                 (ball.getRow() + .5f) * cellHeight, radius, ballPaint);
+            canvas.drawCircle( (exit.getColumn() + .5f) * cellWidth,
+                 (exit.getRow() + .5f) * cellHeight, radius, exitPaint);
           }
         }
       }
     }
   }
-
 
   /**
    * Sets cells.
@@ -115,14 +104,13 @@ public class MazeView extends View {
     postInvalidate();
   }
 
-  private void moveBall(Direction direction) {
+  public void moveBall(Direction direction) {
     if (!ball.getWalls().contains(direction)) {
       ball = cells[ball.getRow() + direction.getRowOffset()][ball.getColumn() + direction
           .getColumnOffset()];
       invalidate();
     }
   }
-
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
@@ -138,8 +126,8 @@ public class MazeView extends View {
       int height = getHeight();
       float cellHeight = (height - WALL_THICKNESS) / cells.length;
       float cellWidth = (width - WALL_THICKNESS) / cells[0].length;
-      float ballCenterX = (float) (ball.getColumn() + 0.5f) * cellWidth;
-      float ballCenterY = (float) (ball.getRow() + 0.5f) * cellHeight;
+      float ballCenterX = (ball.getColumn() + 0.5f) * cellWidth;
+      float ballCenterY = (ball.getRow() + 0.5f) * cellHeight;
 
       float dx = x - ballCenterX;
       float dy = y - ballCenterY;
@@ -173,50 +161,15 @@ public class MazeView extends View {
     this.mazeFragment = mazeFragment;
   }
 
-  private void checkWin() {
+  public void checkWin() {
     if (ball.getColumn() == exit.getColumn() && ball.getRow() == exit.getRow()) {
+
       mazeFragment.switchFragment();
       System.out.println("Winner");
-      //TODO Switch to Completion Fragment
+
     }
   }
-//  @Override
-//  public void onSensorChanged(SensorEvent event) {
-//    float x = event.values[0];
-//    float y = event.values[1];
-//    if (Math.abs(x) > Math.abs(y)) {
-//      if (x < 0) {
-//        moveBall(EAST);
-//        System.out.println("You tilt the device right");
-//      }
-//      if (x > 0) {
-//        moveBall(WEST);
-//        System.out.println("You tilt the device left");
-//      }
-//    } else {
-//      if (y < 0) {
-//        moveBall(NORTH);
-//        System.out.println("You tilt the device up");
-//      }
-//      if (y > 0) {
-//        moveBall(SOUTH);
-//        System.out.println("You tilt the device down");
-//      }
-//    }
-//    if (x > (-2) && x < (2) && y > (-2) && y < (2)) {
-//      System.out.println("Not tilt device");
-//    }
-//  }
-//
-//  @Override
-//  public void onAccuracyChanged (Sensor sensor,int accuracy){
-//
-//  }
 }
-
-//
-//
-//
 //  @NonNull
 //  @Override
 //  public String toString() {

@@ -38,3 +38,5 @@ time taken to complete the maze is being put into the database.
 
 #### [Basic User Instructions](docs/basic-user-instructions.md)
 
+#### [Technical Requirements & Dependencies](docs/tech-requirement-dependencies.md) 
+

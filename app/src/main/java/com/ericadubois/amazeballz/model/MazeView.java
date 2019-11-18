@@ -42,9 +42,7 @@ public class MazeView extends View {
     exitPaint.setColor(Color.RED);
   }
 
-  /**
-   * Required for the onDraw
-   */
+
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     int contentSize = Math.max(getSuggestedMinimumWidth(), getSuggestedMinimumHeight());
@@ -95,7 +93,7 @@ public class MazeView extends View {
   }
 
   /**
-   * Sets cells.
+   * Sets cells of the maze.
    *
    * @param cells the cells
    */
@@ -114,6 +112,11 @@ public class MazeView extends View {
     postInvalidate();
   }
 
+  /**
+   * Move ball.
+   *
+   * @param direction the direction
+   */
   public void moveBall(Direction direction) {
     if (!ballView.isMovable()) {
       return;
@@ -128,7 +131,7 @@ public class MazeView extends View {
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
-    checkWin();
+    checkCompletion();
     if (event.getAction() == MotionEvent.ACTION_DOWN) {
       return true;
     }
@@ -171,14 +174,29 @@ public class MazeView extends View {
     return super.onTouchEvent(event);
   }
 
+  /**
+   * Sets maze fragment.
+   *
+   * @param mazeFragment the maze fragment
+   */
   public void setMazeFragment(MazeFragment mazeFragment) {
     this.mazeFragment = mazeFragment;
   }
+
+  /**
+   * Set ball view.
+   *
+   * @param ballView the ball view
+   */
   public void setBallView(BallView ballView){
     this.ballView = ballView;
   }
 
-  public void checkWin() {
+  /**
+   * Checks for completion of maze. When maze is successfully completed, maze fragment is switched
+   * with completion fragment
+   */
+  public void checkCompletion() {
     if (ball.getColumn() == exit.getColumn() && ball.getRow() == exit.getRow()) {
 
       mazeFragment.switchFragment();
@@ -187,15 +205,4 @@ public class MazeView extends View {
     }
   }
 }
-//  @NonNull
-//  @Override
-//  public String toString() {
-//    String numbers = "";
-//    for (int row = 0; row < rows; row++){
-//      for (int col = 0; col < columns; columns++){
-//        numbers += cells[row][col].toString();
-//      }
-//    }
-//    return super.toString();
-//  }
-//
+

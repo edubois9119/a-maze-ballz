@@ -38,7 +38,7 @@ public class Cell {
   /**
    * Is visited boolean.
    *
-   * @return the boolean
+   * @return the boolean; true if cell has been visited, otherwise false.
    */
   public boolean isVisited() {
     return this.visited;
@@ -47,24 +47,44 @@ public class Cell {
   /**
    * Sets visited.
    *
-   * @param visited the visited
+   * @param visited the visited cell.
    */
   public void setVisited(boolean visited) {
     this.visited = visited;
   }
 
+  /**
+   * Gets row.
+   *
+   * @return the row
+   */
   public int getRow() {
     return row;
   }
 
+  /**
+   * Gets column.
+   *
+   * @return the column
+   */
   public int getColumn() {
     return column;
   }
 
+  /**
+   * Gets walls.
+   *
+   * @return the walls of the cell
+   */
   public List<Direction> getWalls() {
     return walls;
   }
 
+  /**
+   * Sets walls.
+   *
+   * @param directions the directions
+   */
   public void setWalls(List<Direction> directions) {
   }
 
@@ -124,7 +144,7 @@ public class Cell {
 
 
   /**
-   * Build.
+   * Builds the maze from the give array of cells.
    *
    * @param cells the cells
    */
@@ -153,6 +173,11 @@ public class Cell {
     }
   }
 
+  /**
+   * Value char.
+   *
+   * @return the char
+   */
   public char value() {
     int value = 0;
     for (Direction direction : getWalls()) {
@@ -165,26 +190,6 @@ public class Cell {
   @Override
   public String toString() {
     return "Cell [" + row + "][" + column + "]: has " + walls;
-
-  }
-
-  public enum CellAsHex {
-
-    NO_WALLS,
-    WEST_WALL,
-    SOUTH_WALL,
-    WEST_SOUTH,
-    EAST_WALL,
-    EAST_WEST,
-    SOUTH_EAST,
-    WEST_SOUTH_EAST,
-    NORTH_WALL,
-    NORTH_WEST,
-    NORTH_WEST_SOUTH,
-    NORTH_EAST,
-    WEST_NORTH_EAST,
-    NORTH_EAST_SOUTH,
-    ALL_WALLS;
   }
 }
 

@@ -1,11 +1,13 @@
 package com.ericadubois.amazeballz;
 
 import android.app.Application;
-import com.ericadubois.amazeballz.model.entity.Attempt;
 import com.ericadubois.amazeballz.service.AMazeBallzDatabase;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
 import com.facebook.stetho.Stetho;
 
+/**
+ * The type A maze ballz application.
+ */
 public class AMazeBallzApplication extends Application {
 
   @Override

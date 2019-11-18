@@ -51,10 +51,6 @@ public interface AttemptDao {
   LiveData<List<Attempt>> getSuccessfulMazes(long userId);
 
 
-  //get outcome
-  //get duration
-  //TODO need to create pojo for this duration calculation
-
 
 }
 

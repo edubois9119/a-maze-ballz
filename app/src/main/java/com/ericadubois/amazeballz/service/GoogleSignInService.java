@@ -12,6 +12,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+/**
+ * This class handles the Google Sign in service.
+ */
 public class GoogleSignInService {
 
 
@@ -31,21 +34,47 @@ public class GoogleSignInService {
     client= GoogleSignIn.getClient(applicationContext, options);
   }
 
+  /**
+   * Sets application context.
+   *
+   * @param applicationContext the application context
+   */
   public static void setApplicationContext(Application applicationContext) {
     GoogleSignInService.applicationContext = applicationContext;
   }
+
+  /**
+   * Gets instance.
+   *
+   * @return the instance
+   */
   public static GoogleSignInService getInstance() {
     return InstanceHolder.INSTANCE;
   }
 
+  /**
+   * Gets google account.
+   *
+   * @return the google account
+   */
   public LiveData<GoogleSignInAccount> getAccount() {
     return account;
   }
 
+  /**
+   * Gets sign in exception.
+   *
+   * @return the sign in exception
+   */
   public LiveData<Exception> getException() {
     return exception;
   }
 
+  /**
+   * Refreshes google sign in task.
+   *
+   * @return the refreshed task
+   */
   public Task<GoogleSignInAccount> refresh() {
     return client.silentSignIn()
         .addOnSuccessListener(this::update)
@@ -62,12 +91,24 @@ public class GoogleSignInService {
     exception.setValue(ex);
   }
 
+  /**
+   * Start sign in.
+   *
+   * @param activity    the activity
+   * @param requestCode the request code
+   */
   public void startSignIn(Activity activity, int requestCode) {
     update((GoogleSignInAccount) null);
     Intent intent = client.getSignInIntent();
     activity.startActivityForResult(intent, requestCode);
   }
 
+  /**
+   * Complete sign in task.
+   *
+   * @param data the data
+   * @return the completed sign in task
+   */
   public Task<GoogleSignInAccount> completeSignIn(Intent data){
     Task<GoogleSignInAccount> task = null;
     try {
@@ -79,6 +120,11 @@ public class GoogleSignInService {
     return task;
   }
 
+  /**
+   * Sign out task.
+   *
+   * @return the sign out task
+   */
   public Task<Void> signOut() {
     return client.signOut()
         .addOnCompleteListener((account) -> update((GoogleSignInAccount) null));

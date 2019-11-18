@@ -1,9 +1,5 @@
 package com.ericadubois.amazeballz.service;
 
-//What is the main navigation mechanism going to use? What happens after the login?
-//use tab navigation for card selection in dominion
-//Json file/application?
-
 import android.app.Application;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -23,6 +19,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+
 @Database(
     entities = {Maze.class, Attempt.class, User.class},
     version = 1, exportSchema = true
@@ -32,18 +29,43 @@ public abstract class AMazeBallzDatabase extends RoomDatabase {
 
   private static Application applicationContext;
 
+  /**
+   * Sets application context.
+   *
+   * @param applicationContext the application context
+   */
   public static void setApplicationContext(Application applicationContext) {
     AMazeBallzDatabase.applicationContext = applicationContext;
   }
 
+  /**
+   * Gets instance of AMazeBallz database
+   *
+   * @return the instance
+   */
   public static AMazeBallzDatabase getInstance() {
     return InstanceHolder.INSTANCE;
   }
 
+  /**
+   * Gets maze dao.
+   *
+   * @return the maze dao
+   */
   public abstract MazeDao getMazeDao();
 
+  /**
+   * Gets attempt dao.
+   *
+   * @return the attempt dao
+   */
   public abstract AttemptDao getAttemptDao();
 
+  /**
+   * Gets user dao.
+   *
+   * @return the user dao
+   */
   public abstract UserDao getUserDao();
 
   private static class InstanceHolder {
@@ -57,18 +79,39 @@ public abstract class AMazeBallzDatabase extends RoomDatabase {
     }
   }
 
+  /**
+   * This class uses TypeConverters to communicate with the database.
+   */
   public static class Converters {
 
+    /**
+     * Maze start time.
+     *
+     * @param date the date
+     * @return the long
+     */
     @TypeConverter
     public Long mazeStarted(Date date) {
       return (date != null) ? date.getTime() : null;
     }
 
+    /**
+     * Maze end time.
+     *
+     * @param milliseconds the milliseconds
+     * @return the date
+     */
     @TypeConverter
     public Date mazeEnded(Long milliseconds) {
       return (milliseconds != null) ? new Date(milliseconds) : null;
     }
 
+    /**
+     * Converts the cell array of hex digits to a string.
+     *
+     * @param cells the cells
+     * @return the string
+     */
     @TypeConverter
     public String cellsToString(Cell[][] cells) {
       if (cells == null) {
@@ -86,6 +129,12 @@ public abstract class AMazeBallzDatabase extends RoomDatabase {
       return builder.toString();
     }
 
+    /**
+     * Converts the String to the cells array of hex digits.
+     *
+     * @param value the value
+     * @return the cell [ ] [ ]
+     */
     @TypeConverter
     public Cell[][] stringToCells(String value) {
       int rows = 0;

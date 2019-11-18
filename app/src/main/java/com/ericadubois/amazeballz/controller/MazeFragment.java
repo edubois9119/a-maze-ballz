@@ -28,18 +28,14 @@ import com.ericadubois.amazeballz.model.entity.Maze;
 import com.ericadubois.amazeballz.viewmodel.MazeViewModel;
 
 /**
- * This fragment holds the maze view and the ball view. 
+ * This fragment holds the maze view and the ball view.
  */
 public class MazeFragment extends Fragment implements SensorEventListener {
 
   private static final String ROWS_KEY = "rows";
-
   private static final String COLUMNS_KEY = "columns";
-
   private static final int DEFAULT_SIZE = 10;
-
   private static final String LEVEL_KEY = "level";
-
   private MazeViewModel viewModel;
 
 
@@ -61,7 +57,7 @@ public class MazeFragment extends Fragment implements SensorEventListener {
 
 
   /**
-   * New instance maze fragment. This new instance bundles the necessary items for storing a maze to 
+   * New instance maze fragment. This new instance bundles the necessary items for storing a maze to
    * the data base.
    *
    * @param level   the level
@@ -96,7 +92,6 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     setHasOptionsMenu(true);
     manager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
     accelerometer = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
     //set up mazeTimer
 //    setupMazeTimer();
     return view;
@@ -106,24 +101,23 @@ public class MazeFragment extends Fragment implements SensorEventListener {
 //    mazeTimer = view.findViewById(R.id.chrono);
 //    startTime = SystemClock.elapsedRealtime();
 //    mazeTimer.setOnChronometerTickListener(arg0 -> {
-////      countUp = (SystemClock.elapsedRealtime() - arg0.getBase()) / 1000;
-////      String asText = (countUp / 60) + ":" + (countUp % 60);
+//     countUp = (SystemClock.elapsedRealtime() - arg0.getBase()) / 1000;
+//     String asText = (countUp / 60) + ":" + (countUp % 60);
 //    });
-
-    toggleChronometer();
-
+//
+//    toggleChronometer();
   }
 
   /**
    * Starts the chronometer that measures time taken to complete a maze.
    */
-  public void startChronometer() {
-    if (!running) {
-      mazeTimer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-      mazeTimer.start();
-      running = true;
-    }
-  }
+//  public void startChronometer() {
+//    if (!running) {
+//      mazeTimer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+//      mazeTimer.start();
+//      running = true;
+//    }
+//  }
 
   /**
    * This method toggles between the pause and resume functionality on the chronometer.
@@ -134,14 +128,12 @@ public class MazeFragment extends Fragment implements SensorEventListener {
       pauseOffset = SystemClock.elapsedRealtime() - mazeTimer.getBase();
       running = false;
     } else {
-      if (pauseOffset == 0) {
-        mazeTimer.setBase(SystemClock.elapsedRealtime());
-      }
+      mazeTimer.setBase(SystemClock.elapsedRealtime()- pauseOffset);
       mazeTimer.start();
       running = true;
     }
   }
-  
+
 
 
   @Override
@@ -150,11 +142,11 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     MenuItem item = menu.findItem(R.id.chrono);
     View view = item.getActionView();
     mazeTimer = view.findViewById(R.id.chronometer);
-    setupMazeTimer();
+    toggleChronometer();
     super.onCreateOptionsMenu(menu, inflater);
   }
 
- 
+
   @Override
   public void onPrepareOptionsMenu(@NonNull Menu menu) {
     if (running) {
@@ -171,9 +163,9 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     boolean handled = true;
     switch (item.getItemId()) {
       case R.id.pause:
-//        pauseChronometer();
-//        getActivity().invalidateOptionsMenu();
-//        break;
+//        toggleChronometer();
+        getActivity().invalidateOptionsMenu();
+        break;
       case R.id.resume:
 //       toggleChronometer();
         getActivity().invalidateOptionsMenu();
@@ -197,13 +189,12 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     maze.setLevel(level);
     maze.setWalls(mazeBuilder.getCells());
     viewModel.saveMaze(maze);
-//    mazeTimer = viewModel.getStopWatch();
 //    startChronometer();
   }
 
   /**
-   * This method allows for the switch between the maze fragment and the completion fragment. The 
-   * completion fragment is the fragment displayed when the user completes the maze. 
+   * This method allows for the switch between the maze fragment and the completion fragment. The
+   * completion fragment is the fragment displayed when the user completes the maze.
    */
   public void switchFragment() {
     CompletionFragment fragment = new CompletionFragment();
@@ -215,7 +206,7 @@ public class MazeFragment extends Fragment implements SensorEventListener {
 
   @Override
   public void onSensorChanged(SensorEvent event) {
-    mazeView.checkWin();
+    mazeView.checkCompletion();
     float x = event.values[0];
     float y = event.values[1];
     if (Math.abs(x) > Math.abs(y)) {

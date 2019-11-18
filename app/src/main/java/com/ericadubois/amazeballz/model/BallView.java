@@ -11,6 +11,9 @@ import android.view.View;
 import com.ericadubois.amazeballz.controller.MazeFragment;
 import java.util.Random;
 
+/**
+ * This class creates a BallView. It allows the ball to move fluidly on the screen.
+ */
 public class BallView extends View {
   private Paint ballPaint;
   private PointF velocity;
@@ -25,6 +28,12 @@ public class BallView extends View {
   private boolean movable = true;
   private Random random;
 
+  /**
+   * Instantiates a new Ball view.
+   *
+   * @param context the context
+   * @param attrs   the attrs
+   */
   public BallView(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
 
@@ -44,6 +53,11 @@ public class BallView extends View {
     updateLocation();
   }
 
+  /**
+   * Sets maze fragment.
+   *
+   * @param mazeFragment the maze fragment
+   */
   public void setMazeFragment(MazeFragment mazeFragment) {
     this.mazeFragment = mazeFragment;
   }
@@ -65,6 +79,11 @@ public class BallView extends View {
     }
   }
 
+  /**
+   * Is movable boolean.
+   *
+   * @return the boolean
+   */
   public boolean isMovable() {
     return movable;
   }
@@ -74,18 +93,41 @@ public class BallView extends View {
     velocity.y += acceleration.y * elapsedTime;
   }
 
+  /**
+   * Gets velocity of the ball.
+   *
+   * @return the velocity
+   */
   public PointF getVelocity() {
     return velocity;
   }
 
+  /**
+   * Sets velocity of the ball.
+   *
+   * @param velocity the velocity
+   */
   public void setVelocity(PointF velocity) {
     this.velocity = velocity;
   }
 
+  /**
+   * Sets upper left point of the ball.
+   *
+   * @param x the x
+   * @param y the y
+   */
   public void setUpperLeft(float x, float y) {
     upperLeft = new PointF(x, y);
     invalidate();
   }
+
+  /**
+   * Sets destination point of the ball.
+   *
+   * @param x the x coordinate of the ball's destination
+   * @param y the y coordinate of the ball's destination
+   */
   public void setDestination(float x, float y) {
     velocity.x = (x - upperLeft.x) / time;
     velocity.y = (y - upperLeft.y) / time;
@@ -100,10 +142,20 @@ public class BallView extends View {
 //        topLeftLocation.y + radius);
 //  }
 
+  /**
+   * Gets the radius of the ball.
+   *
+   * @return the radius of the ball
+   */
   public float getRadius() {
     return radius;
   }
 
+  /**
+   * Sets radius of ball.
+   *
+   * @param radius the radius of the ball
+   */
   public void setRadius(float radius) {
     this.radius = radius;
   }

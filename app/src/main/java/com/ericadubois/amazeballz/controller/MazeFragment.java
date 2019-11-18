@@ -183,16 +183,20 @@ public class MazeFragment extends Fragment implements SensorEventListener {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    viewModel = ViewModelProviders.of(getActivity()).get(MazeViewModel.class);
-//    viewModel= ViewModelProviders.of(this).get(MazeViewModel.class);
-    MazeBuilder mazeBuilder = new MazeBuilder(this.rows, this.columns);
-    mazeView.setCells(mazeBuilder.getCells());
-    maze = new Maze();
-    maze.setGridColumns(columns);
-    maze.setGridRows(rows);
-    maze.setLevel(level);
-    maze.setWalls(mazeBuilder.getCells());
-    viewModel.saveMaze(maze);
+//    viewModel = ViewModelProviders.of(getActivity()).get(MazeViewModel.class);
+    viewModel= ViewModelProviders.of(this).get(MazeViewModel.class);
+    viewModel.getMaze().observe(this, (maze) -> {
+      this.maze = maze;
+      if (maze != null){
+        mazeView.setCells(maze.getWalls());
+      }else{
+        viewModel.loadMaze(rows, columns, level);
+      }
+    } );
+
+
+
+
 
     //make a new attempt
 //    attempt = new Attempt();
@@ -223,31 +227,33 @@ public class MazeFragment extends Fragment implements SensorEventListener {
 
   @Override
   public void onSensorChanged(SensorEvent event) {
-    mazeView.checkCompletion();
-    float x = event.values[0];
-    float y = event.values[1];
-    if (Math.abs(x) > Math.abs(y)) {
+    if (maze != null) {
+      mazeView.checkCompletion();
+      float x = event.values[0];
+      float y = event.values[1];
+      if (Math.abs(x) > Math.abs(y)) {
 //      if (x < 0) {
-      if (x < -3) {
-        mazeView.moveBall(Direction.EAST);
-        System.out.println("You tilted the device right");
+        if (x < -3) {
+          mazeView.moveBall(Direction.EAST);
+          System.out.println("You tilted the device right");
+        }
+        if (x > 3) {
+          mazeView.moveBall(Direction.WEST);
+          System.out.println("You tilted the device left");
+        }
+      } else {
+        if (y < -3) {
+          mazeView.moveBall(Direction.NORTH);
+          System.out.println("You tilted the device up");
+        }
+        if (y > 3) {
+          mazeView.moveBall(Direction.SOUTH);
+          System.out.println("You tilted the device down");
+        }
       }
-      if (x > 3) {
-        mazeView.moveBall(Direction.WEST);
-        System.out.println("You tilted the device left");
+      if (x > (-2) && x < (2) && y > (-2) && y < (2)) {
+        System.out.println("Not tilting device");
       }
-    } else {
-      if (y < -3) {
-        mazeView.moveBall(Direction.NORTH);
-        System.out.println("You tilted the device up");
-      }
-      if (y > 3) {
-        mazeView.moveBall(Direction.SOUTH);
-        System.out.println("You tilted the device down");
-      }
-    }
-    if (x > (-2) && x < (2) && y > (-2) && y < (2)) {
-      System.out.println("Not tilting device");
     }
   }
 

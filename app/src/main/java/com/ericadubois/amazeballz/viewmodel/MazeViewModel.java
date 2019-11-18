@@ -1,13 +1,17 @@
 package com.ericadubois.amazeballz.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import com.ericadubois.amazeballz.model.MazeBuilder;
 import com.ericadubois.amazeballz.model.entity.Attempt;
 import com.ericadubois.amazeballz.model.entity.Maze;
 import com.ericadubois.amazeballz.service.AMazeBallzDatabase;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * The type Maze view model.
@@ -15,6 +19,7 @@ import com.ericadubois.amazeballz.service.AMazeBallzDatabase;
 public class MazeViewModel extends AndroidViewModel implements LifecycleObserver {
 
   private MazeBuilder mazeBuilder;
+  private MutableLiveData<Maze> maze= new MutableLiveData<>(null);
 
   private final AMazeBallzDatabase database;
 
@@ -58,5 +63,34 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
     new Thread(()->database.getAttemptDao().update(attempt)).start();
   }
 
+  public void loadMaze(int rows, int columns, int level){
+    database.getMazeDao().mazesByDifficulty(rows, columns, level)
+        .subscribeOn(Schedulers.io())
+        .subscribe(
+            (maze)-> {
+              this.maze.postValue(maze);
+              // TODO Create a new atttempt against this maze.
+            },
+            (ex)-> {
+              Log.e(ex.getClass().getSimpleName(), ex.getMessage(), ex);
+            },
+            ()-> {
+              MazeBuilder mazeBuilder = new MazeBuilder(rows, columns);
+              Maze maze = new Maze();
+              maze.setGridColumns(columns);
+              maze.setGridRows(rows);
+              maze.setLevel(level);
+              maze.setWalls(mazeBuilder.getCells());
+              long id= database.getMazeDao().insert(maze);
+              maze.setId(id);
+              this.maze.postValue(maze);
+              // TODO Create a new attempt against this maze.
+            });
+
+  }
+
+  public LiveData<Maze> getMaze() {
+    return maze;
+  }
 }
 

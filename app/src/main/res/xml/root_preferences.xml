@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <PreferenceCategory
+    app:title="Touch">
+
+  <SwitchPreferenceCompat
+    app:key="touch_movement"
+    app:title="Touch"
+    android:summary="Switches movement function from tilt to touch"/>
+
+  </PreferenceCategory>
+</PreferenceScreen>

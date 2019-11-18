@@ -197,7 +197,7 @@ public class MazeView extends View {
    * with completion fragment
    */
   public void checkCompletion() {
-    if (ball.getColumn() == exit.getColumn() && ball.getRow() == exit.getRow()) {
+    if (ball != null && ball.getColumn() == exit.getColumn() && ball.getRow() == exit.getRow()) {
 
       mazeFragment.switchFragment();
       System.out.println("Winner");

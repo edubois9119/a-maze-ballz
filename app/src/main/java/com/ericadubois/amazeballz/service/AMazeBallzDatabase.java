@@ -137,18 +137,16 @@ public abstract class AMazeBallzDatabase extends RoomDatabase {
      */
     @TypeConverter
     public Cell[][] stringToCells(String value) {
-      int rows = 0;
-      int columns = 0;
-      Cell[][] cells = new Cell[rows][columns];
       if (value == null) {
-        return cells;
+        return new Cell[0][];
       }
-      rows = Integer.parseInt(value.substring(0, 2), 16);
-      columns = Integer.parseInt(value.substring(2, 4), 16);
+      int rows = Integer.parseInt(value.substring(0, 2), 16);
+      int columns = Integer.parseInt(value.substring(2, 4), 16);
+      Cell[][] cells = new Cell[rows][columns];
       char[] chars = value.substring(4).toCharArray();
-      Cell cell = new Cell(rows, columns);
       for (int row = 0; row < rows; row++) {
         for (int col = 0; col < columns; col++) {
+          Cell cell = new Cell(row, col);
           char c = chars[row * columns + col];
           int directionValue = Integer.parseInt("" + c, 16);
           List<Direction> directions = new LinkedList<>();
@@ -156,9 +154,9 @@ public abstract class AMazeBallzDatabase extends RoomDatabase {
             if ((directionValue & (1 << dir.ordinal())) != 0) {
               directions.add(dir);
             }
-            cell.setWalls(directions);
-            cells[row][col] = cell;
           }
+          cell.setWalls(directions);
+          cells[row][col] = cell;
         }
       }
       return cells;

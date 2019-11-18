@@ -7,6 +7,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import com.ericadubois.amazeballz.model.entity.Maze;
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 import java.util.List;
 
 /**
@@ -60,6 +62,9 @@ public interface MazeDao {
   @Query("SELECT * FROM Maze WHERE level = :level")
   LiveData<List<Maze>> mazesByDifficulty(int level);
 
+  @Query("SELECT m.* FROM Maze m LEFT JOIN Attempt att ON m.maze_id= att.maze_id AND att.solved "
+      + "WHERE m.grid_rows= :rows and m.grid_columns= :columns and m.level = :level and att.attempt_id IS NULL ORDER BY RANDOM() LIMIT 1")
+  Maybe<Maze> mazesByDifficulty(int rows, int columns, int level);
   /**
    * Finds all mazes by difficulty(level) live data.
    *

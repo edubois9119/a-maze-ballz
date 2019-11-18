@@ -86,6 +86,7 @@ public class Cell {
    * @param directions the directions
    */
   public void setWalls(List<Direction> directions) {
+    this.walls = directions;
   }
 
   /**

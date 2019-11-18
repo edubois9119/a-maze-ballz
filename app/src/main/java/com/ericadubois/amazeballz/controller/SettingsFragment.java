@@ -1,0 +1,16 @@
+package com.ericadubois.amazeballz.controller;
+
+import android.os.Bundle;
+import android.preference.PreferenceFragment;
+import androidx.preference.PreferenceFragmentCompat;
+import com.ericadubois.amazeballz.R;
+
+public class SettingsFragment extends PreferenceFragmentCompat {
+
+
+  @Override
+  public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    setPreferencesFromResource(R.xml.root_preferences, rootKey);
+  }
+}
+

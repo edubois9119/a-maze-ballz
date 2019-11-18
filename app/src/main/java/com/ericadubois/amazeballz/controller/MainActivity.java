@@ -2,6 +2,7 @@ package com.ericadubois.amazeballz.controller;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 
 import android.view.Menu;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.PreferenceManager;
 import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
 import com.ericadubois.amazeballz.viewmodel.MazeViewModel;
@@ -24,9 +26,11 @@ import com.ericadubois.amazeballz.viewmodel.MazeViewModel;
 /**
  * The Main activity is the controller for the UI.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+    implements SharedPreferences.OnSharedPreferenceChangeListener{
   private View view;
   private MazeViewModel mazeViewModel;
+  private SharedPreferences preferences;
 
 
   @Override
@@ -43,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     view = this.getWindow().getDecorView();
     view.setBackgroundColor(Color.BLACK);
 
+    preferences= PreferenceManager.getDefaultSharedPreferences(this);
+    preferences.registerOnSharedPreferenceChangeListener(this);
+
     LevelSelectFragment levelFrag = new LevelSelectFragment();
     addFragment(levelFrag, true);
   }
@@ -57,10 +64,15 @@ public class MainActivity extends AppCompatActivity {
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     boolean handled = true;
+    Intent intent;
     switch (item
         .getItemId()) { //all primitive types except float, long double, wrappers for same times, enums, strings
       case R.id.sign_out:
         signOut();
+        break;
+      case R.id.preferences:
+        intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
         break;
       default:
         handled = super.onOptionsItemSelected(item);
@@ -77,6 +89,11 @@ public class MainActivity extends AppCompatActivity {
         });
   }
 
+  private void myStats(){
+    //TODO need to connect this to Stats fragment when item is clicked and load info from database
+    // into fragment
+  }
+
   private void addFragment(Fragment fragment, boolean useStack) {
     FragmentManager manager = getSupportFragmentManager();
     String tag = fragment.getClass().getSimpleName();
@@ -89,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
       transaction.addToBackStack(tag);
     }
     transaction.commit();
+  }
+
+  @Override
+  public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
   }
 }
 

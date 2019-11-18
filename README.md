@@ -34,3 +34,7 @@ time taken to complete the maze is being put into the database.
 
 #### [DDL](docs/ddl.md)
 
+#### [Build Instructions](docs/build-instructions.md)
+
+#### [Basic User Instructions](docs/basic-user-instructions.md)
+

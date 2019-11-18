@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
+import android.widget.ImageSwitcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -24,6 +25,7 @@ import com.ericadubois.amazeballz.model.BallView;
 import com.ericadubois.amazeballz.model.Direction;
 import com.ericadubois.amazeballz.model.MazeBuilder;
 import com.ericadubois.amazeballz.model.MazeView;
+import com.ericadubois.amazeballz.model.entity.Attempt;
 import com.ericadubois.amazeballz.model.entity.Maze;
 import com.ericadubois.amazeballz.viewmodel.MazeViewModel;
 
@@ -55,6 +57,8 @@ public class MazeFragment extends Fragment implements SensorEventListener {
   private SensorManager manager;
   private Sensor accelerometer;
 
+  private Maze maze;
+  private Attempt attempt;
 
   /**
    * New instance maze fragment. This new instance bundles the necessary items for storing a maze to
@@ -183,20 +187,33 @@ public class MazeFragment extends Fragment implements SensorEventListener {
 //    viewModel= ViewModelProviders.of(this).get(MazeViewModel.class);
     MazeBuilder mazeBuilder = new MazeBuilder(this.rows, this.columns);
     mazeView.setCells(mazeBuilder.getCells());
-    Maze maze = new Maze();
+    maze = new Maze();
     maze.setGridColumns(columns);
     maze.setGridRows(rows);
     maze.setLevel(level);
     maze.setWalls(mazeBuilder.getCells());
     viewModel.saveMaze(maze);
+
+    //make a new attempt
+//    attempt = new Attempt();
+//    //TODO replace with real user id instead of maze id
+//    attempt.setUserId(maze.getId());
+//    attempt.setMazeId(maze.getId());
+//    viewModel.saveAttempt(attempt);
 //    startChronometer();
   }
+
 
   /**
    * This method allows for the switch between the maze fragment and the completion fragment. The
    * completion fragment is the fragment displayed when the user completes the maze.
    */
   public void switchFragment() {
+//    attempt.setSolved(true);
+//    //TODO is mazeTimer.getBase valid here???
+//    attempt.setTimeSpent(mazeTimer.getBase());
+//    viewModel.updateAttempt(attempt);
+
     CompletionFragment fragment = new CompletionFragment();
     FragmentTransaction ft = getFragmentManager().beginTransaction();
     ft.replace(R.id.fragment_container, fragment, fragment.getTag());

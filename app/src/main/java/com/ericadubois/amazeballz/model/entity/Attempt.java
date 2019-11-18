@@ -1,12 +1,9 @@
 package com.ericadubois.amazeballz.model.entity;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import java.util.Date;
 
 /**
  * Keeps track of all attempts made by a user. Stores number of attempts, outcome, and duration.
@@ -47,31 +44,31 @@ public class Attempt {
    */
   @ColumnInfo(name = "user_id", index = true)
   private long userId;
-  /**
-   * Creates timestamp for start of maze.
-   */
-  @NonNull
-  @ColumnInfo(name= "maze_started", index = true)
-  private Date mazeStarted = new Date();
-  /**
-   * Creates timestamp for start of maze.
-   */
-  @NonNull
-  @ColumnInfo(name= "maze_ended", index = true)
-  private Date mazeEnded = new Date();
-  /**
-   * Creates timestamp for start of pause during completion of a maze.
-   */
-  @NonNull
-  @ColumnInfo(name= "maze_pause_start", index = true)
-  private Date mazePauseStart = new Date();
-
-  /**
-   * Creates timestamp for end of pause during completion of a maze.
-   */
-  @NonNull
-  @ColumnInfo(name= "maze_pause_end", index = true)
-  private Date mazePauseEnd = new Date();
+//  /**
+//   * Creates timestamp for start of maze.
+//   */
+//  @NonNull
+//  @ColumnInfo(name= "maze_started", index = true)
+//  private Date mazeStarted = new Date();
+//  /**
+//   * Creates timestamp for start of maze.
+//   */
+//  @NonNull
+//  @ColumnInfo(name= "maze_ended", index = true)
+//  private Date mazeEnded = new Date();
+//  /**
+//   * Creates timestamp for start of pause during completion of a maze.
+//   */
+//  @NonNull
+//  @ColumnInfo(name= "maze_pause_start", index = true)
+//  private Date mazePauseStart = new Date();
+//
+//  /**
+//   * Creates timestamp for end of pause during completion of a maze.
+//   */
+//  @NonNull
+//  @ColumnInfo(name= "maze_pause_end", index = true)
+//  private Date mazePauseEnd = new Date();
 
   /**
    * Stores outcome of maze. Did you user solve it or quit?
@@ -80,17 +77,17 @@ public class Attempt {
   public Boolean solved;
 
   /**
-   * Stores number of attempts on maze.
+   * Stores time spent on maze.
    */
-  @ColumnInfo(name= "num_Attempts", index = true)
-  private long numAttempts;
+  @ColumnInfo(name= "time_spent", index = true)
+  private long timeSpent;
 
-  public long getNumAttempts() {
-    return numAttempts;
+  public long getTimeSpent() {
+    return timeSpent;
   }
 
-  public void setNumAttempts(long numAttempts) {
-    this.numAttempts = numAttempts;
+  public void setTimeSpent(long timeSpent) {
+    this.timeSpent = timeSpent;
   }
 
   public long getId() {
@@ -101,23 +98,23 @@ public class Attempt {
     this.id = id;
   }
 
-  @NonNull
-  public Date getMazeStarted() {
-    return mazeStarted;
-  }
-
-  public void setMazeStarted(@NonNull Date created) {
-    this.mazeStarted = created;
-  }
-
-  @NonNull
-  public Date getMazeEnded() {
-    return mazeEnded;
-  }
-
-  public void setMazeEnded(@NonNull Date updated) {
-    this.mazeEnded = updated;
-  }
+//  @NonNull
+//  public Date getMazeStarted() {
+//    return mazeStarted;
+//  }
+//
+//  public void setMazeStarted(@NonNull Date created) {
+//    this.mazeStarted = created;
+//  }
+//
+//  @NonNull
+//  public Date getMazeEnded() {
+//    return mazeEnded;
+//  }
+//
+//  public void setMazeEnded(@NonNull Date updated) {
+//    this.mazeEnded = updated;
+//  }
 
   public long getMazeId() {
     return mazeId;
@@ -143,21 +140,21 @@ public class Attempt {
     this.solved = solved;
   }
 
-  @NonNull
-  public Date getMazePauseStart() {
-    return mazePauseStart;
-  }
-
-  public void setMazePauseStart(@NonNull Date mazePauseStart) {
-    this.mazePauseStart = mazePauseStart;
-  }
-
-  @NonNull
-  public Date getMazePauseEnd() {
-    return mazePauseEnd;
-  }
-
-  public void setMazePauseEnd(@NonNull Date mazePauseEnd) {
-    this.mazePauseEnd = mazePauseEnd;
-  }
+//  @NonNull
+//  public Date getMazePauseStart() {
+//    return mazePauseStart;
+//  }
+//
+//  public void setMazePauseStart(@NonNull Date mazePauseStart) {
+//    this.mazePauseStart = mazePauseStart;
+//  }
+//
+//  @NonNull
+//  public Date getMazePauseEnd() {
+//    return mazePauseEnd;
+//  }
+//
+//  public void setMazePauseEnd(@NonNull Date mazePauseEnd) {
+//    this.mazePauseEnd = mazePauseEnd;
+//  }
 }

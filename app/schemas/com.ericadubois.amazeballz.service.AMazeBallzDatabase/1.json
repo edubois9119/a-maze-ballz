@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "7e6fb3cc1f540b0e362e2f91d48447a3",
+    "identityHash": "aad3dfaa11157d3fd18dcae184bf3354",
     "entities": [
       {
         "tableName": "Maze",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`maze_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `grid_rows` INTEGER NOT NULL, `grid_columns` INTEGER NOT NULL, `walls` TEXT, `level` INTEGER NOT NULL, `ball_size` INTEGER NOT NULL, `entrance_x` INTEGER, `entrance_y` INTEGER, `exit_x` INTEGER, `exit_y` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`maze_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `grid_rows` INTEGER NOT NULL, `grid_columns` INTEGER NOT NULL, `walls` TEXT, `level` INTEGER NOT NULL, `entrance_x` INTEGER, `entrance_y` INTEGER, `exit_x` INTEGER, `exit_y` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -35,12 +35,6 @@
           {
             "fieldPath": "level",
             "columnName": "level",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "ballSize",
-            "columnName": "ball_size",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -82,14 +76,14 @@
             "columnNames": [
               "level"
             ],
-            "createSql": "CREATE  INDEX `index_Maze_level` ON `${TABLE_NAME}` (`level`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Maze_level` ON `${TABLE_NAME}` (`level`)"
           }
         ],
         "foreignKeys": []
       },
       {
         "tableName": "Attempt",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`attempt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `maze_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `maze_started` INTEGER NOT NULL, `maze_ended` INTEGER NOT NULL, `maze_pause_start` INTEGER NOT NULL, `maze_pause_end` INTEGER NOT NULL, `solved` INTEGER, `num_Attempts` INTEGER NOT NULL, FOREIGN KEY(`maze_id`) REFERENCES `Maze`(`maze_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`user_id`) REFERENCES `User`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`attempt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `maze_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `solved` INTEGER, `time_spent` INTEGER NOT NULL, FOREIGN KEY(`maze_id`) REFERENCES `Maze`(`maze_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`user_id`) REFERENCES `User`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -110,38 +104,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "mazeStarted",
-            "columnName": "maze_started",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "mazeEnded",
-            "columnName": "maze_ended",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "mazePauseStart",
-            "columnName": "maze_pause_start",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "mazePauseEnd",
-            "columnName": "maze_pause_end",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
             "fieldPath": "solved",
             "columnName": "solved",
             "affinity": "INTEGER",
             "notNull": false
           },
           {
-            "fieldPath": "numAttempts",
-            "columnName": "num_Attempts",
+            "fieldPath": "timeSpent",
+            "columnName": "time_spent",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -159,7 +129,7 @@
             "columnNames": [
               "maze_id"
             ],
-            "createSql": "CREATE  INDEX `index_Attempt_maze_id` ON `${TABLE_NAME}` (`maze_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Attempt_maze_id` ON `${TABLE_NAME}` (`maze_id`)"
           },
           {
             "name": "index_Attempt_user_id",
@@ -167,39 +137,7 @@
             "columnNames": [
               "user_id"
             ],
-            "createSql": "CREATE  INDEX `index_Attempt_user_id` ON `${TABLE_NAME}` (`user_id`)"
-          },
-          {
-            "name": "index_Attempt_maze_started",
-            "unique": false,
-            "columnNames": [
-              "maze_started"
-            ],
-            "createSql": "CREATE  INDEX `index_Attempt_maze_started` ON `${TABLE_NAME}` (`maze_started`)"
-          },
-          {
-            "name": "index_Attempt_maze_ended",
-            "unique": false,
-            "columnNames": [
-              "maze_ended"
-            ],
-            "createSql": "CREATE  INDEX `index_Attempt_maze_ended` ON `${TABLE_NAME}` (`maze_ended`)"
-          },
-          {
-            "name": "index_Attempt_maze_pause_start",
-            "unique": false,
-            "columnNames": [
-              "maze_pause_start"
-            ],
-            "createSql": "CREATE  INDEX `index_Attempt_maze_pause_start` ON `${TABLE_NAME}` (`maze_pause_start`)"
-          },
-          {
-            "name": "index_Attempt_maze_pause_end",
-            "unique": false,
-            "columnNames": [
-              "maze_pause_end"
-            ],
-            "createSql": "CREATE  INDEX `index_Attempt_maze_pause_end` ON `${TABLE_NAME}` (`maze_pause_end`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Attempt_user_id` ON `${TABLE_NAME}` (`user_id`)"
           },
           {
             "name": "index_Attempt_solved",
@@ -207,15 +145,15 @@
             "columnNames": [
               "solved"
             ],
-            "createSql": "CREATE  INDEX `index_Attempt_solved` ON `${TABLE_NAME}` (`solved`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Attempt_solved` ON `${TABLE_NAME}` (`solved`)"
           },
           {
-            "name": "index_Attempt_num_Attempts",
+            "name": "index_Attempt_time_spent",
             "unique": false,
             "columnNames": [
-              "num_Attempts"
+              "time_spent"
             ],
-            "createSql": "CREATE  INDEX `index_Attempt_num_Attempts` ON `${TABLE_NAME}` (`num_Attempts`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Attempt_time_spent` ON `${TABLE_NAME}` (`time_spent`)"
           }
         ],
         "foreignKeys": [
@@ -273,7 +211,7 @@
             "columnNames": [
               "oauth_key"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_User_oauth_key` ON `${TABLE_NAME}` (`oauth_key`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_User_oauth_key` ON `${TABLE_NAME}` (`oauth_key`)"
           }
         ],
         "foreignKeys": []
@@ -282,7 +220,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7e6fb3cc1f540b0e362e2f91d48447a3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aad3dfaa11157d3fd18dcae184bf3354')"
     ]
   }
 }

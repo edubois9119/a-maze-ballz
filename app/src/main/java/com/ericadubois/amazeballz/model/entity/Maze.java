@@ -33,10 +33,6 @@ public class Maze {
    * to the number of boxes of the grid. For example, 5 rows X 5 columns = 25 boxes= 25 hexcodes in
    * walls.
    */
-  //TODO add in hexcode key (use enum) (16).
-  // 0 = no walls, 1= wall on right side etc
-  // 0 = no walls,
-      // 1 = wall on
   @ColumnInfo(name= "walls")
   private Cell[][] walls;
 
@@ -44,7 +40,6 @@ public class Maze {
    * The larger the maze size, the harder the maze. For example, a maze with 5 columns and 5 rows is
    * more difficult than a maze with 3 columns and 3 rows.
    */
-  //TODO determine algorithm for difficulty.
   @ColumnInfo(index = true)
   private int level;
 
@@ -59,13 +54,6 @@ public class Maze {
    */
   @Embedded(prefix = "exit_")
   private Point exit;
-
-
-  /**
-   *  Designates the size of the ball for the maze.
-   */
-  @ColumnInfo(name= "ball_size")
-  private int ballSize;
 
   /**
    * Gets id.
@@ -191,25 +179,6 @@ public class Maze {
    */
   public void setExit(Point exit) {
     this.exit = exit;
-  }
-
-
-  /**
-   * Gets ball size.
-   *
-   * @return the ball size
-   */
-  public int getBallSize() {
-    return ballSize;
-  }
-
-  /**
-   * Sets ball size.
-   *
-   * @param ballSize the ball size
-   */
-  public void setBallSize(int ballSize) {
-    this.ballSize = ballSize;
   }
 
   /**

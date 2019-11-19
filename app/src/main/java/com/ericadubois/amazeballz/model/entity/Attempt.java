@@ -43,7 +43,7 @@ public class Attempt {
    * Creates foreign key for User Id. Connects attempts to specific user.
    */
   @ColumnInfo(name = "user_id", index = true)
-  private long userId;
+  private Long userId;
 //  /**
 //   * Creates timestamp for start of maze.
 //   */
@@ -124,11 +124,11 @@ public class Attempt {
     this.mazeId = mazeId;
   }
 
-  public long getUserId() {
+  public Long getUserId() {
     return userId;
   }
 
-  public void setUserId(long userId) {
+  public void setUserId(Long userId) {
     this.userId = userId;
   }
 

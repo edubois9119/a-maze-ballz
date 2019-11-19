@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "aad3dfaa11157d3fd18dcae184bf3354",
+    "identityHash": "fad802b72b9ef11fa9c6d73e2cb3babc",
     "entities": [
       {
         "tableName": "Maze",
@@ -83,7 +83,7 @@
       },
       {
         "tableName": "Attempt",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`attempt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `maze_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `solved` INTEGER, `time_spent` INTEGER NOT NULL, FOREIGN KEY(`maze_id`) REFERENCES `Maze`(`maze_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`user_id`) REFERENCES `User`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`attempt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `maze_id` INTEGER NOT NULL, `user_id` INTEGER, `solved` INTEGER, `time_spent` INTEGER NOT NULL, FOREIGN KEY(`maze_id`) REFERENCES `Maze`(`maze_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`user_id`) REFERENCES `User`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -101,7 +101,7 @@
             "fieldPath": "userId",
             "columnName": "user_id",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "solved",
@@ -220,7 +220,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aad3dfaa11157d3fd18dcae184bf3354')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fad802b72b9ef11fa9c6d73e2cb3babc')"
     ]
   }
 }

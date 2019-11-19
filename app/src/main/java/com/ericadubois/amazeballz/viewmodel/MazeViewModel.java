@@ -13,6 +13,7 @@ import com.ericadubois.amazeballz.model.entity.Maze;
 import com.ericadubois.amazeballz.model.entity.User;
 import com.ericadubois.amazeballz.service.AMazeBallzDatabase;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -24,9 +25,10 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
   private boolean touchEnabled;
   private MutableLiveData<User> user= new MutableLiveData<>(null);
   private MutableLiveData<Maze> maze= new MutableLiveData<>(null);
-  private MutableLiveData<Attempt> attempt = new MutableLiveData<>(null);
+//  private MutableLiveData<Attempt> attempt = new MutableLiveData<>(null);
   private MutableLiveData<Long> userId;
   private MutableLiveData<Long> mazeId;
+  private Attempt attempt;
 
   private final AMazeBallzDatabase database;
 
@@ -96,7 +98,7 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
         .subscribe(
             (maze)-> {
               this.maze.postValue(maze);
-              // TODO Create a new attempt against this maze.
+             createAttempt(maze.getId());
             },
             (ex)-> {
               Log.e(ex.getClass().getSimpleName(), ex.getMessage(), ex);
@@ -111,38 +113,24 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
               long id= database.getMazeDao().insert(maze);
               maze.setId(id);
               this.maze.postValue(maze);
-//              loadAttempt(user, maze, 0);
-              // TODO Create a new attempt against this maze.
-//              Attempt attempt = new Attempt();
-//              attempt.setMazeId(id);
-//              attempt.setUserId(123);
-//              long attemptID = database.getAttemptDao().insert(attempt);
-//              attempt.setId(attemptID);
-//              this.attempt.postValue(attempt);
+              createAttempt(id);
             });
   }
 
-  public void loadAttempt(User user, Maze maze, long attemptId){
-    database.getAttemptDao().findById(attemptId)
-        .subscribeOn(Schedulers.io())
-        .subscribe(
-            (attempt)-> {
-              this.attempt.postValue(attempt);
-            },
-            (ex)-> {
-              Log.e(ex.getClass().getSimpleName(), ex.getMessage(), ex);
-            },
-            ()-> {
-              Attempt attempt = new Attempt();
-//              attempt.setUserId(user.getId());
-//              attempt.setMazeId(maze.getId());
-//              attempt.setUserId(getUser().getValue().getId());
-//              attempt.setMazeId(getMaze().getValue().getId());
-              long id = database.getAttemptDao().insert(attempt);
-              attempt.setId(id);
-              this.attempt.postValue(attempt);
-            });
+  private void createAttempt(long id) {
+    attempt = new Attempt();
+    attempt.setMazeId(id);
+    long attemptID = database.getAttemptDao().insert(attempt);
+    attempt.setId(attemptID);
   }
+
+  public void recordSuccess(long duration){
+    attempt.setSolved(true);
+    attempt.setUserId(user.getValue().getId());
+    attempt.setTimeSpent(duration);
+    new Thread(() -> database.getAttemptDao().update(attempt)).start();
+  }
+
 
   public boolean isTouchEnabled() {
     return touchEnabled;
@@ -157,9 +145,6 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
   }
   public LiveData<Maze> getMaze() {
     return maze;
-  }
-  public LiveData<Attempt> getAttempt() {
-    return attempt;
   }
 
 }

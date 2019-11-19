@@ -204,7 +204,7 @@ public class MazeView extends View {
    */
   public void checkCompletion() {
     if (ball != null && ball.getColumn() == exit.getColumn() && ball.getRow() == exit.getRow()) {
-
+      mazeFragment.recordSuccess();
       mazeFragment.switchFragment();
       System.out.println("Winner");
 

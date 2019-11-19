@@ -57,7 +57,7 @@ public class MazeFragment extends Fragment implements SensorEventListener {
 
   private SensorManager manager;
   private Sensor accelerometer;
-
+private  boolean mazeNeeded;
   private User user;
   private Maze maze;
   private Attempt attempt;
@@ -77,6 +77,7 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     args.putInt(ROWS_KEY, rows);
     args.putInt(COLUMNS_KEY, columns);
     args.putInt(LEVEL_KEY, level);
+    args.putBoolean("maze_needed", true);
     fragment.setArguments(args);
     return fragment;
   }
@@ -97,6 +98,8 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     rows = getArguments().getInt(ROWS_KEY, DEFAULT_SIZE);
     columns = getArguments().getInt(COLUMNS_KEY, DEFAULT_SIZE);
     level = getArguments().getInt(LEVEL_KEY);
+    mazeNeeded= getArguments().getBoolean("maze_needed", false);
+    getArguments().remove("maze_needed");
     setHasOptionsMenu(true);
     manager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
     accelerometer = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -219,9 +222,10 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     });
     viewModel.getMaze().observe(this, (maze) -> {
       this.maze = maze;
-      if (maze != null) {
+      if (!mazeNeeded && maze != null) {
         mazeView.setCells(maze.getWalls());
       } else {
+        mazeNeeded = false;
         viewModel.loadMaze(rows, columns, level);
       }
     });
@@ -241,7 +245,9 @@ public class MazeFragment extends Fragment implements SensorEventListener {
 //    startChronometer();
   }
 
-
+public void recordSuccess(){
+    viewModel.recordSuccess(SystemClock.elapsedRealtime()-mazeTimer.getBase());
+}
   /**
    * This method allows for the switch between the maze fragment and the completion fragment. The
    * completion fragment is the fragment displayed when the user completes the maze.

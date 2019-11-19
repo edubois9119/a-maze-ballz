@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import com.ericadubois.amazeballz.model.Cell;
 
 /**
- * The type Maze.
+ * This entity creates the maze table. The table consists of
  */
 @Entity
 public class Maze {

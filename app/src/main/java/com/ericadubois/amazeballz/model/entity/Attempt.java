@@ -6,7 +6,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 /**
- * Keeps track of all attempts made by a user. Stores number of attempts, outcome, and duration.
+ * Keeps track of all attempts made by a user. Stores number of attempts, outcome, and time spent.
  */
 @Entity(
     foreignKeys = {

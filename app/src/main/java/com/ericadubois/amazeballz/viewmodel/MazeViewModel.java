@@ -19,6 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MazeViewModel extends AndroidViewModel implements LifecycleObserver {
 
   private MazeBuilder mazeBuilder;
+  private boolean touchEnabled;
   private MutableLiveData<Maze> maze= new MutableLiveData<>(null);
 
   private final AMazeBallzDatabase database;
@@ -87,6 +88,14 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
               // TODO Create a new attempt against this maze.
             });
 
+  }
+
+  public boolean isTouchEnabled() {
+    return touchEnabled;
+  }
+
+  public void setTouchEnabled(boolean touchEnabled) {
+    this.touchEnabled = touchEnabled;
   }
 
   public LiveData<Maze> getMaze() {

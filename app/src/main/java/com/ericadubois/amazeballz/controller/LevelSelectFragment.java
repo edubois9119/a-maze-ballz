@@ -20,7 +20,7 @@ import java.util.Random;
  * selected, the harder the maze will be.
  */
 public class LevelSelectFragment extends Fragment implements View.OnClickListener {
-  private Button buttonOne;
+
 
   @Nullable
   @Override

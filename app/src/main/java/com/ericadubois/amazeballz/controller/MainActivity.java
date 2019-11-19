@@ -4,6 +4,7 @@ package com.ericadubois.amazeballz.controller;
 import android.content.ClipData.Item;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 
 import android.view.Menu;
@@ -32,7 +33,8 @@ public class MainActivity extends AppCompatActivity
   private View view;
   private MazeViewModel mazeViewModel;
   private SharedPreferences preferences;
-  private StatsFragment statsFragment;
+  private boolean touchEnabled;
+
 
 
   @Override
@@ -75,12 +77,6 @@ public class MainActivity extends AppCompatActivity
         intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
         break;
-//      case R.id.my_stats:
-//        StatsFragment statsFragment= (StatsFragment)getSupportFragmentManager().findFragmentByTag(
-//            String.valueOf(R.id.user_stats));
-//        item.setOnMenuItemClickListener();
-//        myStats();
-//        break;
       default:
         handled = super.onOptionsItemSelected(item);
     }
@@ -95,18 +91,6 @@ public class MainActivity extends AppCompatActivity
           startActivity(intent);
         });
   }
-
-//  private void myStats(){
-//
-//    Intent intent = new Intent(this, StatsFragment.class);
-//    StatsFragment statsFragment=  new StatsFragment();
-//    FragmentTransaction ft= getSupportFragmentManager().beginTransaction()
-//    ft.addToBackStack(LevelSelectFragment.class.getSimpleName());
-//    ft.replace(R.id.fragment_container, statsFragment).commit();
-
-    //TODO need to connect this to Stats fragment when item is clicked and load info from database
-    // into fragment
-
 
   private void addFragment(Fragment fragment, boolean useStack) {
     FragmentManager manager = getSupportFragmentManager();
@@ -124,7 +108,8 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
+    mazeViewModel.setTouchEnabled(preferences.getBoolean("touch_movement", false));
   }
+
 }
 

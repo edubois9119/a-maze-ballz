@@ -22,7 +22,7 @@ public interface AttemptDao {
    * List of Attempts of user for maze
    * @param userId
    * @param mazeId
-   * @return LiveData<List<Attempt>>
+   * @return LiveData list of attempts
    */
   @Query("SELECT * FROM Attempt WHERE user_id=:userId and maze_Id=:mazeId ORDER BY attempt_id DESC")
   LiveData<List<Attempt>> getUserMazeAttempts(long userId, long mazeId);

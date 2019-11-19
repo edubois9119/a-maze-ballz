@@ -69,7 +69,7 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
         .subscribe(
             (maze)-> {
               this.maze.postValue(maze);
-              // TODO Create a new atttempt against this maze.
+              // TODO Create a new attempt against this maze.
             },
             (ex)-> {
               Log.e(ex.getClass().getSimpleName(), ex.getMessage(), ex);

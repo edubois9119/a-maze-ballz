@@ -5,6 +5,9 @@ import android.preference.PreferenceFragment;
 import androidx.preference.PreferenceFragmentCompat;
 import com.ericadubois.amazeballz.R;
 
+/**
+ * The type Settings fragment.
+ */
 public class SettingsFragment extends PreferenceFragmentCompat {
 
 

@@ -79,6 +79,8 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     return fragment;
   }
 
+
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -126,30 +128,54 @@ public class MazeFragment extends Fragment implements SensorEventListener {
   /**
    * This method toggles between the pause and resume functionality on the chronometer.
    */
-  public void toggleChronometer() {
+  public void pauseTimer() {
     if (running) {
-      mazeTimer.stop();
       pauseOffset = SystemClock.elapsedRealtime() - mazeTimer.getBase();
+      mazeTimer.stop();
       running = false;
-    } else {
-      mazeTimer.setBase(SystemClock.elapsedRealtime()- pauseOffset);
-      mazeTimer.start();
-      running = true;
+      getActivity().invalidateOptionsMenu();
     }
   }
 
+  private void resumeTimer() {
+    if (!running) {
+      mazeTimer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+      mazeTimer.start();
+      running = true;
+      getActivity().invalidateOptionsMenu();
+
+    }
+  }
+
+//  @Override
+//  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//    inflater.inflate(R.menu.maze_options, menu);
+//    MenuItem item = menu.findItem(R.id.chrono);
+//    View view = item.getActionView();
+//    mazeTimer = view.findViewById(R.id.chronometer);
+//    pauseTimer();
+//    super.onCreateOptionsMenu(menu, inflater);
+//  }
 
 
   @Override
   public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+    super.onCreateOptionsMenu(menu, inflater);
     inflater.inflate(R.menu.maze_options, menu);
     MenuItem item = menu.findItem(R.id.chrono);
-    View view = item.getActionView();
-    mazeTimer = view.findViewById(R.id.chronometer);
-    toggleChronometer();
-    super.onCreateOptionsMenu(menu, inflater);
-  }
+    ViewGroup layout = (ViewGroup) item.getActionView();
+    if (mazeTimer == null) {
+      mazeTimer = layout.findViewById(R.id.chronometer);
+      resumeTimer(); // Assumes you want to start running as soon as activity is loaded.
+    } else {
+      layout.removeView(
+          layout.findViewById(R.id.chronometer)); // Remove inflated chronometer from new layout.
+      ((ViewGroup) mazeTimer.getParent())
+          .removeView(mazeTimer); // Detach previously loaded chronometer from its previous layout.
+      layout.addView(mazeTimer); // Attach previously loaded chronometer to new layout.
 
+    }
+  }
 
   @Override
   public void onPrepareOptionsMenu(@NonNull Menu menu) {
@@ -167,14 +193,12 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     boolean handled = true;
     switch (item.getItemId()) {
       case R.id.pause:
-//        toggleChronometer();
-        getActivity().invalidateOptionsMenu();
+        pauseTimer();
         break;
       case R.id.resume:
-//       toggleChronometer();
-        getActivity().invalidateOptionsMenu();
+        resumeTimer();
         break;
-      default:
+        default:
         handled = super.onOptionsItemSelected(item);
     }
     return handled;
@@ -184,19 +208,15 @@ public class MazeFragment extends Fragment implements SensorEventListener {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 //    viewModel = ViewModelProviders.of(getActivity()).get(MazeViewModel.class);
-    viewModel= ViewModelProviders.of(this).get(MazeViewModel.class);
+    viewModel = ViewModelProviders.of(this).get(MazeViewModel.class);
     viewModel.getMaze().observe(this, (maze) -> {
       this.maze = maze;
-      if (maze != null){
+      if (maze != null) {
         mazeView.setCells(maze.getWalls());
-      }else{
+      } else {
         viewModel.loadMaze(rows, columns, level);
       }
-    } );
-
-
-
-
+    });
 
     //make a new attempt
 //    attempt = new Attempt();

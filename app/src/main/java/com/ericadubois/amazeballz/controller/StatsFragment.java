@@ -15,6 +15,9 @@ import com.ericadubois.amazeballz.R;
 public class StatsFragment extends Fragment {
 
 
+  /**
+   * Instantiates a new Stats fragment.
+   */
   public StatsFragment() {
     // Required empty public constructor
   }

@@ -76,7 +76,7 @@
             "columnNames": [
               "level"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_Maze_level` ON `${TABLE_NAME}` (`level`)"
+            "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`maze_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `grid_rows` INTEGER NOT NULL, `grid_columns` INTEGER NOT NULL, `walls` TEXT, `level` INTEGER NOT NULL, `entrance_x` INTEGER, `entrance_y` INTEGER, `exit_x` INTEGER, `exit_y` INTEGER)"
           }
         ],
         "foreignKeys": []

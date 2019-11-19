@@ -15,6 +15,9 @@ import com.ericadubois.amazeballz.R;
 public class LicenseFragment extends Fragment {
 
 
+  /**
+   * Instantiates a new License fragment.
+   */
   public LicenseFragment() {
     // Required empty public constructor
   }

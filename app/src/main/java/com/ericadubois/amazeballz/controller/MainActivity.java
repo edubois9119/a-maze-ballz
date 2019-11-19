@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity
   private View view;
   private MazeViewModel mazeViewModel;
   private SharedPreferences preferences;
-  private boolean touchEnabled;
-
-
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +50,7 @@ public class MainActivity extends AppCompatActivity
 
     preferences= PreferenceManager.getDefaultSharedPreferences(this);
     preferences.registerOnSharedPreferenceChangeListener(this);
+    mazeViewModel.setTouchEnabled(preferences.getBoolean("touch_movement", false));
 
     LevelSelectFragment levelFrag = new LevelSelectFragment();
     addFragment(levelFrag, true);

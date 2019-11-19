@@ -27,6 +27,7 @@ import com.ericadubois.amazeballz.model.MazeBuilder;
 import com.ericadubois.amazeballz.model.MazeView;
 import com.ericadubois.amazeballz.model.entity.Attempt;
 import com.ericadubois.amazeballz.model.entity.Maze;
+import com.ericadubois.amazeballz.model.entity.User;
 import com.ericadubois.amazeballz.viewmodel.MazeViewModel;
 
 /**
@@ -57,6 +58,7 @@ public class MazeFragment extends Fragment implements SensorEventListener {
   private SensorManager manager;
   private Sensor accelerometer;
 
+  private User user;
   private Maze maze;
   private Attempt attempt;
 
@@ -207,8 +209,14 @@ public class MazeFragment extends Fragment implements SensorEventListener {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-//    viewModel = ViewModelProviders.of(getActivity()).get(MazeViewModel.class);
-    viewModel = ViewModelProviders.of(this).get(MazeViewModel.class);
+    viewModel = ViewModelProviders.of(getActivity()).get(MazeViewModel.class);
+//    viewModel = ViewModelProviders.of(this).get(MazeViewModel.class);
+    viewModel.getUser().observe(this, (user) -> {
+      this.user = user;
+      if (user == null){
+        viewModel.loadUser();
+      }
+    });
     viewModel.getMaze().observe(this, (maze) -> {
       this.maze = maze;
       if (maze != null) {
@@ -217,12 +225,19 @@ public class MazeFragment extends Fragment implements SensorEventListener {
         viewModel.loadMaze(rows, columns, level);
       }
     });
+//    viewModel.getAttempt().observe(this, (attempt) -> {
+//      this.attempt = attempt;
+//      if (attempt == null) {
+//        viewModel.loadAttempt(this.user.getId(), this.maze.getId(), 0);
+//      }
+//    });
 
-    //make a new attempt
+//    //make a new attempt
 //    attempt = new Attempt();
-//    //TODO replace with real user id instead of maze id
-//    attempt.setUserId(maze.getId());
+////    TODO replace with real user id instead of maze id
+//    attempt.setUserId(user.getId());
 //    attempt.setMazeId(maze.getId());
+//    long id
 //    viewModel.saveAttempt(attempt);
 //    startChronometer();
   }
@@ -243,6 +258,10 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     ft.replace(R.id.fragment_container, fragment, fragment.getTag());
     ft.addToBackStack(fragment.getTag());
     ft.commit();
+  }
+
+  public MazeViewModel getViewModel() {
+    return viewModel;
   }
 
   @Override
@@ -285,7 +304,6 @@ public class MazeFragment extends Fragment implements SensorEventListener {
   public void onPause() {
     super.onPause();
     manager.unregisterListener(this);
-
   }
 
   @Override

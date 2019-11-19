@@ -10,7 +10,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.ericadubois.amazeballz.model.MazeBuilder;
 import com.ericadubois.amazeballz.model.entity.Attempt;
 import com.ericadubois.amazeballz.model.entity.Maze;
+import com.ericadubois.amazeballz.model.entity.User;
 import com.ericadubois.amazeballz.service.AMazeBallzDatabase;
+import com.ericadubois.amazeballz.service.GoogleSignInService;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -20,7 +22,11 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
 
   private MazeBuilder mazeBuilder;
   private boolean touchEnabled;
+  private MutableLiveData<User> user= new MutableLiveData<>(null);
   private MutableLiveData<Maze> maze= new MutableLiveData<>(null);
+  private MutableLiveData<Attempt> attempt = new MutableLiveData<>(null);
+  private MutableLiveData<Long> userId;
+  private MutableLiveData<Long> mazeId;
 
   private final AMazeBallzDatabase database;
 
@@ -64,6 +70,26 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
     new Thread(()->database.getAttemptDao().update(attempt)).start();
   }
 
+  public void loadUser(){
+    String userOauthKey = GoogleSignInService.getInstance().getAccount().getValue().getId();
+    database.getUserDao().getByOauth(userOauthKey)
+        .subscribeOn(Schedulers.io())
+        .subscribe(
+            (user)-> {
+              this.user.postValue(user);
+            },
+            (ex)-> {
+              Log.e(ex.getClass().getSimpleName(), ex.getMessage(), ex);
+            },
+            ()-> {
+              User user = new User();
+              user.setOauthKey(userOauthKey);
+              long id = database.getUserDao().insert(user);
+              user.setId(id);
+              this.user.postValue(user);
+            });
+  }
+
   public void loadMaze(int rows, int columns, int level){
     database.getMazeDao().mazesByDifficulty(rows, columns, level)
         .subscribeOn(Schedulers.io())
@@ -86,8 +112,33 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
               maze.setId(id);
               this.maze.postValue(maze);
               // TODO Create a new attempt against this maze.
+//              Attempt attempt = new Attempt();
+//              attempt.setMazeId(id);
+//              attempt.setUserId(123);
+//              long attemptID = database.getAttemptDao().insert(attempt);
+//              attempt.setId(attemptID);
+//              this.attempt.postValue(attempt);
             });
+  }
 
+  public void loadAttempt(long userId, long mazeId, long attemptId){
+    database.getAttemptDao().findById(attemptId)
+        .subscribeOn(Schedulers.io())
+        .subscribe(
+            (attempt)-> {
+              this.attempt.postValue(attempt);
+            },
+            (ex)-> {
+              Log.e(ex.getClass().getSimpleName(), ex.getMessage(), ex);
+            },
+            ()-> {
+              Attempt attempt = new Attempt();
+              attempt.setUserId(userId);
+              attempt.setMazeId(mazeId);
+              long id = database.getAttemptDao().insert(attempt);
+              attempt.setId(id);
+              this.attempt.postValue(attempt);
+            });
   }
 
   public boolean isTouchEnabled() {
@@ -98,8 +149,15 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
     this.touchEnabled = touchEnabled;
   }
 
+  public LiveData<User> getUser() {
+    return user;
+  }
   public LiveData<Maze> getMaze() {
     return maze;
   }
+  public LiveData<Attempt> getAttempt() {
+    return attempt;
+  }
+
 }
 

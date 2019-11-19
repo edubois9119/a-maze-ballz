@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import com.ericadubois.amazeballz.model.entity.User;
+import io.reactivex.Maybe;
 import java.util.List;
 
 @Dao
@@ -24,10 +25,11 @@ public interface UserDao {
   @Query("SELECT * FROM User ORDER BY user_id ASC")
   LiveData<List<User>> getAll();
 
-  @Query("SELECT * FROM user WHERE oauth_key=:oauthKey")
-  LiveData<User> getByOauth(String oauthKey);
+  @Query("SELECT * FROM User WHERE oauth_key=:oauthKey")
+//  LiveData<User> getByOauth(String oauthKey);
+  Maybe<User> getByOauth(String oauthKey);
 
-  @Query("SELECT * FROM user WHERE user_id=:userId")
+  @Query("SELECT * FROM User WHERE user_id=:userId")
   LiveData<User> getById(long userId);
 
 }

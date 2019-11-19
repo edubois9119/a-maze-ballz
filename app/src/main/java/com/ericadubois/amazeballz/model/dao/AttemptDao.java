@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import com.ericadubois.amazeballz.model.entity.Attempt;
+import io.reactivex.Maybe;
 import java.util.List;
 
 @Dao
@@ -17,6 +18,14 @@ public interface AttemptDao {
   @Update
   public int update(Attempt attempt);
 
+  /**
+   * Finds maze by id.
+   *
+   * @param attemptId the attempt id
+   * @return the live data
+   */
+  @Query("SELECT * FROM Attempt WHERE attempt_id = :attemptId")
+  Maybe<Attempt> findById(long attemptId);
 
   /**
    * List of Attempts of user for maze
@@ -49,8 +58,5 @@ public interface AttemptDao {
    */
   @Query("SELECT * FROM Attempt WHERE user_id= :userId AND solved GROUP BY maze_id")
   LiveData<List<Attempt>> getSuccessfulMazes(long userId);
-
-
-
 }
 

@@ -92,6 +92,10 @@ public class MazeView extends View {
     }
   }
 
+  public Cell[][] getCells() {
+    return cells;
+  }
+
   /**
    * Sets cells of the maze.
    *
@@ -112,67 +116,79 @@ public class MazeView extends View {
     postInvalidate();
   }
 
-  /**
-   * Move ball.
-   *
-   * @param direction the direction
-   */
-  public void moveBall(Direction direction) {
-    if (!ballView.isMovable()) {
-      return;
-    }
-    if (!ball.getWalls().contains(direction)) {
-      ball = cells[ball.getRow() + direction.getRowOffset()][ball.getColumn() + direction
-          .getColumnOffset()];
-      ballView.setDestination(ball.getColumn() * cellWidth, ball.getRow() * cellHeight);
-      invalidate();
-    }
+  public float getCellWidth() {
+    return cellWidth;
   }
 
-  @Override
-  public boolean onTouchEvent(MotionEvent event) {
-    checkCompletion();
-    if (event.getAction() == MotionEvent.ACTION_DOWN) {
-      return true;
-    }
-    if (event.getAction() == MotionEvent.ACTION_MOVE) {
-      float x = event.getX();
-      float y = event.getY();
-
-      int width = getWidth();
-      int height = getHeight();
-      float cellHeight = (height - WALL_THICKNESS) / cells.length;
-      float cellWidth = (width - WALL_THICKNESS) / cells[0].length;
-      float ballCenterX = (ball.getColumn() + 0.5f) * cellWidth;
-      float ballCenterY = (ball.getRow() + 0.5f) * cellHeight;
-
-      float dx = x - ballCenterX;
-      float dy = y - ballCenterY;
-
-      float absDX = Math.abs(dx);
-      float absDY = Math.abs(dy);
-
-      if (absDX > cellHeight / 2 || absDY > cellHeight / 2) {
-        if (absDX > absDY) {
-          //move in x-direction
-          if (dx > 0) {
-            moveBall(Direction.EAST);
-          } else {
-            moveBall(Direction.WEST);
-          }
-        } else {
-          //move in y-direction
-          if (dy > 0) {
-            moveBall(Direction.SOUTH);
-          } else {
-            moveBall(Direction.NORTH);
-          }
-        }
-      }
-      return true;
-    }
-    return super.onTouchEvent(event);
+  public float getCellHeight() {
+    return cellHeight;
   }
+
+  public Cell getExit() {
+    return exit;
+  }
+
+  //  /**
+//   * Move ball.
+//   *
+//   * @param direction the direction
+//   */
+//  public void moveBall(Direction direction) {
+//    if (!ballView.isMovable()) {
+//      return;
+//    }
+//    if (!ball.getWalls().contains(direction)) {
+//      ball = cells[ball.getRow() + direction.getRowOffset()][ball.getColumn() + direction
+//          .getColumnOffset()];
+//      ballView.setDestination(ball.getColumn() * cellWidth, ball.getRow() * cellHeight, ball);
+//      invalidate();
+//    }
+//  }
+
+//  @Override
+//  public boolean onTouchEvent(MotionEvent event) {
+//    checkCompletion();
+//    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//      return true;
+//    }
+//    if (event.getAction() == MotionEvent.ACTION_MOVE) {
+//      float x = event.getX();
+//      float y = event.getY();
+//
+//      int width = getWidth();
+//      int height = getHeight();
+//      float cellHeight = (height - WALL_THICKNESS) / cells.length;
+//      float cellWidth = (width - WALL_THICKNESS) / cells[0].length;
+//      float ballCenterX = (ball.getColumn() + 0.5f) * cellWidth;
+//      float ballCenterY = (ball.getRow() + 0.5f) * cellHeight;
+//
+//      float dx = x - ballCenterX;
+//      float dy = y - ballCenterY;
+//
+//      float absDX = Math.abs(dx);
+//      float absDY = Math.abs(dy);
+//
+//      if (absDX > cellHeight / 2 || absDY > cellHeight / 2) {
+//        if (absDX > absDY) {
+//          //move in x-direction
+//          if (dx > 0) {
+//            moveBall(Direction.EAST);
+//          } else {
+//            moveBall(Direction.WEST);
+//          }
+//        } else {
+//          //move in y-direction
+//          if (dy > 0) {
+//            moveBall(Direction.SOUTH);
+//          } else {
+//            moveBall(Direction.NORTH);
+//          }
+//        }
+//      }
+//      return true;
+//    }
+//    return super.onTouchEvent(event);
+//  }
 
   /**
    * Sets maze fragment.
@@ -192,17 +208,15 @@ public class MazeView extends View {
     this.ballView = ballView;
   }
 
-  /**
-   * Checks for completion of maze. When maze is successfully completed, maze fragment is switched
-   * with completion fragment
-   */
-  public void checkCompletion() {
-    if (ball != null && ball.getColumn() == exit.getColumn() && ball.getRow() == exit.getRow()) {
-
-      mazeFragment.switchFragment();
-      System.out.println("Winner");
-
-    }
-  }
+//  /**
+//   * Checks for completion of maze. When maze is successfully completed, maze fragment is switched
+//   * with completion fragment
+//   */
+//  public void checkCompletion() {
+//    if (ball != null && ball.getColumn() == exit.getColumn() && ball.getRow() == exit.getRow()) {
+//      mazeFragment.switchFragment();
+//      System.out.println("Winner");
+//    }
+//  }
 }
 

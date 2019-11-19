@@ -19,6 +19,7 @@ public class BallView extends View {
   private PointF velocity;
   private PointF upperLeft;
   private PointF destination;
+  private Cell cellLocation;
 
   private float radius;
   private float radiusGrowth;
@@ -79,6 +80,14 @@ public class BallView extends View {
     }
   }
 
+  public Cell getCellLocation() {
+    return cellLocation;
+  }
+
+  public void setCellLocation(Cell cellLocation) {
+    this.cellLocation = cellLocation;
+  }
+
   /**
    * Is movable boolean.
    *
@@ -121,6 +130,9 @@ public class BallView extends View {
     upperLeft = new PointF(x, y);
     invalidate();
   }
+
+  public float getCenterX(){ return upperLeft.x + radius; }
+  public float getCenterY(){ return upperLeft.y + radius; }
 
   /**
    * Sets destination point of the ball.

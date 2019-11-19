@@ -11,10 +11,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
-import android.widget.ImageSwitcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -23,7 +24,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.model.BallView;
 import com.ericadubois.amazeballz.model.Direction;
-import com.ericadubois.amazeballz.model.MazeBuilder;
 import com.ericadubois.amazeballz.model.MazeView;
 import com.ericadubois.amazeballz.model.entity.Attempt;
 import com.ericadubois.amazeballz.model.entity.Maze;
@@ -32,7 +32,7 @@ import com.ericadubois.amazeballz.viewmodel.MazeViewModel;
 /**
  * This fragment holds the maze view and the ball view.
  */
-public class MazeFragment extends Fragment implements SensorEventListener {
+public class MazeFragment extends Fragment implements SensorEventListener, OnTouchListener {
 
   private static final String ROWS_KEY = "rows";
   private static final String COLUMNS_KEY = "columns";
@@ -78,7 +78,6 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     fragment.setArguments(args);
     return fragment;
   }
-
 
 
   @Nullable
@@ -198,7 +197,7 @@ public class MazeFragment extends Fragment implements SensorEventListener {
       case R.id.resume:
         resumeTimer();
         break;
-        default:
+      default:
         handled = super.onOptionsItemSelected(item);
     }
     return handled;
@@ -232,7 +231,7 @@ public class MazeFragment extends Fragment implements SensorEventListener {
    * This method allows for the switch between the maze fragment and the completion fragment. The
    * completion fragment is the fragment displayed when the user completes the maze.
    */
-  public void switchFragment() {
+  public void showCompletionFragment() {
 //    attempt.setSolved(true);
 //    //TODO is mazeTimer.getBase valid here???
 //    attempt.setTimeSpent(mazeTimer.getBase());
@@ -248,26 +247,26 @@ public class MazeFragment extends Fragment implements SensorEventListener {
   @Override
   public void onSensorChanged(SensorEvent event) {
     if (maze != null) {
-      mazeView.checkCompletion();
+      checkCompletion();
       float x = event.values[0];
       float y = event.values[1];
       if (Math.abs(x) > Math.abs(y)) {
 //      if (x < 0) {
         if (x < -3) {
-          mazeView.moveBall(Direction.EAST);
+          moveBall(Direction.EAST);
           System.out.println("You tilted the device right");
         }
         if (x > 3) {
-          mazeView.moveBall(Direction.WEST);
+          moveBall(Direction.WEST);
           System.out.println("You tilted the device left");
         }
       } else {
         if (y < -3) {
-          mazeView.moveBall(Direction.NORTH);
+          moveBall(Direction.NORTH);
           System.out.println("You tilted the device up");
         }
         if (y > 3) {
-          mazeView.moveBall(Direction.SOUTH);
+          moveBall(Direction.SOUTH);
           System.out.println("You tilted the device down");
         }
       }
@@ -285,7 +284,6 @@ public class MazeFragment extends Fragment implements SensorEventListener {
   public void onPause() {
     super.onPause();
     manager.unregisterListener(this);
-
   }
 
   @Override
@@ -294,4 +292,89 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
   }
 
+  @Override
+  public boolean onTouch(View v, MotionEvent event) {
+    if (!viewModel.isTouchEnabled()) {
+      return true;
+    }
+    checkCompletion();
+    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+      return true;
+    }
+    if (event.getAction() == MotionEvent.ACTION_MOVE) {
+      float x = event.getX();
+      float y = event.getY();
+
+//      float width = mazeView.getWidth();
+//      int height = getHeight();
+//      float cellHeight = (height - WALL_THICKNESS) / cells.length;
+//      float cellWidth = (width - WALL_THICKNESS) / cells[0].length;
+//      float ballCenterX = (ball.getColumn() + 0.5f) * cellWidth;
+//      float ballCenterY = (ball.getRow() + 0.5f) * cellHeight;
+
+      float ballCenterX = ballView.getCenterX();
+      float ballCenterY = ballView.getCenterY();
+
+      float dx = x - ballCenterX;
+      float dy = y - ballCenterY;
+
+      float absDX = Math.abs(dx);
+      float absDY = Math.abs(dy);
+
+      if (absDX > mazeView.getCellWidth() / 2 || absDY > mazeView.getCellHeight() / 2) {
+        if (absDX > absDY) {
+          //move in x-direction
+          if (dx > 0) {
+            moveBall(Direction.EAST);
+          } else {
+            moveBall(Direction.WEST);
+          }
+        } else {
+          //move in y-direction
+          if (dy > 0) {
+            moveBall(Direction.SOUTH);
+          } else {
+            moveBall(Direction.NORTH);
+          }
+        }
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Move ball.
+   *
+   * @param direction the direction
+   */
+  public void moveBall(Direction direction) {
+    if (!ballView.isMovable()) {
+      return;
+    }
+    if (ballView.getCellLocation() == null || ballView.getCellLocation().getWalls() == null){
+      return;
+    }
+    if (!ballView.getCellLocation().getWalls().contains(direction)) {
+      ballView.setCellLocation(mazeView.getCells()[ballView.getCellLocation().getRow() + direction.getRowOffset()]
+          [ballView.getCellLocation().getColumn() + direction.getColumnOffset()]);
+      ballView.setDestination(ballView.getCellLocation().getColumn() * mazeView.getCellWidth(), ballView.getCellLocation().getRow() * mazeView.getCellHeight());
+      ballView.invalidate();
+    }
+  }
+
+  /**
+   * Checks for completion of maze. When maze is successfully completed, maze fragment is switched
+   * with completion fragment
+   */
+  public void checkCompletion() {
+    if (ballView != null && mazeView != null &&
+        ballView.getCellLocation() != null &&
+        mazeView.getExit() != null &&
+        ballView.getCellLocation().getColumn() == mazeView.getExit().getColumn() &&
+        ballView.getCellLocation().getRow() == mazeView.getExit().getRow()) {
+      showCompletionFragment();
+      System.out.println("Winner");
+    }
+  }
 }
+

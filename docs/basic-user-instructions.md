@@ -1,16 +1,25 @@
 # Basic User Instructions
 
-1. Download app from the Google Play Store.
-2. Launch app on device.
-3. Sign- in using google sign in service.
-4. Choose a level to play (1-15). The higher the number, the harder the maze.
-5. Tilt the device (left, right, up, down) to move the ball through the maze. 
-6. If you would like to choose another maze before completing the one you've chosen, you 
-may use the back button to return to the level select page. 
-7. Once you complete the maze, you will be able to choose another maze from the completion 
-page. 
-8. Repeat these steps as many times as desired. 
+Welcome to A-Maze-Ballz!
 
-* At any point you may also access the two items in the action bar: My stats and Sign out.
-* My Stats will display your current user stats.
-* Sign out will sign you out of the app.
+Once you've launched the app, you will be asked to sign in with your google account.
+
+Following sign in, you will see a screen with 15 levels on it. 
+Choose a level to play. The higher the number, the harder the maze.
+
+When the maze loads your objective is to move the ball through the maze. You can do so using the 
+default tilt movement or you can select touch movement instead using the preferences screen in the
+options menu. 
+You will notice that the stopwatch starts as soon as the maze loads and will keep track of the time
+it takes you to solve the maze. If you need to pause the maze for any reason, you may do so with the
+pause button. This will freeze the maze until you decide to resume. 
+If you would like to choose another maze before completing the one you've chosen, you 
+may use the back button (at bottom of screen) to return to the level select page. 
+Once you've completed the maze, you will have the option to select another maze or view your current
+stats.
+You can repeat these steps as many times are you'd like. 
+
+At any point you may also choose to sign out of the app. Do this by accessing the options menu and 
+clicking sign out.
+
+Enjoy!

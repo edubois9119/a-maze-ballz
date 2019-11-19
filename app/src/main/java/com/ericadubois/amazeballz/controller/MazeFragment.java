@@ -228,16 +228,15 @@ public class MazeFragment extends Fragment implements SensorEventListener {
 //    viewModel.getAttempt().observe(this, (attempt) -> {
 //      this.attempt = attempt;
 //      if (attempt == null) {
-//        viewModel.loadAttempt(this.user.getId(), this.maze.getId(), 0);
+//        viewModel.loadAttempt(0);
 //      }
 //    });
 
 //    //make a new attempt
 //    attempt = new Attempt();
 ////    TODO replace with real user id instead of maze id
-//    attempt.setUserId(user.getId());
-//    attempt.setMazeId(maze.getId());
-//    long id
+//    attempt.setUserId(this.user.getId());
+//    attempt.setMazeId(this.maze.getId());
 //    viewModel.saveAttempt(attempt);
 //    startChronometer();
   }
@@ -266,6 +265,9 @@ public class MazeFragment extends Fragment implements SensorEventListener {
 
   @Override
   public void onSensorChanged(SensorEvent event) {
+    if (getViewModel().isTouchEnabled()){
+      return;
+    }
     if (maze != null) {
       mazeView.checkCompletion();
       float x = event.values[0];

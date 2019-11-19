@@ -111,6 +111,7 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
               long id= database.getMazeDao().insert(maze);
               maze.setId(id);
               this.maze.postValue(maze);
+//              loadAttempt(user, maze, 0);
               // TODO Create a new attempt against this maze.
 //              Attempt attempt = new Attempt();
 //              attempt.setMazeId(id);
@@ -121,7 +122,7 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
             });
   }
 
-  public void loadAttempt(long userId, long mazeId, long attemptId){
+  public void loadAttempt(User user, Maze maze, long attemptId){
     database.getAttemptDao().findById(attemptId)
         .subscribeOn(Schedulers.io())
         .subscribe(
@@ -133,8 +134,10 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
             },
             ()-> {
               Attempt attempt = new Attempt();
-              attempt.setUserId(userId);
-              attempt.setMazeId(mazeId);
+//              attempt.setUserId(user.getId());
+//              attempt.setMazeId(maze.getId());
+//              attempt.setUserId(getUser().getValue().getId());
+//              attempt.setMazeId(getMaze().getValue().getId());
               long id = database.getAttemptDao().insert(attempt);
               attempt.setId(id);
               this.attempt.postValue(attempt);

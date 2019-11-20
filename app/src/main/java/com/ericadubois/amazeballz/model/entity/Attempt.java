@@ -146,7 +146,11 @@ public class Attempt {
 
 
   public String statInfo() {
-    String statInfo = "Time: " + this.timeSpent + ", Solved: " + this.solved;
+    //timeSpent is milliseconds
+    int minutes= (int)((timeSpent / 1000) / 60);
+    int seconds= (int)((timeSpent / 1000) % 60);
+
+    String statInfo = "Time: " + String.format("%02d:%02d", minutes, seconds) + ", Solved: " + this.solved;
     return statInfo;
   }
 

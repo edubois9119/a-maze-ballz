@@ -62,13 +62,13 @@ public class StatsFragment extends Fragment {
     });
   }
 
-  private void observeAttempts(){
-    viewModel.getAttempts().observe(this, new Observer<List<Attempt>>() {
-      @Override
-      public void onChanged(List<Attempt> attempts) {
-        statsAdapter.updateAttempts(attempts);
-      }
-    });
-  }
+//  private void observeAttempts(){
+//    viewModel.getAttempts().observe(this, new Observer<List<Attempt>>() {
+//      @Override
+//      public void onChanged(List<Attempt> attempts) {
+//        statsAdapter.updateAttempts(attempts);
+//      }
+//    });
+//  }
 
 }

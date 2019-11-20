@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.ericadubois.amazeballz.R;
-import java.time.Duration;
 
 /**
  * This fragment displays when a user has completed a maze. Allows user to go back to level select
@@ -22,7 +21,6 @@ import java.time.Duration;
  */
 public class CompletionFragment extends Fragment implements View.OnClickListener {
   private Double timestamp = 0.0;
-
 
   @Nullable
   @Override
@@ -32,12 +30,9 @@ public class CompletionFragment extends Fragment implements View.OnClickListener
     view.findViewById(R.id.next_level).setOnClickListener(this);
     view.findViewById(R.id.stats).setOnClickListener(this);
     TextView ts = view.findViewById(R.id.timestamp);
-    int minutes= (int)(timestamp/60);
-    int seconds= (int)(timestamp %60);
-//    ts.setText(String.format(Double.toString(timestamp)) + " seconds");
-
+    int minutes= (int)(timestamp / 60);
+    int seconds= (int)(timestamp % 60);
     ts.setText(String.format("%02d:%02d", minutes, seconds));
-
     return view;
   }
 
@@ -57,6 +52,11 @@ public class CompletionFragment extends Fragment implements View.OnClickListener
     }
   }
 
+  /**
+   * Sets timestamp for displaying timeSpent in seconds
+   *
+   * @param timestamp the timestamp
+   */
   public void setTimestamp(Double timestamp) {
     this.timestamp = timestamp;
   }

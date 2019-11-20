@@ -10,27 +10,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.controller.StatsAdapter.Item;
 import com.ericadubois.amazeballz.model.entity.Attempt;
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Stats adapter class, used for showing attempts in recyclerView.
+ */
 public class StatsAdapter extends RecyclerView.Adapter<Item> {
-  Context context;
-//  String[] items;
-  List<Attempt> attempts = new ArrayList<>();
 
-//  public StatsAdapter(StatsFragment statsFragment, String [] items){
-//    this.context = statsFragment.getContext();
-//    this.items = items;
-//  }
+  private Context context;
+  private List<Attempt> attempts;
 
-
-  public StatsAdapter(Context context, List<Attempt> attempts){
+  /**
+   * Instantiates a new Stats adapter.
+   *
+   * @param context  the context
+   * @param attempts the attempts
+   */
+  StatsAdapter(Context context, List<Attempt> attempts) {
     this.context = context;
     this.attempts = attempts;
   }
@@ -44,37 +44,34 @@ public class StatsAdapter extends RecyclerView.Adapter<Item> {
     return item;
   }
 
-  public void updateAttempts(List<Attempt> attempts){
-    this.attempts.clear();
-    this.attempts.addAll(attempts);
-    notifyDataSetChanged();
-  }
-//  @Override
-//  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//    ((Item)holder).textView.setText(items[position]);
-//  }
-
   @Override
   public void onBindViewHolder(@NonNull Item holder, int position) {
     holder.textView.setText(attempts.get(position).statInfo());
   }
-
-//
-//  @Override
-//  public int getItemCount() {
-//    return items.length;
-//  }
 
   @Override
   public int getItemCount() {
     return attempts.size();
   }
 
+  /**
+   * nested static class for viewHolder.
+   */
   static class Item extends RecyclerView.ViewHolder {
+
+    /**
+     * TextView object
+     */
     TextView textView;
+
+    /**
+     * Instantiates a new textItem in the view.
+     *
+     * @param itemView the item view
+     */
     public Item(@NonNull View itemView) {
       super(itemView);
-      textView= (TextView) itemView;
+      textView = (TextView) itemView;
     }
   }
 }

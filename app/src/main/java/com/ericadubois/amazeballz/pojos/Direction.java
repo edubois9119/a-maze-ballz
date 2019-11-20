@@ -4,7 +4,6 @@
 
 package com.ericadubois.amazeballz.pojos;
 
-
 /**
  * The enum Direction. This used for building cell walls and creating mazes. It is also used in
  * navigating the ball through the maze.
@@ -68,5 +67,4 @@ public enum Direction {
   public Direction getOpposite() {
     return Direction.values()[(ordinal() + 2) % Direction.values().length];
   }
-
 }

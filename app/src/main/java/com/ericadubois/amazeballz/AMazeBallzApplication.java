@@ -10,7 +10,7 @@ import com.ericadubois.amazeballz.service.GoogleSignInService;
 import com.facebook.stetho.Stetho;
 
 /**
- * The type A maze ballz application.
+ *  AMazeBallzApplication is the entry point to the game.
  */
 public class AMazeBallzApplication extends Application {
 
@@ -27,8 +27,5 @@ public class AMazeBallzApplication extends Application {
         database.getMazeDao().delete();
       }
     }).start();
-//    Attempt temp = new Attempt();
-//    database.getAttemptDao().insert(temp);
   }
-
 }

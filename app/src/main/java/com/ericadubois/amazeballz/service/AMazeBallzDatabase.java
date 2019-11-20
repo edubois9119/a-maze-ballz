@@ -10,19 +10,22 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
-import com.ericadubois.amazeballz.pojos.Cell;
-import com.ericadubois.amazeballz.pojos.Direction;
 import com.ericadubois.amazeballz.model.dao.AttemptDao;
 import com.ericadubois.amazeballz.model.dao.MazeDao;
 import com.ericadubois.amazeballz.model.dao.UserDao;
 import com.ericadubois.amazeballz.model.entity.Attempt;
 import com.ericadubois.amazeballz.model.entity.Maze;
 import com.ericadubois.amazeballz.model.entity.User;
+import com.ericadubois.amazeballz.pojos.Cell;
+import com.ericadubois.amazeballz.pojos.Direction;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 
+/**
+ * The Database class.
+ */
 @Database(
     entities = {Maze.class, Attempt.class, User.class},
     version = 1, exportSchema = true
@@ -88,28 +91,6 @@ public abstract class AMazeBallzDatabase extends RoomDatabase {
   public static class Converters {
 
     /**
-     * Maze start time.
-     *
-     * @param date the date
-     * @return the long
-     */
-    @TypeConverter
-    public Long mazeStarted(Date date) {
-      return (date != null) ? date.getTime() : null;
-    }
-
-    /**
-     * Maze end time.
-     *
-     * @param milliseconds the milliseconds
-     * @return the date
-     */
-    @TypeConverter
-    public Date mazeEnded(Long milliseconds) {
-      return (milliseconds != null) ? new Date(milliseconds) : null;
-    }
-
-    /**
      * Converts the cell array of hex digits to a string.
      *
      * @param cells the cells
@@ -164,7 +145,5 @@ public abstract class AMazeBallzDatabase extends RoomDatabase {
       }
       return cells;
     }
-
-
   }
 }

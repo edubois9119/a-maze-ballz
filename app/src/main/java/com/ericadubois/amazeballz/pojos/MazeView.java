@@ -15,7 +15,8 @@ import androidx.annotation.Nullable;
 import com.ericadubois.amazeballz.controller.MazeFragment;
 
 /**
- * The type Maze view. This is the class that handles all of the drawing of the maze.
+ * The type Maze view. This is the class that handles all of the drawing of the maze and the on Touch
+ * functionality.
  */
 public class MazeView extends View {
 
@@ -45,7 +46,6 @@ public class MazeView extends View {
     exitPaint = new Paint();
     exitPaint.setColor(Color.RED);
   }
-
 
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -89,7 +89,7 @@ public class MazeView extends View {
           }
         }
       }
-      canvas.drawCircle( (exit.getColumn() + .5f) * cellWidth,
+      canvas.drawCircle((exit.getColumn() + .5f) * cellWidth,
           (exit.getRow() + .5f) * cellHeight, radius, exitPaint);
       ballView.postInvalidate();
     }
@@ -108,7 +108,7 @@ public class MazeView extends View {
   }
 
   /**
-   * Move ball.
+   * Moves the ball through the maze.
    *
    * @param direction the direction
    */
@@ -130,7 +130,7 @@ public class MazeView extends View {
   public boolean onTouchEvent(MotionEvent event) {
     //if not touchEnabled, return
     if (mazeFragment != null && mazeFragment.getViewModel() != null &&
-        !mazeFragment.getViewModel().isTouchEnabled() || !mazeFragment.isRunning()){
+        !mazeFragment.getViewModel().isTouchEnabled() || !mazeFragment.isRunning()) {
       return super.onTouchEvent(event);
     }
 
@@ -190,7 +190,7 @@ public class MazeView extends View {
    *
    * @param ballView the ball view
    */
-  public void setBallView(BallView ballView){
+  public void setBallView(BallView ballView) {
     this.ballView = ballView;
   }
 
@@ -198,15 +198,6 @@ public class MazeView extends View {
    * Checks for completion of maze. When maze is successfully completed, maze fragment is switched
    * with completion fragment
    */
-//  public void checkCompletion() {
-//    if (ball != null && ball.getColumn() == exit.getColumn() && ball.getRow() == exit.getRow()) {
-//
-//      mazeFragment.recordSuccess();
-//      mazeFragment.switchFragment();
-//      System.out.println("Winner");
-//
-//    }
-//  }
   public void checkCompletion(Cell cell) {
     if (cell.getColumn() == exit.getColumn() && cell.getRow() == exit.getRow()) {
       mazeFragment.recordSuccess();
@@ -222,6 +213,5 @@ public class MazeView extends View {
   private int ballColumn() {
     return (int) (ballView.getUpperLeft().x / cellWidth);
   }
-
 }
 

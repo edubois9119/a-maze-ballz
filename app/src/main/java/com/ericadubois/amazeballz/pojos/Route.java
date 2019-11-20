@@ -4,9 +4,8 @@
 
 package com.ericadubois.amazeballz.pojos;
 
-
 /**
- * The type Route.
+ * Helper class used for building mazes. Specifies Direction and Destination cell.
  */
 class Route {
 

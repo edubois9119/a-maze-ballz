@@ -11,13 +11,25 @@ import android.util.Log;
  */
 public class MazeBuilder {
 
-  private Cell [][] cells;
+  private Cell[][] cells;
   private final int START_ROW = 0;
   private final int START_COL = 0;
 
-  public MazeBuilder(int rows, int columns){
+  /**
+   * Instantiates a new Maze builder.
+   *
+   * @param rows    the rows
+   * @param columns the columns
+   */
+  public MazeBuilder(int rows, int columns) {
     setupMaze(rows, columns);
   }
+
+  /**
+   * Get cells [ ] [ ].
+   *
+   * @return the cell [ ] [ ]
+   */
   public Cell[][] getCells() {
     return cells;
   }
@@ -28,18 +40,18 @@ public class MazeBuilder {
    * @param rows    the rows
    * @param columns the columns
    */
-  public void setupMaze(int rows, int columns){
+  public void setupMaze(int rows, int columns) {
     //sets up empty maze
     cells = new Cell[rows][columns];
     //need to instantiate each Cell inside
-    for (int row = 0; row < rows; row++){
-      for (int col = 0; col < columns; col++){
+    for (int row = 0; row < rows; row++) {
+      for (int col = 0; col < columns; col++) {
         cells[row][col] = new Cell(row, col);
       }
     }
     //builds a maze from cell START ROW COL
     cells[START_ROW][START_COL].build(cells);
-    StringBuilder builder= new StringBuilder(rows * columns);
+    StringBuilder builder = new StringBuilder(rows * columns);
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < columns; col++) {
         builder.append(cells[row][col].value());
@@ -47,5 +59,4 @@ public class MazeBuilder {
     }
     Log.d(getClass().getSimpleName(), builder.toString());
   }
-
 }

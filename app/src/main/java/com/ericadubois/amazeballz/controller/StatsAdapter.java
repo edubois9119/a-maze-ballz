@@ -16,7 +16,7 @@ public class StatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   String[] items;
 
   public StatsAdapter(StatsFragment statsFragment, String [] items){
-    this.context = context;
+    this.context = statsFragment.getContext();
     this.items = items;
   }
 

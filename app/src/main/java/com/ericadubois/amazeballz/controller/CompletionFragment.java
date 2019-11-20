@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,8 @@ import com.ericadubois.amazeballz.R;
  * fragment to choose another maze.
  */
 public class CompletionFragment extends Fragment implements View.OnClickListener {
+  private Double timestamp = 0.0;
+
 
   @Nullable
   @Override
@@ -23,6 +26,8 @@ public class CompletionFragment extends Fragment implements View.OnClickListener
     View view = inflater.inflate(R.layout.fragment_completion, container, false);
     view.findViewById(R.id.next_level).setOnClickListener(this);
     view.findViewById(R.id.stats).setOnClickListener(this);
+    TextView ts = view.findViewById(R.id.timestamp);
+    ts.setText(Double.toString(timestamp) + " seconds");
     return view;
   }
 
@@ -40,5 +45,9 @@ public class CompletionFragment extends Fragment implements View.OnClickListener
       fragTrans.addToBackStack(LevelSelectFragment.class.getSimpleName());
       fragTrans.replace(R.id.fragment_container, statsFragment).commit();
     }
+  }
+
+  public void setTimestamp(Double timestamp) {
+    this.timestamp = timestamp;
   }
 }

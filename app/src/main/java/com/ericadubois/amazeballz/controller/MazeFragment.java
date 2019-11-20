@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
 import android.widget.ImageSwitcher;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -45,6 +46,7 @@ public class MazeFragment extends Fragment implements SensorEventListener {
   private View view;
   private MazeView mazeView;
   private BallView ballView;
+  private Double timestamp;
   private int rows;
   private int columns;
   private int level;
@@ -61,6 +63,7 @@ private  boolean mazeNeeded;
   private User user;
   private Maze maze;
   private Attempt attempt;
+
 
   /**
    * New instance maze fragment. This new instance bundles the necessary items for storing a maze to
@@ -92,8 +95,10 @@ private  boolean mazeNeeded;
     mazeView = view.findViewById(R.id.maze_view);
     mazeView.setMazeFragment(this);
     ballView = view.findViewById(R.id.ball_view);
+    timestamp = 0.0;
 //    ballView.setMazeFragment(this);
     mazeView.setBallView(ballView);
+
 
     rows = getArguments().getInt(ROWS_KEY, DEFAULT_SIZE);
     columns = getArguments().getInt(COLUMNS_KEY, DEFAULT_SIZE);
@@ -199,6 +204,7 @@ private  boolean mazeNeeded;
     switch (item.getItemId()) {
       case R.id.pause:
         pauseTimer();
+
         break;
       case R.id.resume:
         resumeTimer();
@@ -247,6 +253,7 @@ private  boolean mazeNeeded;
 
 public void recordSuccess(){
     viewModel.recordSuccess(SystemClock.elapsedRealtime()-mazeTimer.getBase());
+    timestamp = (Double) ((SystemClock.elapsedRealtime()-mazeTimer.getBase())/1000.0);
 }
   /**
    * This method allows for the switch between the maze fragment and the completion fragment. The
@@ -259,6 +266,7 @@ public void recordSuccess(){
 //    viewModel.updateAttempt(attempt);
 
     CompletionFragment fragment = new CompletionFragment();
+    fragment.setTimestamp(timestamp);
     FragmentTransaction ft = getFragmentManager().beginTransaction();
     ft.replace(R.id.fragment_container, fragment, fragment.getTag());
     ft.addToBackStack(fragment.getTag());
@@ -271,7 +279,7 @@ public void recordSuccess(){
 
   @Override
   public void onSensorChanged(SensorEvent event) {
-    if (getViewModel().isTouchEnabled()){
+    if (getViewModel().isTouchEnabled() || !running){
       return;
     }
     if (maze != null) {
@@ -320,4 +328,11 @@ public void recordSuccess(){
     manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
   }
 
+  public boolean isRunning() {
+    return running;
+  }
+
+  public Double getTimestamp() {
+    return timestamp;
+  }
 }

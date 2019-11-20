@@ -133,7 +133,7 @@ public class MazeView extends View {
   public boolean onTouchEvent(MotionEvent event) {
     //if not touchEnabled, return
     if (mazeFragment != null && mazeFragment.getViewModel() != null &&
-        !mazeFragment.getViewModel().isTouchEnabled()){
+        !mazeFragment.getViewModel().isTouchEnabled() || !mazeFragment.isRunning()){
       return super.onTouchEvent(event);
     }
 

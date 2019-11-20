@@ -15,6 +15,7 @@ import com.ericadubois.amazeballz.service.AMazeBallzDatabase;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import io.reactivex.schedulers.Schedulers;
+import java.util.List;
 
 /**
  * The type Maze view model.
@@ -146,6 +147,10 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
   public LiveData<Maze> getMaze() {
     return maze;
   }
+
+//  public LiveData<List<Attempt>> getFinMazes(){
+//
+//  }
 
 }
 

@@ -37,7 +37,7 @@ public class StatsFragment extends Fragment  {
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(new StatsAdapter(this, items));
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_stats, container, false);
+    return view;
   }
 
 }

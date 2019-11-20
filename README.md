@@ -15,7 +15,7 @@ independently or with other user around the globe.
 
 #### [User Stories](docs/user-stories.md)  
 
-#### [A Maze Ballz: Current State](docs/ProjectState.md)
+#### [A Maze Ballz: Current State](docs/project-state.md)
  
 #### [Wireframe Diagram](docs/wireframe.md)
 

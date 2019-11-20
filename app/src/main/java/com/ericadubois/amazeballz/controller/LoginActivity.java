@@ -5,10 +5,10 @@
 package com.ericadubois.amazeballz.controller;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
 
@@ -17,7 +17,6 @@ import com.ericadubois.amazeballz.service.GoogleSignInService;
  */
 public class LoginActivity extends AppCompatActivity {
   private static final int LOGIN_REQUEST_CODE = 1000;
-
 
   private GoogleSignInService service;
 
@@ -33,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
               service.startSignIn(this, LOGIN_REQUEST_CODE));
         });
   }
+
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     if (requestCode == LOGIN_REQUEST_CODE) {

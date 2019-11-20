@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey;
 import com.ericadubois.amazeballz.pojos.Cell;
 
 /**
- * This entity creates the maze table. The table consists of
+ * This entity creates the maze table in the database.
  */
 @Entity
 public class Maze {
@@ -28,15 +28,14 @@ public class Maze {
   /**
    * This is the number of columns that make up the grid size of the maze.
    */
-  @ColumnInfo(name= "grid_columns")
+  @ColumnInfo(name = "grid_columns")
   private int gridColumns;
 
   /**
-   * The walls of a maze are constructed using hexcode strings. walls.length() is equal
-   * to the number of boxes of the grid. For example, 5 rows X 5 columns = 25 boxes= 25 hexcodes in
-   * walls.
+   * The walls of a maze are constructed using hexcode strings. walls.length() is equal to the
+   * number of boxes of the grid. For example, 5 rows X 5 columns = 25 boxes= 25 hexcodes in walls.
    */
-  @ColumnInfo(name= "walls")
+  @ColumnInfo(name = "walls")
   private Cell[][] walls;
 
   /**
@@ -59,7 +58,7 @@ public class Maze {
   private Point exit;
 
   /**
-   * Gets id.
+   * Gets maze id.
    *
    * @return the id
    */
@@ -68,7 +67,7 @@ public class Maze {
   }
 
   /**
-   * Sets id.
+   * Sets maze id.
    *
    * @param id the id
    */
@@ -227,7 +226,6 @@ public class Maze {
     public void setY(int y) {
       this.y = y;
     }
-
 
 
   }

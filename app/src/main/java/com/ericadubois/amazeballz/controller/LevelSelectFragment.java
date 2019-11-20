@@ -20,13 +20,10 @@ import com.ericadubois.amazeballz.R;
  */
 public class LevelSelectFragment extends Fragment implements View.OnClickListener {
 
-
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    //need to query database, assign database levels
-
     View view= inflater.inflate(R.layout.fragment_level_select, container, false);
     view.findViewById(R.id.button_one).setOnClickListener(this);
     view.findViewById(R.id.button_two).setOnClickListener(this);
@@ -48,7 +45,6 @@ public class LevelSelectFragment extends Fragment implements View.OnClickListene
 
   @Override
   public void onClick(View v) {
-    //    int level = (Integer) v.getTag();
     int level = Integer.parseInt(v.getTag().toString());
     int sizeColumns = level + 3;
     int sizeRows= (int)(sizeColumns * 4/3);
@@ -58,7 +54,6 @@ public class LevelSelectFragment extends Fragment implements View.OnClickListene
     ft.addToBackStack(MazeFragment.class.getSimpleName());
     ft.replace(R.id.fragment_container, maze).commit();
   }
-
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

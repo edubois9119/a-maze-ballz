@@ -11,19 +11,16 @@ import java.util.List;
 
 
 /**
- * The type Cell.
+ * The primary element of a maze. Cell has walls.
  */
 public class Cell {
 
   private final int row;
   private final int column;
   private boolean visited;
-  //  private int [] neighbors;
-//  private Direction direction;
-//  private Cell destination;
   private List<Direction> walls;
   private final boolean UNVISITED_ONLY = true;
-//  private Cell[][] cells;
+
 
   /**
    * Instantiates a new Cell.
@@ -38,9 +35,8 @@ public class Cell {
     this.walls = new ArrayList<Direction>(Arrays.asList(Direction.values()));
   }
 
-
   /**
-   * Is visited boolean.
+   * Flag that specifies if a cell has been visited.
    *
    * @return the boolean; true if cell has been visited, otherwise false.
    */
@@ -49,7 +45,7 @@ public class Cell {
   }
 
   /**
-   * Sets visited.
+   * Sets if a cell has been visited.
    *
    * @param visited the visited cell.
    */
@@ -58,7 +54,7 @@ public class Cell {
   }
 
   /**
-   * Gets row.
+   * Gets row in maze.
    *
    * @return the row
    */
@@ -67,7 +63,7 @@ public class Cell {
   }
 
   /**
-   * Gets column.
+   * Gets column in maze.
    *
    * @return the column
    */
@@ -76,7 +72,7 @@ public class Cell {
   }
 
   /**
-   * Gets walls.
+   * Gets walls of cell.
    *
    * @return the walls of the cell
    */
@@ -85,7 +81,7 @@ public class Cell {
   }
 
   /**
-   * Sets walls.
+   * Sets walls of cell.
    *
    * @param directions the directions
    */
@@ -94,7 +90,7 @@ public class Cell {
   }
 
   /**
-   * Remove wall.
+   * Remove wall of cell.
    *
    * @param direction the direction
    */
@@ -102,9 +98,8 @@ public class Cell {
     this.walls.remove(direction);
   }
 
-
   /**
-   * Neighbor cell.
+   * Finds the unvisited adjacent cells.
    *
    * @param cells         the cells
    * @param direction     the direction
@@ -128,7 +123,7 @@ public class Cell {
   }
 
   /**
-   * Neighbors array list.
+   * Array list of unvisited neighbors.
    *
    * @param cells         the cells
    * @param unvisitedOnly the unvisited only
@@ -147,9 +142,8 @@ public class Cell {
     return neighborsList;
   }
 
-
   /**
-   * Builds the maze from the give array of cells.
+   * Builds the maze from the given array of cells.
    *
    * @param cells the cells
    */
@@ -169,7 +163,6 @@ public class Cell {
       //   b. Remove the wall between this cell and the
       //      selected neighbor. (Note that this requires
       //      removal of 2 walls in total - why?)
-
       this.removeWall(direction);
       destination.removeWall(direction.getOpposite());
       //   c. Recursively invoke build(cells) on the selected
@@ -179,7 +172,7 @@ public class Cell {
   }
 
   /**
-   * Value char.
+   * Wall string decoder.
    *
    * @return the char
    */

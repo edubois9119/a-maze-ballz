@@ -48,31 +48,6 @@ public class Attempt {
    */
   @ColumnInfo(name = "user_id", index = true)
   private Long userId;
-//  /**
-//   * Creates timestamp for start of maze.
-//   */
-//  @NonNull
-//  @ColumnInfo(name= "maze_started", index = true)
-//  private Date mazeStarted = new Date();
-//  /**
-//   * Creates timestamp for start of maze.
-//   */
-//  @NonNull
-//  @ColumnInfo(name= "maze_ended", index = true)
-//  private Date mazeEnded = new Date();
-//  /**
-//   * Creates timestamp for start of pause during completion of a maze.
-//   */
-//  @NonNull
-//  @ColumnInfo(name= "maze_pause_start", index = true)
-//  private Date mazePauseStart = new Date();
-//
-//  /**
-//   * Creates timestamp for end of pause during completion of a maze.
-//   */
-//  @NonNull
-//  @ColumnInfo(name= "maze_pause_end", index = true)
-//  private Date mazePauseEnd = new Date();
 
   /**
    * Stores outcome of maze. Did you user solve it or quit?
@@ -86,65 +61,101 @@ public class Attempt {
   @ColumnInfo(name= "time_spent", index = true)
   private long timeSpent;
 
+  /**
+   * Gets time spent on a Maze in milliseconds.
+   *
+   * @return the time spent
+   */
   public long getTimeSpent() {
     return timeSpent;
   }
 
+  /**
+   * Sets time spent on a Maze in milliseconds.
+   *
+   * @param timeSpent the time spent
+   */
   public void setTimeSpent(long timeSpent) {
     this.timeSpent = timeSpent;
   }
 
+  /**
+   * Gets attempt id.
+   *
+   * @return the id
+   */
   public long getId() {
     return id;
   }
 
+  /**
+   * Sets attempt id.
+   *
+   * @param id the id
+   */
   public void setId(long id) {
     this.id = id;
   }
 
-//  @NonNull
-//  public Date getMazeStarted() {
-//    return mazeStarted;
-//  }
-//
-//  public void setMazeStarted(@NonNull Date created) {
-//    this.mazeStarted = created;
-//  }
-//
-//  @NonNull
-//  public Date getMazeEnded() {
-//    return mazeEnded;
-//  }
-//
-//  public void setMazeEnded(@NonNull Date updated) {
-//    this.mazeEnded = updated;
-//  }
-
+  /**
+   * Gets maze id.
+   *
+   * @return the maze id
+   */
   public long getMazeId() {
     return mazeId;
   }
 
+  /**
+   * Sets maze id.
+   *
+   * @param mazeId the maze id
+   */
   public void setMazeId(long mazeId) {
     this.mazeId = mazeId;
   }
 
+  /**
+   * Gets user id.
+   *
+   * @return the user id
+   */
   public Long getUserId() {
     return userId;
   }
 
+  /**
+   * Sets user id.
+   *
+   * @param userId the user id
+   */
   public void setUserId(Long userId) {
     this.userId = userId;
   }
 
+  /**
+   * Gets flag for completion of maze.
+   *
+   * @return the solved
+   */
   public Boolean getSolved() {
     return solved;
   }
 
+  /**
+   * Sets flag for completion of maze
+   *
+   * @param solved the solved
+   */
   public void setSolved(Boolean solved) {
     this.solved = solved;
   }
 
-
+  /**
+   * Formats the attempt on the User Stats page.
+   *
+   * @return the string
+   */
   public String statInfo() {
     //timeSpent is milliseconds
     int minutes= (int)((timeSpent / 1000) / 60);
@@ -153,22 +164,4 @@ public class Attempt {
     String statInfo = "Time: " + String.format("%02d:%02d", minutes, seconds) + ", Solved: " + this.solved;
     return statInfo;
   }
-
-  //  @NonNull
-//  public Date getMazePauseStart() {
-//    return mazePauseStart;
-//  }
-//
-//  public void setMazePauseStart(@NonNull Date mazePauseStart) {
-//    this.mazePauseStart = mazePauseStart;
-//  }
-//
-//  @NonNull
-//  public Date getMazePauseEnd() {
-//    return mazePauseEnd;
-//  }
-//
-//  public void setMazePauseEnd(@NonNull Date mazePauseEnd) {
-//    this.mazePauseEnd = mazePauseEnd;
-//  }
 }

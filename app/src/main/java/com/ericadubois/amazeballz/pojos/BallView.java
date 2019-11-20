@@ -19,6 +19,7 @@ import java.util.Random;
  * This class creates a BallView. It allows the ball to move fluidly on the screen.
  */
 public class BallView extends View {
+
   private Paint ballPaint;
   private PointF velocity;
   private PointF upperLeft;
@@ -43,30 +44,21 @@ public class BallView extends View {
 
     ballPaint = new Paint();
     ballPaint.setColor(Color.GREEN);
-    upperLeft = new PointF (0,0);
-    destination = new PointF (0,0);
-    velocity = new PointF (0,0);
+    upperLeft = new PointF(0, 0);
+    destination = new PointF(0, 0);
+    velocity = new PointF(0, 0);
     radius = 10f;
     random = new Random();
   }
 
   @Override
-  protected void onDraw(Canvas canvas){
+  protected void onDraw(Canvas canvas) {
 //    ballPaint.setAlpha((ballPaint.getAlpha()+ 5)%200 + 50);
     canvas.drawCircle(upperLeft.x + radius, upperLeft.y + radius, radius, ballPaint);
     updateLocation();
   }
 
-  /**
-   * Sets maze fragment.
-   *
-   * @param mazeFragment the maze fragment
-   */
-  public void setMazeFragment(MazeFragment mazeFragment) {
-    this.mazeFragment = mazeFragment;
-  }
-
-  private void updateLocation(){
+  private void updateLocation() {
     float TOLERANCE = .01f;
     if (Math.abs(upperLeft.x - destination.x) < TOLERANCE &&
         Math.abs(upperLeft.y - destination.y) < TOLERANCE) {
@@ -75,8 +67,7 @@ public class BallView extends View {
       velocity.x = 0;
       velocity.y = 0;
       movable = true;
-    }
-    else{
+    } else {
       upperLeft.x += velocity.x * elapsedTime;
       upperLeft.y += velocity.y * elapsedTime;
       invalidate();
@@ -84,7 +75,7 @@ public class BallView extends View {
   }
 
   /**
-   * Is movable boolean.
+   * Flag for whether or not the ball is movable. Used to prevent multiple events.
    *
    * @return the boolean
    */
@@ -92,7 +83,7 @@ public class BallView extends View {
     return movable;
   }
 
-  private void updateVelocity(PointF acceleration){
+  private void updateVelocity(PointF acceleration) {
     velocity.x += acceleration.x * elapsedTime;
     velocity.y += acceleration.y * elapsedTime;
   }
@@ -141,20 +132,6 @@ public class BallView extends View {
     invalidate();
   }
 
-//  public void setTopLeftLocation(PointF topLeftLocation) {
-//    this.centerLocation = new PointF(topLeftLocation.x + radius,
-//        topLeftLocation.y + radius);
-//  }
-
-  /**
-   * Gets the radius of the ball.
-   *
-   * @return the radius of the ball
-   */
-  public float getRadius() {
-    return radius;
-  }
-
   /**
    * Sets radius of ball.
    *
@@ -166,9 +143,5 @@ public class BallView extends View {
 
   public PointF getUpperLeft() {
     return upperLeft;
-  }
-
-  public PointF getDestination() {
-    return destination;
   }
 }

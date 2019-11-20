@@ -33,6 +33,7 @@ public interface AttemptDao {
 
   /**
    * List of Attempts of user for maze
+   *
    * @param userId
    * @param mazeId
    * @return LiveData list of attempts
@@ -41,7 +42,8 @@ public interface AttemptDao {
   LiveData<List<Attempt>> getUserMazeAttempts(long userId, long mazeId);
 
   /**
-   * List of Attempts of user for maze
+   * List of Attempts of user
+   *
    * @param userId
    * @return LiveData list of attempts
    */
@@ -50,6 +52,7 @@ public interface AttemptDao {
 
   /**
    * Calculates the number of unsuccessful attempts by a user on a given maze.
+   *
    * @param userId
    * @param mazeId
    * @return Integer for number of unsuccessful attempts
@@ -59,6 +62,7 @@ public interface AttemptDao {
 
   /**
    * The number of mazes solved for a user.
+   *
    * @param userId
    * @return
    */

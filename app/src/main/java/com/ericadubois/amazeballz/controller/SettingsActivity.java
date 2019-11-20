@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ericadubois.amazeballz.R;
 
 /**
- * The type Settings activity.
+ * Necessary for shared preferences.
  */
 public class SettingsActivity extends AppCompatActivity {
 

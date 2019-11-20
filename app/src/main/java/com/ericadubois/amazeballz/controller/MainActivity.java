@@ -5,20 +5,15 @@
 package com.ericadubois.amazeballz.controller;
 
 
-import android.content.ClipData.Item;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Color;
-
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -30,10 +25,11 @@ import com.ericadubois.amazeballz.service.GoogleSignInService;
 import com.ericadubois.amazeballz.viewmodel.MazeViewModel;
 
 /**
- * The Main activity is the controller for the UI.
+ * The Main activity is the main controller for the UI.
  */
 public class MainActivity extends AppCompatActivity
-    implements SharedPreferences.OnSharedPreferenceChangeListener{
+    implements SharedPreferences.OnSharedPreferenceChangeListener {
+
   private View view;
   private MazeViewModel mazeViewModel;
   private SharedPreferences preferences;
@@ -45,14 +41,13 @@ public class MainActivity extends AppCompatActivity
     mazeViewModel = ViewModelProviders.of(this).get(MazeViewModel.class);
     getLifecycle().addObserver(mazeViewModel);
 
-    Toolbar toolbar= findViewById(R.id.toolbar);
+    Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
-
 
     view = this.getWindow().getDecorView();
     view.setBackgroundColor(Color.BLACK);
 
-    preferences= PreferenceManager.getDefaultSharedPreferences(this);
+    preferences = PreferenceManager.getDefaultSharedPreferences(this);
     preferences.registerOnSharedPreferenceChangeListener(this);
     mazeViewModel.setTouchEnabled(preferences.getBoolean("touch_movement", false));
 
@@ -64,14 +59,14 @@ public class MainActivity extends AppCompatActivity
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.options, menu);
     return true | super.onCreateOptionsMenu(menu);
-    //full evaluation boolean OR, lets super class do what it needs to do after returning true
   }
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     boolean handled = true;
     Intent intent;
-    switch (item.getItemId()) { //all primitive types except float, long double, wrappers for same times, enums, strings
+    switch (item
+        .getItemId()) { //all primitive types except float, long double, wrappers for same times, enums, strings
       case R.id.sign_out:
         signOut();
         break;
@@ -112,6 +107,5 @@ public class MainActivity extends AppCompatActivity
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
     mazeViewModel.setTouchEnabled(preferences.getBoolean("touch_movement", false));
   }
-
 }
 

@@ -13,9 +13,9 @@ set of challenges for it's user.
 * Gamers who desire apps that save their game status/completion and allow them to compete 
 independently or with other user around the globe.
 
-#### [A Maze Ballz: Current State](docs/ProjectState.md)
-
 #### [User Stories](docs/user-stories.md)  
+
+#### [A Maze Ballz: Current State](docs/ProjectState.md)
  
 #### [Wireframe Diagram](docs/wireframe.md)
 
@@ -25,13 +25,16 @@ independently or with other user around the globe.
 
 #### [DDL](docs/ddl.md)
 
+#### [Technical Requirements & Dependencies](docs/tech-requirement-dependencies.md) 
+
+#### [JavaDoc](docs/api/overview-summary.html)
+
+#### [License Info](docs/license-info.md)
+
 #### [Build Instructions](docs/build-instructions.md)
 
 #### [Basic User Instructions](docs/basic-user-instructions.md)
 
-#### [License Info](docs/license-info.md)
 
-#### [Technical Requirements & Dependencies](docs/tech-requirement-dependencies.md) 
 
-#### [JavaDoc](docs/api/overview-summary.html)
 

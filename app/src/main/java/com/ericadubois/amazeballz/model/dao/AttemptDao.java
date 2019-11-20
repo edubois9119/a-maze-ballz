@@ -1,3 +1,7 @@
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
+
 package com.ericadubois.amazeballz.model.dao;
 
 import androidx.lifecycle.LiveData;
@@ -35,6 +39,14 @@ public interface AttemptDao {
    */
   @Query("SELECT * FROM Attempt WHERE user_id=:userId and maze_Id=:mazeId ORDER BY attempt_id DESC")
   LiveData<List<Attempt>> getUserMazeAttempts(long userId, long mazeId);
+
+  /**
+   * List of Attempts of user for maze
+   * @param userId
+   * @return LiveData list of attempts
+   */
+  @Query("SELECT * FROM Attempt WHERE user_id=:userId ORDER BY attempt_id DESC")
+  LiveData<List<Attempt>> getUserAttempts(long userId);
 
   /**
    * Calculates the number of unsuccessful attempts by a user on a given maze.

@@ -1,3 +1,7 @@
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
+
 package com.ericadubois.amazeballz.controller;
 
 import android.content.Intent;

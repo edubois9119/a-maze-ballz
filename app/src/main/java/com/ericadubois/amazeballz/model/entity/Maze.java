@@ -1,10 +1,13 @@
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
 package com.ericadubois.amazeballz.model.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import com.ericadubois.amazeballz.model.Cell;
+import com.ericadubois.amazeballz.pojos.Cell;
 
 /**
  * This entity creates the maze table. The table consists of

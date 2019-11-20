@@ -1,10 +1,10 @@
-package com.ericadubois.amazeballz.model;
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
 
-import android.graphics.Canvas;
-import android.graphics.Color;
+package com.ericadubois.amazeballz.pojos;
+
 import android.util.Log;
-import android.view.View;
-import com.ericadubois.amazeballz.model.entity.Maze;
 
 /**
  * This class is responsible for building the Mazes.

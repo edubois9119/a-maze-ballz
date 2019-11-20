@@ -1,4 +1,8 @@
-package com.ericadubois.amazeballz.model;
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
+
+package com.ericadubois.amazeballz.pojos;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -18,11 +22,14 @@ public class MazeView extends View {
   private MazeFragment mazeFragment;
   private Cell[][] cells;
   private float cellWidth, cellHeight;
-  private Cell ball, exit;
+//  private Cell ball, exit;
+  private Cell exit;
   private static final float WALL_THICKNESS = 4;
   private Paint wallPaint, ballPaint, exitPaint;
   private float radius;
   private BallView ballView;
+  private int ballViewColumn;
+  private int ballViewRow;
 
   /**
    * Instantiates a new Maze view.
@@ -85,8 +92,8 @@ public class MazeView extends View {
           }
         }
       }
-      canvas.drawCircle( (ball.getColumn() + .5f) * cellWidth,
-          (ball.getRow() + .5f) * cellHeight, radius, ballPaint);
+//      canvas.drawCircle( (ball.getColumn() + .5f) * cellWidth,
+//          (ball.getRow() + .5f) * cellHeight, radius, ballPaint);
       canvas.drawCircle( (exit.getColumn() + .5f) * cellWidth,
           (exit.getRow() + .5f) * cellHeight, radius, exitPaint);
     }
@@ -99,7 +106,7 @@ public class MazeView extends View {
    */
   public void setCells(Cell[][] cells) {
     this.cells = cells;   // TODO Investigate safe copy.
-    this.ball = cells[0][0];
+//    this.ball = cells[0][0];
 //    int width = getWidth();
 //    int height = getHeight();
 //    cellHeight = (height - WALL_THICKNESS) / cells.length;
@@ -121,10 +128,14 @@ public class MazeView extends View {
     if (!ballView.isMovable()) {
       return;
     }
-    if (!ball.getWalls().contains(direction)) {
-      ball = cells[ball.getRow() + direction.getRowOffset()][ball.getColumn() + direction
-          .getColumnOffset()];
-      ballView.setDestination(ball.getColumn() * cellWidth, ball.getRow() * cellHeight);
+    ballViewColumn = (int) (ballView.getUpperLeft().x / cellWidth);
+    ballViewRow = (int) (ballView.getUpperLeft().y / cellHeight);
+
+    if (!cells[ballViewRow][ballViewColumn].getWalls().contains(direction)) {
+//      ball = cells[ball.getRow() + direction.getRowOffset()][ball.getColumn() + direction
+//          .getColumnOffset()];
+      ballView.setDestination((ballViewColumn + direction.getColumnOffset()) * cellWidth,
+          (ballViewRow + direction.getRowOffset()) * cellHeight);
       invalidate();
     }
   }
@@ -149,8 +160,8 @@ public class MazeView extends View {
       int height = getHeight();
       float cellHeight = (height - WALL_THICKNESS) / cells.length;
       float cellWidth = (width - WALL_THICKNESS) / cells[0].length;
-      float ballCenterX = (ball.getColumn() + 0.5f) * cellWidth;
-      float ballCenterY = (ball.getRow() + 0.5f) * cellHeight;
+      float ballCenterX = (ballViewColumn + 0.5f) * cellWidth;
+      float ballCenterY = (ballViewRow + 0.5f) * cellHeight;
 
       float dx = x - ballCenterX;
       float dy = y - ballCenterY;
@@ -202,12 +213,22 @@ public class MazeView extends View {
    * Checks for completion of maze. When maze is successfully completed, maze fragment is switched
    * with completion fragment
    */
+//  public void checkCompletion() {
+//    if (ball != null && ball.getColumn() == exit.getColumn() && ball.getRow() == exit.getRow()) {
+//
+//      mazeFragment.recordSuccess();
+//      mazeFragment.switchFragment();
+//      System.out.println("Winner");
+//
+//    }
+//  }
   public void checkCompletion() {
-    if (ball != null && ball.getColumn() == exit.getColumn() && ball.getRow() == exit.getRow()) {
+     ballViewColumn = (int) (ballView.getUpperLeft().x / cellWidth);
+     ballViewRow = (int) (ballView.getUpperLeft().y / cellHeight);
+    if (ballViewColumn == exit.getColumn() && ballViewRow == exit.getRow()) {
       mazeFragment.recordSuccess();
       mazeFragment.switchFragment();
       System.out.println("Winner");
-
     }
   }
 }

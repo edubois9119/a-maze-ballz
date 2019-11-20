@@ -1,3 +1,7 @@
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
+
 package com.ericadubois.amazeballz.controller;
 
 import android.os.Bundle;
@@ -10,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.ericadubois.amazeballz.R;
+import java.time.Duration;
 
 /**
  * This fragment displays when a user has completed a maze. Allows user to go back to level select
@@ -27,7 +32,12 @@ public class CompletionFragment extends Fragment implements View.OnClickListener
     view.findViewById(R.id.next_level).setOnClickListener(this);
     view.findViewById(R.id.stats).setOnClickListener(this);
     TextView ts = view.findViewById(R.id.timestamp);
-    ts.setText(Double.toString(timestamp) + " seconds");
+    int minutes= (int)(timestamp/60);
+    int seconds= (int)(timestamp %60);
+//    ts.setText(String.format(Double.toString(timestamp)) + " seconds");
+
+    ts.setText(String.format("%02d:%02d", minutes, seconds));
+
     return view;
   }
 

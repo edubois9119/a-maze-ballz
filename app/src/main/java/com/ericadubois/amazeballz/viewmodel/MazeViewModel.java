@@ -1,3 +1,7 @@
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
+
 package com.ericadubois.amazeballz.viewmodel;
 
 import android.app.Application;
@@ -7,13 +11,12 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import com.ericadubois.amazeballz.model.MazeBuilder;
+import com.ericadubois.amazeballz.pojos.MazeBuilder;
 import com.ericadubois.amazeballz.model.entity.Attempt;
 import com.ericadubois.amazeballz.model.entity.Maze;
 import com.ericadubois.amazeballz.model.entity.User;
 import com.ericadubois.amazeballz.service.AMazeBallzDatabase;
 import com.ericadubois.amazeballz.service.GoogleSignInService;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 
@@ -26,11 +29,8 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
   private boolean touchEnabled;
   private MutableLiveData<User> user= new MutableLiveData<>(null);
   private MutableLiveData<Maze> maze= new MutableLiveData<>(null);
-//  private MutableLiveData<Attempt> attempt = new MutableLiveData<>(null);
-  private MutableLiveData<Long> userId;
-  private MutableLiveData<Long> mazeId;
   private Attempt attempt;
-
+  private LiveData<List<Attempt>> attempts;
   private final AMazeBallzDatabase database;
 
   /**
@@ -148,7 +148,12 @@ public class MazeViewModel extends AndroidViewModel implements LifecycleObserver
     return maze;
   }
 
-//  public LiveData<List<Attempt>> getFinMazes(){
+  public LiveData<List<Attempt>> getAttempts() {
+    attempts= database.getAttemptDao().getUserAttempts(user.getValue().getId());
+    return attempts;
+  }
+
+  //  public LiveData<List<Attempt>> getFinMazes(){
 //
 //  }
 

@@ -1,3 +1,7 @@
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
+
 package com.ericadubois.amazeballz.model.entity;
 
 import androidx.room.ColumnInfo;
@@ -140,7 +144,13 @@ public class Attempt {
     this.solved = solved;
   }
 
-//  @NonNull
+
+  public String statInfo() {
+    String statInfo = "Time: " + this.timeSpent + ", Solved: " + this.solved;
+    return statInfo;
+  }
+
+  //  @NonNull
 //  public Date getMazePauseStart() {
 //    return mazePauseStart;
 //  }

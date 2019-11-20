@@ -1,6 +1,6 @@
 ## Copyright &amp; License Information
 
-This work is &copy; 2019, Erica DuBois. All rights reserved.
+This work is &copy; 2019, Erica DuBois. ALL RIGHTS RESERVED.
 
 This product incorporates 3rd party libraries 
 

@@ -1,19 +1,18 @@
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
+
 package com.ericadubois.amazeballz.controller;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.ericadubois.amazeballz.R;
-import com.ericadubois.amazeballz.model.MazeBuilder;
-import java.util.Random;
 
 /**
  * This fragment displays the level options for the user to choose from. The higher the number

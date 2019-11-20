@@ -1,4 +1,8 @@
-package com.ericadubois.amazeballz.model;
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
+
+package com.ericadubois.amazeballz.pojos;
 
 import androidx.annotation.NonNull;
 import java.util.ArrayList;

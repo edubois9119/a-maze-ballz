@@ -1,3 +1,7 @@
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
+
 package com.ericadubois.amazeballz.controller;
 
 import android.content.Context;
@@ -14,18 +18,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
-import android.widget.ImageSwitcher;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import com.ericadubois.amazeballz.R;
-import com.ericadubois.amazeballz.model.BallView;
-import com.ericadubois.amazeballz.model.Direction;
-import com.ericadubois.amazeballz.model.MazeBuilder;
-import com.ericadubois.amazeballz.model.MazeView;
+import com.ericadubois.amazeballz.pojos.BallView;
+import com.ericadubois.amazeballz.pojos.Direction;
+import com.ericadubois.amazeballz.pojos.MazeView;
 import com.ericadubois.amazeballz.model.entity.Attempt;
 import com.ericadubois.amazeballz.model.entity.Maze;
 import com.ericadubois.amazeballz.model.entity.User;
@@ -59,7 +60,7 @@ public class MazeFragment extends Fragment implements SensorEventListener {
 
   private SensorManager manager;
   private Sensor accelerometer;
-private  boolean mazeNeeded;
+  private boolean mazeNeeded;
   private User user;
   private Maze maze;
   private Attempt attempt;
@@ -86,7 +87,6 @@ private  boolean mazeNeeded;
   }
 
 
-
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -99,11 +99,10 @@ private  boolean mazeNeeded;
 //    ballView.setMazeFragment(this);
     mazeView.setBallView(ballView);
 
-
     rows = getArguments().getInt(ROWS_KEY, DEFAULT_SIZE);
     columns = getArguments().getInt(COLUMNS_KEY, DEFAULT_SIZE);
     level = getArguments().getInt(LEVEL_KEY);
-    mazeNeeded= getArguments().getBoolean("maze_needed", false);
+    mazeNeeded = getArguments().getBoolean("maze_needed", false);
     getArguments().remove("maze_needed");
     setHasOptionsMenu(true);
     manager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
@@ -209,7 +208,7 @@ private  boolean mazeNeeded;
       case R.id.resume:
         resumeTimer();
         break;
-        default:
+      default:
         handled = super.onOptionsItemSelected(item);
     }
     return handled;
@@ -222,7 +221,7 @@ private  boolean mazeNeeded;
 //    viewModel = ViewModelProviders.of(this).get(MazeViewModel.class);
     viewModel.getUser().observe(this, (user) -> {
       this.user = user;
-      if (user == null){
+      if (user == null) {
         viewModel.loadUser();
       }
     });
@@ -251,20 +250,16 @@ private  boolean mazeNeeded;
 //    startChronometer();
   }
 
-public void recordSuccess(){
-    viewModel.recordSuccess(SystemClock.elapsedRealtime()-mazeTimer.getBase());
-    timestamp = (Double) ((SystemClock.elapsedRealtime()-mazeTimer.getBase())/1000.0);
-}
+  public void recordSuccess() {
+    viewModel.recordSuccess(SystemClock.elapsedRealtime() - mazeTimer.getBase());
+    timestamp = (Double) ((SystemClock.elapsedRealtime() - mazeTimer.getBase()) / 1000.0);
+  }
+
   /**
    * This method allows for the switch between the maze fragment and the completion fragment. The
    * completion fragment is the fragment displayed when the user completes the maze.
    */
   public void switchFragment() {
-//    attempt.setSolved(true);
-//    //TODO is mazeTimer.getBase valid here???
-//    attempt.setTimeSpent(mazeTimer.getBase());
-//    viewModel.updateAttempt(attempt);
-
     CompletionFragment fragment = new CompletionFragment();
     fragment.setTimestamp(timestamp);
     FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -279,7 +274,7 @@ public void recordSuccess(){
 
   @Override
   public void onSensorChanged(SensorEvent event) {
-    if (getViewModel().isTouchEnabled() || !running){
+    if (getViewModel().isTouchEnabled() || !running) {
       return;
     }
     if (maze != null) {

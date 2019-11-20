@@ -1,3 +1,7 @@
+/**
+ * This work is Copyright 2019, Erica DuBois. ALL RIGHTS RESERVED.
+ */
+
 package com.ericadubois.amazeballz.service;
 
 import android.app.Application;
@@ -6,15 +10,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
-import com.ericadubois.amazeballz.model.Cell;
-import com.ericadubois.amazeballz.model.Direction;
+import com.ericadubois.amazeballz.pojos.Cell;
+import com.ericadubois.amazeballz.pojos.Direction;
 import com.ericadubois.amazeballz.model.dao.AttemptDao;
 import com.ericadubois.amazeballz.model.dao.MazeDao;
 import com.ericadubois.amazeballz.model.dao.UserDao;
 import com.ericadubois.amazeballz.model.entity.Attempt;
 import com.ericadubois.amazeballz.model.entity.Maze;
 import com.ericadubois.amazeballz.model.entity.User;
-import com.ericadubois.amazeballz.service.AMazeBallzDatabase.Converters;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;

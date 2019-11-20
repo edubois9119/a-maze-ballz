@@ -167,4 +167,8 @@ public class BallView extends View {
   public PointF getUpperLeft() {
     return upperLeft;
   }
+
+  public PointF getDestination() {
+    return destination;
+  }
 }

@@ -278,7 +278,6 @@ public class MazeFragment extends Fragment implements SensorEventListener {
       return;
     }
     if (maze != null) {
-      mazeView.checkCompletion();
       float x = event.values[0];
       float y = event.values[1];
       if (Math.abs(x) > Math.abs(y)) {

@@ -1,0 +1,7 @@
+com.ericadubois.amazeballz
+com.ericadubois.amazeballz.controller
+com.ericadubois.amazeballz.model
+com.ericadubois.amazeballz.model.dao
+com.ericadubois.amazeballz.model.entity
+com.ericadubois.amazeballz.service
+com.ericadubois.amazeballz.viewmodel

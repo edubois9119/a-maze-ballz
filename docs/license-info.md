@@ -5,7 +5,6 @@ This work is &copy; 2019, Erica DuBois. ALL RIGHTS RESERVED.
 This product incorporates 3rd party libraries 
 
 ## Reactivex
-
 ```text
 Copyright 2015 The RxAndroid authors
 
@@ -21,3 +20,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+

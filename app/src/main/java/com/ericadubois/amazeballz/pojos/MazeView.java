@@ -116,7 +116,9 @@ public class MazeView extends View {
     if (!ballView.isMovable()) {
       return;
     }
+    System.out.println("Request to move ball to direction: " + direction);
     Cell current = cells[ballRow()][ballColumn()];
+    System.out.println("  " +current);
     if (!current.getWalls().contains(direction)) {
       current = cells[current.getRow() + direction.getRowOffset()][current.getColumn() + direction
           .getColumnOffset()];

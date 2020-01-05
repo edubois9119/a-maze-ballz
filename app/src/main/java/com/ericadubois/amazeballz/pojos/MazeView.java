@@ -12,6 +12,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.Nullable;
+
+import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.controller.MazeFragment;
 
 /**
@@ -39,7 +41,7 @@ public class MazeView extends View {
     super(context, attrs);
 
     wallPaint = new Paint();
-    wallPaint.setColor(Color.BLACK);
+    wallPaint.setColor(Color.WHITE);
     wallPaint.setStrokeWidth(WALL_THICKNESS);
     ballPaint = new Paint();
     ballPaint.setColor(Color.GREEN);
@@ -66,7 +68,7 @@ public class MazeView extends View {
   @Override
   protected void onDraw(Canvas canvas) {
     if (cells != null) {
-      canvas.drawColor(Color.DKGRAY);
+//      canvas.drawColor(Color.DKGRAY);
       int width = getWidth();
       int height = getHeight();
       cellHeight = (height - WALL_THICKNESS) / cells.length;

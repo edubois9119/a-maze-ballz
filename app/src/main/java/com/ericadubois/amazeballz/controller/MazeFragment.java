@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Chronometer;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -100,6 +101,9 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     setHasOptionsMenu(true);
     manager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
     accelerometer = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+    view.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.woodplanks));
+
     return view;
   }
 

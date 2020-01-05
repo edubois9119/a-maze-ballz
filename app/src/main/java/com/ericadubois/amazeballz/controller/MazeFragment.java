@@ -102,7 +102,7 @@ public class MazeFragment extends Fragment implements SensorEventListener {
     manager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
     accelerometer = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-    view.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.woodplanks));
+//    view.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.woodplanks));
 
     return view;
   }

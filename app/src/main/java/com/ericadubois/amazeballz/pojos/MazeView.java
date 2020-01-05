@@ -46,7 +46,7 @@ public class MazeView extends View {
     ballPaint = new Paint();
     ballPaint.setColor(Color.GREEN);
     exitPaint = new Paint();
-    exitPaint.setColor(Color.RED);
+    exitPaint.setColor(Color.BLUE);
   }
 
   @Override

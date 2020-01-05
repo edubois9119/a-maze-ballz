@@ -4,14 +4,14 @@
   android:id="@+id/linearLayout2"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical"
-    android:background="@drawable/woodplanks">
+  android:orientation="vertical">
+<!--    android:background="@drawable/woodplanks">-->
 
 
   <FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-      android:background="@drawable/woodplanks">
+    android:layout_height="match_parent">
+<!--      android:background="@drawable/woodplanks">-->
 
   <com.ericadubois.amazeballz.pojos.MazeView
     android:id="@+id/maze_view"

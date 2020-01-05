@@ -43,7 +43,7 @@ public class BallView extends View {
     super(context, attrs);
 
     ballPaint = new Paint();
-    ballPaint.setColor(Color.GREEN);
+    ballPaint.setColor(Color.BLACK);
     upperLeft = new PointF(0, 0);
     destination = new PointF(0, 0);
     velocity = new PointF(0, 0);

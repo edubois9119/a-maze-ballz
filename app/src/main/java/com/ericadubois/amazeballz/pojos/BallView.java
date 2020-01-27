@@ -47,12 +47,12 @@ public class BallView extends View {
 
     ballPaint = new Paint();
     ballPaint.setColor(Color.LTGRAY);
-    Shader shader = new LinearGradient(0, 0, 100, 400, Color.WHITE, Color.BLACK, TileMode.CLAMP);
-    ballPaint.setShader(shader);
+//    Shader shader = new LinearGradient(0, 0, 100, 400, Color.WHITE, Color.BLACK, TileMode.CLAMP);
+//    ballPaint.setShader(shader);
     radius = 10f;
     ballCenter = new PointF(radius, radius);
     destination = new PointF(radius, radius);
-    velocity = new PointF(0, 0);
+    velocity = new PointF(radius, radius);
     random = new Random();
   }
 

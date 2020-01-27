@@ -27,7 +27,7 @@ public class CompletionFragment extends Fragment implements View.OnClickListener
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_completion, container, false);
-    view.getBackground().setAlpha(85);
+    view.getBackground().setAlpha(250);
     view.findViewById(R.id.next_level).setOnClickListener(this);
     view.findViewById(R.id.stats).setOnClickListener(this);
     TextView ts = view.findViewById(R.id.timestamp);

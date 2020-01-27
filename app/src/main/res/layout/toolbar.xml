@@ -26,6 +26,6 @@
     android:layout_height="wrap_content"
     android:id="@+id/chrono"
     android:visibility="visible"
-    android:textColor="@color/colorAccent"/>
+    android:textColor="#FFFFFF"/>
 
 </Toolbar>

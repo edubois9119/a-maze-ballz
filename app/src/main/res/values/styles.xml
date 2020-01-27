@@ -6,6 +6,7 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:fontFamily">@font/calibrib</item>
   </style>
 
   <style name="AppTheme.NoActionBar">
@@ -18,5 +19,11 @@
 
   <style name="AppTheme.PopUpOverlay"
     parent="ThemeOverlay.AppCompat.Light"/>
+
+
+  <style name="customFontStyle"
+    parent="android:TextAppearance">
+      <item name="android:fontFamily">@font/gigi</item>
+  </style>
 
 </resources>

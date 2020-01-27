@@ -13,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.Nullable;
 
-import com.ericadubois.amazeballz.R;
 import com.ericadubois.amazeballz.controller.MazeFragment;
 
 /**
@@ -105,7 +104,7 @@ public class MazeView extends View {
   public void setCells(Cell[][] cells) {
     this.cells = cells;   // TODO Investigate safe copy.
     this.exit = cells[cells.length - 1][cells[0].length - 1];
-    this.ballView.setUpperLeft(0, 0);
+    this.ballView.setBallCenter(radius, radius);
     postInvalidate();
   }
 
@@ -118,13 +117,13 @@ public class MazeView extends View {
     if (!ballView.isMovable()) {
       return;
     }
-    System.out.println("Request to move ball to direction: " + direction);
+//    System.out.println("Request to move ball to direction: " + direction);
     Cell current = cells[ballRow()][ballColumn()];
-    System.out.println("  " +current);
+//    System.out.println("  " +current);
     if (!current.getWalls().contains(direction)) {
       current = cells[current.getRow() + direction.getRowOffset()][current.getColumn() + direction
           .getColumnOffset()];
-      ballView.setDestination(current.getColumn() * cellWidth, current.getRow() * cellHeight);
+      ballView.setDestination(current.getColumn() * cellWidth + radius, current.getRow() * cellHeight + radius);
       checkCompletion(current);
       invalidate();
     }
@@ -211,11 +210,11 @@ public class MazeView extends View {
   }
 
   private int ballRow() {
-    return (int) (ballView.getUpperLeft().y / cellHeight);
+    return (int) (ballView.getBallCenter().y / cellHeight);
   }
 
   private int ballColumn() {
-    return (int) (ballView.getUpperLeft().x / cellWidth);
+    return (int) (ballView.getBallCenter().x / cellWidth);
   }
 }
 

@@ -7,11 +7,14 @@ package com.ericadubois.amazeballz.pojos;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.support.annotation.Nullable;
+import android.graphics.Shader;
+import android.graphics.Shader.TileMode;
 import android.util.AttributeSet;
 import android.view.View;
+import androidx.annotation.Nullable;
 import com.ericadubois.amazeballz.controller.MazeFragment;
 import java.util.Random;
 
@@ -22,7 +25,7 @@ public class BallView extends View {
 
   private Paint ballPaint;
   private PointF velocity;
-  private PointF upperLeft;
+  private PointF ballCenter;
   private PointF destination;
 
   private float radius;
@@ -43,33 +46,35 @@ public class BallView extends View {
     super(context, attrs);
 
     ballPaint = new Paint();
-    ballPaint.setColor(Color.BLACK);
-    upperLeft = new PointF(0, 0);
-    destination = new PointF(0, 0);
-    velocity = new PointF(0, 0);
+    ballPaint.setColor(Color.LTGRAY);
+    Shader shader = new LinearGradient(0, 0, 100, 400, Color.WHITE, Color.BLACK, TileMode.CLAMP);
+    ballPaint.setShader(shader);
     radius = 10f;
+    ballCenter = new PointF(radius, radius);
+    destination = new PointF(radius, radius);
+    velocity = new PointF(0, 0);
     random = new Random();
   }
 
   @Override
   protected void onDraw(Canvas canvas) {
 //    ballPaint.setAlpha((ballPaint.getAlpha()+ 5)%200 + 50);
-    canvas.drawCircle(upperLeft.x + radius, upperLeft.y + radius, radius, ballPaint);
+    canvas.drawCircle(ballCenter.x, ballCenter.y, radius, ballPaint);
     updateLocation();
   }
 
   private void updateLocation() {
     float TOLERANCE = .01f;
-    if (Math.abs(upperLeft.x - destination.x) < TOLERANCE &&
-        Math.abs(upperLeft.y - destination.y) < TOLERANCE) {
-      upperLeft.x = destination.x;
-      upperLeft.y = destination.y;
+    if (Math.abs(ballCenter.x - destination.x) < TOLERANCE &&
+        Math.abs(ballCenter.y - destination.y) < TOLERANCE) {
+      ballCenter.x = destination.x;
+      ballCenter.y = destination.y;
       velocity.x = 0;
       velocity.y = 0;
       movable = true;
     } else {
-      upperLeft.x += velocity.x * elapsedTime;
-      upperLeft.y += velocity.y * elapsedTime;
+      ballCenter.x += velocity.x * elapsedTime;
+      ballCenter.y += velocity.y * elapsedTime;
       invalidate();
     }
   }
@@ -112,8 +117,8 @@ public class BallView extends View {
    * @param x the x
    * @param y the y
    */
-  public void setUpperLeft(float x, float y) {
-    upperLeft = new PointF(x, y);
+  public void setBallCenter(float x, float y) {
+    ballCenter = new PointF(x, y);
     invalidate();
   }
 
@@ -124,8 +129,8 @@ public class BallView extends View {
    * @param y the y coordinate of the ball's destination
    */
   public void setDestination(float x, float y) {
-    velocity.x = (x - upperLeft.x) / time;
-    velocity.y = (y - upperLeft.y) / time;
+    velocity.x = (x - ballCenter.x) / time;
+    velocity.y = (y - ballCenter.y) / time;
     destination.x = x;
     destination.y = y;
     movable = false;
@@ -141,7 +146,7 @@ public class BallView extends View {
     this.radius = radius;
   }
 
-  public PointF getUpperLeft() {
-    return upperLeft;
+  public PointF getBallCenter() {
+    return ballCenter;
   }
 }

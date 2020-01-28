@@ -30,7 +30,7 @@ public class BallView extends View {
 
   private float radius;
   private float radiusGrowth;
-  private float time = 1f;
+  private float time = 0.3f;
   private float elapsedTime = 0.1f;
   private MazeFragment mazeFragment;
   private boolean movable = true;
